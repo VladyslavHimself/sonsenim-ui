@@ -3,17 +3,14 @@ import {useAuth} from "./AuthProvider.tsx";
 import {useNavigate} from "react-router-dom";
 
 export default function ProtectedRoute({children}: PropsWithChildren) {
-        const user = useAuth();
+        const { token } = useAuth();
         const navigate = useNavigate();
 
-        console.log(user);
-
         useEffect(() => {
-            if (user === null) {
-                console.log(user);
+            if (token === null) {
                 navigate('/signIn', { replace: true});
             }
-        }, [user, navigate]);
+        }, [token, navigate]);
 
         return children;
 }

@@ -9,6 +9,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {FormControl, FormField, FormItem, FormLabel, Form} from "@/components/ui/form.tsx";
 import useAuthMutation from "@/api/auth/useAuth.ts";
+import {useAuth} from "@/security/AuthProvider.tsx";
 
 const signInSchema = z.object({
     username: z.string().min(2, {
@@ -23,12 +24,12 @@ const signInSchema = z.object({
 
 
 export default function SignIn() {
+    const {  setToken } = useAuth();
     const navigate = useNavigate();
     const { loginUser } = useAuthMutation((data) => {
         localStorage.setItem('token', data.token);
-        setTimeout(() => {
-            navigate('/dashboard');
-        }, 1000)
+        setToken(data.token);
+        navigate('/dashboard');
     });
     const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),
@@ -47,7 +48,7 @@ export default function SignIn() {
                 </div>
 
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <form onSubmit={form.handleSubmit((values: z.infer<typeof signInSchema>) => loginUser(values))}>
                         <FormField name="username" control={form.control} render={({field}) => (
                             <FormItem style={{width: 330}}>
                                 <FormLabel>Username</FormLabel>
@@ -61,10 +62,10 @@ export default function SignIn() {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input className="auth-container-input" {...field} />
+                                    <Input type="password" className="auth-container-input" {...field} />
                                 </FormControl>
                             </FormItem>
-                            )}
+                        )}
                         />
 
                         <div className="auth-container-body">
@@ -92,12 +93,4 @@ export default function SignIn() {
             </div>
         </div>
     );
-
-    function onSubmit(values: z.infer<typeof signInSchema>) {
-        const login = loginUser(values);
-        // if (userToken?.token) {
-        //     localStorage.setItem('token', userToken.token);
-        //     navigate('/dashboard');
-        // }
-    }
 }
