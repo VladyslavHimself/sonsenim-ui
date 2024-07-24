@@ -16,7 +16,7 @@ export function AuthProvider({ children }: Props) {
 
 export const useAuth = () => {
     // @ts-ignore
-    const context = useContext<{token: string | null, setToken: React.Dispatch<string>}>(AuthContext);
+    const context = useContext<{token: string | null, setToken: React.Dispatch<string | null>}>(AuthContext);
 
     if (context === undefined) {
         throw new Error("useAuth must be used within AuthProvider");
