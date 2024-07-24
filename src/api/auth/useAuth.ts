@@ -3,7 +3,7 @@ import {AuthApi, LoginBody} from "@/api/auth/auth.ts";
 import {useToast} from "@/components/ui/use-toast.ts";
 
 
-export default function useAuthMutation(callback) {
+export default function useSignIn(callback: Function) {
     const { toast } = useToast()
     const {
         mutate: loginUser,

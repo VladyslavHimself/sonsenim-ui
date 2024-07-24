@@ -8,7 +8,7 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {FormControl, FormField, FormItem, FormLabel, Form} from "@/components/ui/form.tsx";
-import useAuthMutation from "@/api/auth/useAuth.ts";
+import useSignIn from "@/api/auth/useAuth.ts";
 import {useAuth} from "@/security/AuthProvider.tsx";
 import {useEffect} from "react";
 
@@ -19,14 +19,13 @@ const signInSchema = z.object({
     password: z.string().min(4, {
         message: "Password must be at least 4 characters"
     }),
-
 })
 
 
 export default function SignIn() {
     const { token, setToken } = useAuth();
     const navigate = useNavigate();
-    const { loginUser } = useAuthMutation((data: { token: string; }) => {
+    const { loginUser } = useSignIn((data: { token: string; }) => {
         localStorage.setItem('token', data.token);
         setToken(data.token);
         navigate('/dashboard');
