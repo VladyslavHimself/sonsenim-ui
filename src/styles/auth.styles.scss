@@ -30,8 +30,27 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
   }
+
+  .auth-container-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+
+    & > span {
+      font-family: "Gilroy Medium", sans-serif;
+      font-size: 18px;
+    }
+
+    & > a {
+      margin-left: 15px;
+      font-family: "Gilroy Bold", sans-serif;
+      color: #F18C29;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+  }
+
   .auth-container-input-field {
     & > span {
       font-size: 24px;
@@ -44,6 +63,11 @@
       width: 341px;
       border-radius: 12px;
     }
+  }
+
+  .auth-container-input-label {
+    font-family: "Gilroy Medium", sans-serif;
+    font-size: 18px;
   }
 
   .auth-container-options-field {
@@ -69,6 +93,7 @@
 
 
   }
+
 
   .auth-container-submit-button {
     margin-top: 27px;

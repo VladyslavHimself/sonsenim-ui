@@ -2,7 +2,7 @@ import '../styles/auth.styles.scss';
 import Logotype from '../assets/logo.png';
 import {Input} from "@/components/ui/input.tsx";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
-import {NavLink, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {Button} from "@/components/ui/button.tsx";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -26,7 +26,7 @@ const signInSchema = z.object({
 export default function SignIn() {
     const {  setToken } = useAuth();
     const navigate = useNavigate();
-    const { loginUser } = useAuthMutation((data) => {
+    const { loginUser } = useAuthMutation((data: { token: string; }) => {
         localStorage.setItem('token', data.token);
         setToken(data.token);
         navigate('/dashboard');
@@ -50,8 +50,8 @@ export default function SignIn() {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit((values: z.infer<typeof signInSchema>) => loginUser(values))}>
                         <FormField name="username" control={form.control} render={({field}) => (
-                            <FormItem style={{width: 330}}>
-                                <FormLabel>Username</FormLabel>
+                            <FormItem style={{ width: 330, marginTop: 15}}>
+                                <FormLabel className="auth-container-input-label">Username</FormLabel>
                                 <FormControl>
                                     <Input className="auth-container-input" {...field} />
                                 </FormControl>
@@ -59,8 +59,8 @@ export default function SignIn() {
                         )}/>
 
                         <FormField name="password" control={form.control} render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
+                            <FormItem style={{ marginTop: 15}}>
+                                <FormLabel className="auth-container-input-label">Password</FormLabel>
                                 <FormControl>
                                     <Input type="password" className="auth-container-input" {...field} />
                                 </FormControl>
@@ -89,7 +89,10 @@ export default function SignIn() {
                         </div>
                     </form>
                 </Form>
-
+                <div className="auth-container-footer">
+                    <span>Don't have an account?</span>
+                    <Link to="/signUp">Sign Up</Link>
+                </div>
             </div>
         </div>
     );
