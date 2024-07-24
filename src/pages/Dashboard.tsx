@@ -1,18 +1,12 @@
 import {Button} from "@/components/ui/button.tsx";
-import {useAuth} from "@/security/AuthProvider.tsx";
+import useLogout from "@/hooks/useLogout.ts";
 
 export default function Dashboard() {
-    const { setToken } = useAuth();
+    const logout = useLogout();
     return (
         <div>
             Dashboard
-            <Button onClick={onLogoutHandle}>Logout</Button>
+            <Button onClick={logout}>Logout</Button>
         </div>
     );
-
-
-    function onLogoutHandle() {
-        localStorage.removeItem('token');
-        setToken(null);
-    }
 }
