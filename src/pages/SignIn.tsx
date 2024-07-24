@@ -10,6 +10,7 @@ import {useForm} from "react-hook-form";
 import {FormControl, FormField, FormItem, FormLabel, Form} from "@/components/ui/form.tsx";
 import useAuthMutation from "@/api/auth/useAuth.ts";
 import {useAuth} from "@/security/AuthProvider.tsx";
+import {useEffect} from "react";
 
 const signInSchema = z.object({
     username: z.string().min(2, {
@@ -24,7 +25,7 @@ const signInSchema = z.object({
 
 
 export default function SignIn() {
-    const {  setToken } = useAuth();
+    const { token, setToken } = useAuth();
     const navigate = useNavigate();
     const { loginUser } = useAuthMutation((data: { token: string; }) => {
         localStorage.setItem('token', data.token);
@@ -38,6 +39,13 @@ export default function SignIn() {
             password: ""
         }
     })
+
+    useEffect(() => {
+        if (token) {
+            navigate('/dashboard', { replace: true});
+            return;
+        }
+    }, []);
 
     return (
         <div className="auth-wrapper">
