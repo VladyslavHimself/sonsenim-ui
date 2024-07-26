@@ -89,7 +89,7 @@ export default function SignIn() {
                                 <NavLink to="#">Forgot password?</NavLink>
                             </div>
                             <Button className="auth-container-submit-button" size="lg"
-                                    style={{fontFamily: 'Gilroy Bold', fontSize: 18, borderRadius: 12}}>
+                                    style={{fontFamily: 'Gilroy Bold', fontSize: 18, borderRadius: 12, width: 300}}>
                                 Sign in
                             </Button>
                         </div>
