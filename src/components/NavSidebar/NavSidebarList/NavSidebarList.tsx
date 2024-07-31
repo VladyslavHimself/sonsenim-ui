@@ -1,11 +1,12 @@
 import HomeIcon from "@/assets/Icons/Home.svg";
 import GroupsIcon from "@/assets/Icons/Groups.svg";
 import LeftArrow from "@/assets/Icons/LeftArrow.svg";
+import RightArrow from "@/assets/Icons/RightArrow.svg";
 import SettingsIcon from "@/assets/Icons/Setting.svg";
 import LogoutIcon from "@/assets/Icons/Logout.svg";
 import {Link, useLocation} from "react-router-dom";
 import useLogout from "@/hooks/useLogout.ts";
-import {useMemo} from "react";
+import React, {useMemo} from "react";
 
 const TOP_NAVLINKS = [
     {
@@ -23,12 +24,12 @@ const TOP_NAVLINKS = [
     }
 
 ];
-const BOTTOM_NAVLINKS = (logout: () => void) => [
+const BOTTOM_NAVLINKS = (actions, states) => [
     {
         title: "Hide panel",
-        icon: LeftArrow,
+        icon: states.isSidebarCollapsed ? RightArrow : LeftArrow,
         alt: "hide-panel",
-        action: () => {}
+        action: actions.collapseSidebar
     },
     {
         title: "Settings",
@@ -40,14 +41,17 @@ const BOTTOM_NAVLINKS = (logout: () => void) => [
         title: "Log out",
         icon: LogoutIcon,
         alt: "logout-icon",
-        action: logout
+        action: actions.logout
     }
 ];
 
 
-export default function NavSidebarList() {
+export default function NavSidebarList(
+    { setIsSidebarCollapsed, isSidebarCollapsed }: {isSidebarCollapsed: boolean, setIsSidebarCollapsed: React.Dispatch<React.SetStateAction<boolean>>})
+{
     const location = useLocation();
     const logout = useLogout();
+
     return useMemo(() => (
         <div className="nav-sidebar-list">
             <div>
@@ -57,23 +61,28 @@ export default function NavSidebarList() {
                             <div
                                 className={`nav-sidebar-item ${location.pathname === href && "nav-sidebar-item--active"}`}>
                                 <img src={icon} alt={alt}/>
-                                {title}
+                                <span>{title}</span>
                             </div>
                         </Link>
                     ))
                 }
             </div>
-
             <div>
                 {
-                    BOTTOM_NAVLINKS(logout).map(({title, icon, alt, action}) => (
+                    BOTTOM_NAVLINKS({logout: logout, collapseSidebar},
+                        {isSidebarCollapsed}).map(({title, icon, alt, action}) => (
                         <div className="nav-sidebar-item" onClick={action}>
                             <img src={icon} alt={alt}/>
-                            {title}
+                            <span>{title}</span>
                         </div>
                     ))
                 }
             </div>
         </div>
-    ), [location]);
+    ), [location, isSidebarCollapsed]);
+
+
+    function collapseSidebar() {
+        setIsSidebarCollapsed((prevState) => !prevState)
+    }
 };
