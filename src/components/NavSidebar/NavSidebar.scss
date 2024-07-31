@@ -1,13 +1,13 @@
 .nav-sidebar {
   transition: .2s ease;
-  width: 250px;
   display: flex;
+  flex: 0 0 250px;
   flex-direction: column;
   align-items: center;
   background-color: #FAFAFA;
 
   &.nav-sidebar--collapsed {
-    width: 101px;
+    flex: 0 0 101px;
 
     .nav-sidebar-logo {
       > img {

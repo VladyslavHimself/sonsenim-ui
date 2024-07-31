@@ -1,9 +1,9 @@
 import '@/styles/layout-wrapper.styles.scss';
 
-export default function Dashboard() {
+export default function Groups() {
     return (
         <div className="layout-wrapper">
-            Dashboard
+            Groups
         </div>
     );
 }

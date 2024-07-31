@@ -11,6 +11,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {RootResolver} from "@/RootResolver.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
 import NavSidebar from "@/components/NavSidebar/NavSidebar.tsx";
+import Groups from "@/pages/Groups.tsx";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <ProtectedRoute><Dashboard /></ProtectedRoute>
+            },
+            {
+                path: '/groups',
+                element: <ProtectedRoute><Groups /></ProtectedRoute>
             }
         ]
     }
