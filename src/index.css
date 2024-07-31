@@ -67,3 +67,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  border: 1px solid red;
+  display: flex;
+
+  background-color: #f4f4f4;
+}
