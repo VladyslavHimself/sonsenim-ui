@@ -27,7 +27,7 @@ export default function DashboardHeaderSection() {
                 </Avatar>
                 <span>{userData?.username}</span>
                 <Popover>
-                    <PopoverTrigger><ChevronDown /></PopoverTrigger>
+                    <PopoverTrigger><ChevronDown color="orange" /></PopoverTrigger>
                     <PopoverContent>Lorem ipsum dolor sit amet.</PopoverContent>
                 </Popover>
             </div>
