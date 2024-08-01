@@ -1,5 +1,4 @@
 import axios from "axios";
-import '../interceptors';
 
 
 export type UserProfileResponse = {

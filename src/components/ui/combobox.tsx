@@ -16,32 +16,14 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-const frameworks = [
-    {
-        value: "next.js",
-        label: "Next.js",
-    },
-    {
-        value: "sveltekit",
-        label: "SvelteKit",
-    },
-    {
-        value: "nuxt.js",
-        label: "Nuxt.js",
-    },
-    {
-        value: "remix",
-        label: "Remix",
-    },
-    {
-        value: "astro",
-        label: "Astro",
-    },
-]
+type SelectionList = {
+    value: number,
+    label: string,
+}
 
-export function Combobox() {
+export function Combobox({selectionList}: { selectionList: SelectionList[] | [] }) {
     const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("")
+    const [value, setValue] = React.useState<number>();
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -50,34 +32,35 @@ export function Combobox() {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-[200px] justify-between"
+                    className="w-[300px] h-[60px] justify-between bg-[#E8E8E8] hover:bg-[#ECECEC]"
                 >
                     {value
-                        ? frameworks.find((framework) => framework.value === value)?.label
+                        ? selectionList.find((item) => item.value === value)?.label
                         : "Select group..."}
-                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    <CaretSortIcon color="orange" className="ml-2 h-8 w-8 shrink-0" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[300px] p-0">
                 <Command>
-                    <CommandInput placeholder="Search group..." className="h-9" />
+                    <CommandInput placeholder="Search group..." className="h-12" />
                     <CommandEmpty>No groups found.</CommandEmpty>
                     <CommandGroup>
                         <CommandList>
-                            {frameworks.map((framework) => (
+                            {selectionList.map((item) => (
                                 <CommandItem
-                                    key={framework.value}
-                                    value={framework.value}
-                                    onSelect={(currentValue) => {
-                                        setValue(currentValue)
+                                    className="p-3"
+                                    key={item.value}
+                                    value={item.value as unknown as string}
+                                    onSelect={() => {
+                                        setValue(item.value)
                                         setOpen(false)
                                     }}
                                 >
-                                    {framework.label}
+                                    {item.label}
                                     <CheckIcon
                                         className={cn(
                                             "ml-auto h-4 w-4",
-                                            value === framework.value ? "opacity-100" : "opacity-0"
+                                            value === item.value ? "opacity-100" : "opacity-0"
                                         )}
                                     />
                                 </CommandItem>

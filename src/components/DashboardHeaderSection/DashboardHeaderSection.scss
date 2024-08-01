@@ -1,0 +1,16 @@
+.dashboard-header-section {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    .dashboard-header-profile {
+        display: flex;
+        align-items: center;
+
+        > span {
+            font-size: 18px;
+            margin: 0 15px 0 5px;
+        }
+    }
+}
