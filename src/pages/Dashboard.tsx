@@ -1,14 +1,19 @@
 import '@/styles/layout-wrapper.styles.scss';
-import useUser from "@/api/user/useUser.ts";
+import DashboardHeaderSection from "@/components/DashboardHeaderSection/DashboardHeaderSection.tsx";
+
+
+/* Reminder
+   * get user groups
+   * Configure combobox
+   * Add profile section in the right top of screen
+   * Add mocked statistics data and layout
+ */
 
 export default function Dashboard() {
-    const { userData } = useUser();
-
-    console.log(userData);
     return (
         <div className="layout-wrapper">
-            Dashboard
 
+            <DashboardHeaderSection />
         </div>
     );
 }
