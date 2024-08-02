@@ -1,5 +1,5 @@
 import {Combobox, SelectionItem} from "@/components/ui/combobox.tsx";
-import {useState} from "react";
+import React from "react";
 import useUser from "@/api/user/useUser.ts";
 import './DashboardHeaderSection.scss';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
@@ -13,12 +13,14 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.t
 //  Add group autoselection if group not selected. (if user have, at least one group)
 
 type Props = {
-    groups?: SelectionItem[]
+    groups?: SelectionItem[],
+    selectedGroup: SelectionItem,
+    setSelectedGroup: React.Dispatch<React.SetStateAction<SelectionItem>>
 }
 
-export default function DashboardHeaderSection({ groups }: Props) {
+export default function DashboardHeaderSection({ groups, selectedGroup, setSelectedGroup }: Props) {
     const { userData } = useUser();
-    const [selectedGroup, setSelectedGroup] = useState<SelectionItem>(JSON.parse(localStorage.getItem("selectedGroup")!) || []);
+
 
     return (
         <div className="dashboard-header-section">
