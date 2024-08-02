@@ -1,6 +1,5 @@
-import {Combobox} from "@/components/ui/combobox.tsx";
-import useUserGroups from "@/api/groups/useUserGroups.ts";
-import {useMemo} from "react";
+import {Combobox, SelectionItem} from "@/components/ui/combobox.tsx";
+import {useState} from "react";
 import useUser from "@/api/user/useUser.ts";
 import './DashboardHeaderSection.scss';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
@@ -8,18 +7,28 @@ import AvatarLogo from '@/assets/Icons/avatar.png';
 import {ChevronDown} from "lucide-react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.tsx";
 
-export default function DashboardHeaderSection() {
-    const { userData } = useUser();
-    const { userGroups } = useUserGroups();
 
-    const formattedGroups = useMemo(() => userGroups?.map(item => ({
-        value: item.id,
-        label: item.groupName
-    })), [userGroups]);
+// TODO: REMINDER:
+//  Scale group local storage flow. Possible issue is conflict of saved local data when user switch to another one
+//  Add group autoselection if group not selected. (if user have, at least one group)
+
+type Props = {
+    groups?: SelectionItem[]
+}
+
+export default function DashboardHeaderSection({ groups }: Props) {
+    const { userData } = useUser();
+    const [selectedGroup, setSelectedGroup] = useState<SelectionItem>(JSON.parse(localStorage.getItem("selectedGroup")!) || []);
 
     return (
         <div className="dashboard-header-section">
-            <Combobox selectionList={formattedGroups || []}/>
+            <Combobox
+                selectedValue={selectedGroup}
+                placeholder="Select group..."
+                searchPlaceholder="Search group.."
+                onChangeValue={onChangeSelectedGroup}
+                selectionList={groups || []}
+            />
             <div className="dashboard-header-profile">
                 <Avatar>
                     <AvatarImage src={AvatarLogo} alt="avatar" />
@@ -33,4 +42,10 @@ export default function DashboardHeaderSection() {
             </div>
         </div>
     );
+
+    // TODO: make localStorage hook
+    function onChangeSelectedGroup(_selectedGroup: SelectionItem) {
+        setSelectedGroup(_selectedGroup);
+        localStorage.setItem('selectedGroup', JSON.stringify(_selectedGroup));
+    }
 };

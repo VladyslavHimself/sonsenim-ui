@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type UserGroupsResponse = {
+export type UserGroupsResponse = {
     id: number,
     groupName: string
 }
