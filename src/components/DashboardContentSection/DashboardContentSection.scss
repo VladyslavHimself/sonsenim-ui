@@ -34,8 +34,54 @@
 
     }
 
-    h1 {
-        font-size: 32px;
-        font-family: "Gilroy Medium", sans-serif;
+    .weekly-report-chart-container {
+        display: flex;
+        margin-top: 15px;
+        width: 1093px;
+        height: 450px;
+        background-color: #ECECEC;
+        border-radius: 11px;
+        flex-direction: column;
+
+        padding: 20px;
+
+
+        .weekly-report-chart-legend {
+            display: flex;
+            .weekly-report-chart-legend-item {
+                font-size: 24px;
+
+                &:not(:first-child) { margin-left: 25px; }
+
+                &:nth-child(1) { color: #50a121; }
+                &:nth-child(2) { color: #E82626; }
+                &:nth-child(3) { color: #E1BD00; }
+                &:nth-child(4) { color: #9D00D5; }
+
+                div:nth-child(1) {
+                    font-family: "Gilroy Medium", sans-serif;
+                }
+
+                div:nth-child(2) {
+                    font-family: "Gilroy Regular", sans-serif;
+                }
+            }
+        }
+    }
+
+    .weekly-report-chart {
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        margin-left: -30px;
+    }
+
+    h1, h2 { font-family: "Gilroy Medium", sans-serif; }
+
+    h1 { font-size: 32px; }
+
+    h2 {
+        margin-top: 35px;
+        font-size: 24px;
     }
 }
