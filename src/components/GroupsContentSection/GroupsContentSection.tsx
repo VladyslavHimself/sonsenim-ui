@@ -1,6 +1,8 @@
 import './GroupsContentSection.scss';
 import {Button} from "@/components/ui/button.tsx";
 
+import Card from "@/components/Card/Card.tsx";
+
 
 
 // TODO: Header component with/without additional button
@@ -12,6 +14,13 @@ export default function GroupsContentSection() {
                 <Button style={{padding: "25px 30px"}}>+ Create a new group</Button>
             </div>
 
+            <div className="groups-content-section-cards">
+                {
+                    new Array(10).fill('').map((_) => (
+                        <Card />
+                    ))
+                }
+            </div>
         </div>
     );
 };

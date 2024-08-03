@@ -1,0 +1,45 @@
+.group-card {
+  width: 300px;
+  height: 110px;
+  background-color: #EDEDED;
+  border-radius: 12px;
+
+  display: flex;
+
+  margin: 20px;
+
+  .group-card-info {
+    padding: 18px 24px;
+
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    div:nth-child(1) {
+      font-family: "Gilroy Medium", sans-serif;
+      font-size: 20px;
+    }
+
+    div:nth-child(2) {
+      font-family: "Gilroy Regular", sans-serif;
+      font-size: 18px;
+    }
+
+  }
+
+  .group-card-image {
+    flex-basis: 100px;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 62px;
+      height: 62px;
+      border-radius: 10%;
+    }
+  }
+}
