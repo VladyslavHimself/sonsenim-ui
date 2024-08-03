@@ -3,15 +3,11 @@ import DashboardHeaderSection from "@/components/DashboardHeaderSection/Dashboar
 import DashboardContentSection from "@/components/DashboardContentSection/DashboardContentSection.tsx";
 import useUserGroups from "@/api/groups/useUserGroups.ts";
 import {useMemo, useState} from "react";
-import {SelectionItem} from "@/components/ui/combobox.tsx";
+import {Combobox, SelectionItem} from "@/components/ui/combobox.tsx";
 
 
-/* Reminder
-   * get user groups
-   * Configure combobox
-   * Add profile section in the right top of screen
-   * Add mocked statistics data and layout
- */
+// TODO: Reminder - Add profile section in the right top of screen (add popup when user profile design will be ready)
+//       And change mocked data in weekly report chart.
 
 export default function Dashboard() {
     const [selectedGroup, setSelectedGroup] =
@@ -25,8 +21,23 @@ export default function Dashboard() {
 
     return (
         <div className="layout-wrapper">
-            <DashboardHeaderSection selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} groups={formattedGroups} />
+            <DashboardHeaderSection
+                LeftCornerSection={() => (
+                <Combobox
+                    selectedValue={selectedGroup}
+                    placeholder="Select group..."
+                    searchPlaceholder="Search group.."
+                    onChangeValue={onChangeSelectedGroup}
+                    selectionList={formattedGroups || []}
+                />
+            )} />
             <DashboardContentSection selectedGroup={selectedGroup} />
         </div>
     );
+
+    // TODO: make localStorage hook
+    function onChangeSelectedGroup(_selectedGroup: SelectionItem) {
+        setSelectedGroup(_selectedGroup);
+        localStorage.setItem('selectedGroup', JSON.stringify(_selectedGroup));
+    }
 }

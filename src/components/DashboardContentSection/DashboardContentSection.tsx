@@ -134,7 +134,6 @@ export default function DashboardContentSection({ selectedGroup }: Props) {
                         <Line type="monotone" name="Beginner" dataKey="vlow" stroke="#50a121" strokeWidth={3} activeDot={{ r: 8 }} />
                         </LineChart>
                     </ResponsiveContainer>
-
                 </div>
             </div>
         </div>
