@@ -1,0 +1,21 @@
+
+.groups-header-section {
+  width: 404px;
+  position: relative;
+  //border: 1px solid red;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translate(-5%, -50%);
+    width: 25px;
+    height: 25px;
+    background: url("../assets/Icons/Search.svg") center center no-repeat;
+  }
+
+  .groups-header-input {
+    padding-left: 55px;
+  }
+}

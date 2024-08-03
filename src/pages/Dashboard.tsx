@@ -1,5 +1,5 @@
 import '@/styles/layout-wrapper.styles.scss';
-import DashboardHeaderSection from "@/components/DashboardHeaderSection/DashboardHeaderSection.tsx";
+import PageHeaderSection from "@/components/DashboardHeaderSection/PageHeaderSection.tsx";
 import DashboardContentSection from "@/components/DashboardContentSection/DashboardContentSection.tsx";
 import useUserGroups from "@/api/groups/useUserGroups.ts";
 import {useMemo, useState} from "react";
@@ -21,7 +21,7 @@ export default function Dashboard() {
 
     return (
         <div className="layout-wrapper">
-            <DashboardHeaderSection
+            <PageHeaderSection
                 LeftCornerSection={() => (
                 <Combobox
                     selectedValue={selectedGroup}

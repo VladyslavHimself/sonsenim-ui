@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import './DashboardHeaderSection.scss';
+import './PageHeaderSection.scss';
 import AvatarProfile from "@/components/AvatarProfile/AvatarProfile.tsx";
 
 
@@ -11,10 +11,10 @@ type Props = {
     LeftCornerSection: () => ReactNode
 }
 
-export default function DashboardHeaderSection({ LeftCornerSection }: Props) {
+export default function PageHeaderSection({ LeftCornerSection }: Props) {
     return (
-        <div className="dashboard-header-section">
-            <div className="dashboard-header-left-corner">
+        <div className="page-header-section">
+            <div className="page-header-left-corner">
                 <LeftCornerSection />
             </div>
             <AvatarProfile />
