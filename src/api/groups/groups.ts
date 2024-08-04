@@ -5,9 +5,15 @@ export type UserGroupsResponse = {
     groupName: string
 }
 
-export type UserGroupsStatistics = {
+export type UserGroupsStatisticsResponse = {
     decksTotal: number,
     cardsTotal: number,
+}
+
+export type UserGroupsInfoResponse = {
+    groupId: number,
+    groupName: string,
+    decksCount: number
 }
 
 const GroupsApi = {
@@ -16,7 +22,11 @@ const GroupsApi = {
     },
 
     getGroupStatistics(groupId: number) {
-        return axios.get<UserGroupsStatistics>(`/api/groups/stats/${groupId}`);
+        return axios.get<UserGroupsStatisticsResponse>(`/api/groups/stats/${groupId}`);
+    },
+
+    getUserGroupsInfo() {
+        return axios.get<UserGroupsInfoResponse[]>(`/api/groups/user-groups-info`);
     }
 };
 

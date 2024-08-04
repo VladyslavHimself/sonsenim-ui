@@ -4,9 +4,17 @@
   background-color: #EDEDED;
   border-radius: 12px;
 
+  transition: .3s ease;
+
+  cursor: pointer;
+
   display: flex;
 
   margin: 20px;
+
+  &:hover {
+    background-color: #e1e1e1;
+  }
 
   .group-card-info {
     padding: 18px 24px;
@@ -15,6 +23,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    .group-card-info-title {
+      display: flex;
+      align-items: center;
+
+      > div { padding-right: 15px; }
+    }
 
     div:nth-child(1) {
       font-family: "Gilroy Medium", sans-serif;
