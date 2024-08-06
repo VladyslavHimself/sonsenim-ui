@@ -12,6 +12,7 @@ import {RootResolver} from "@/RootResolver.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
 import NavSidebar from "@/components/NavSidebar/NavSidebar.tsx";
 import Groups from "@/pages/Groups.tsx";
+import ModalBoxesContainer from "@/modals/ModalBoxesContainer.tsx";
 
 const router = createBrowserRouter([
     {
@@ -47,8 +48,10 @@ const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
       <QueryClientProvider client={queryClient}>
+
           <AuthProvider>
               <Toaster />
+              <ModalBoxesContainer />
               <div className="app-container">
                   <RouterProvider router={router} />
               </div>

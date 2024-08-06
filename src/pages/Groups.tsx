@@ -4,6 +4,7 @@ import PageHeaderSection from "@/components/DashboardHeaderSection/PageHeaderSec
 import {Input} from "@/components/ui/input.tsx";
 import GroupsContentSection from "@/components/GroupsContentSection/GroupsContentSection.tsx";
 
+
 export default function Groups() {
     return (
             <div className="layout-wrapper">

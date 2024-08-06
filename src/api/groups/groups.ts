@@ -27,7 +27,12 @@ const GroupsApi = {
 
     getUserGroupsInfo() {
         return axios.get<UserGroupsInfoResponse[]>(`/api/groups/user-groups-info`);
+    },
+
+    addUserGroup(groupName: string) {
+        return axios.post(`/api/groups/add/${groupName}`);
     }
+
 };
 
 export default GroupsApi;
