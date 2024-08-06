@@ -3,6 +3,8 @@ import GroupImageExample from "@/assets/Icons/Groups/group-image-example.png";
 
 import {Pencil} from "lucide-react";
 import {useState} from "react";
+import ModalBoxes from "@/modals/ModalBoxes.tsx";
+import {EditGroupModal} from "@/components/GroupModals/EditGroupModal/EditGroupModal.tsx";
 
 
 type Props = {
@@ -23,7 +25,14 @@ export default function Card({ groupName, decksCount}: Props) {
             <div className="group-card-info">
                 <div className="group-card-info-title">
                     <div>{groupName}</div>
-                    { isEditVisible && <Pencil width={20} height={20} onClick={() => console.log('edit')}/> }
+                    { isEditVisible && <Pencil width={20} height={20} onClick={() => {
+                        console.log('edit')
+                        return ModalBoxes.open({
+                            className: 'admin-confirmation',
+                            title: 'Edit a group',
+                            component: <EditGroupModal refetchUsersInfo={() => {}}/>,
+                        });
+                    }} /> }
                 </div>
                 <div>{decksCount} decks</div>
             </div>
