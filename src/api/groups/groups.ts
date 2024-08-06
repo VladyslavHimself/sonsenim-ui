@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export type UserGroupsResponse = {
+export type UserGroupResponse = {
     id: number,
     groupName: string
 }
@@ -16,9 +16,13 @@ export type UserGroupsInfoResponse = {
     decksCount: number
 }
 
+export type EditGroupConfigurationBody = {
+    groupName: string,
+}
+
 const GroupsApi = {
     getUserGroups() {
-        return axios.get<UserGroupsResponse[]>('/api/groups/');
+        return axios.get<UserGroupResponse[]>('/api/groups/');
     },
 
     getGroupStatistics(groupId: number) {
@@ -31,6 +35,14 @@ const GroupsApi = {
 
     addUserGroup(groupName: string) {
         return axios.post(`/api/groups/add/${groupName}`);
+    },
+
+    deleteUserGroup(groupId: number) {
+        return axios.delete(`/api/groups/${groupId}`);
+    },
+
+    updateUserGroup(groupId: number, groupConfiguration: EditGroupConfigurationBody) {
+        return axios.put<UserGroupResponse>(`/api/groups/${groupId}`, groupConfiguration);
     }
 
 };

@@ -5,15 +5,19 @@ import {Pencil} from "lucide-react";
 import {useState} from "react";
 import ModalBoxes from "@/modals/ModalBoxes.tsx";
 import {EditGroupModal} from "@/components/GroupModals/EditGroupModal/EditGroupModal.tsx";
+import {UserGroupsInfoResponse} from "@/api/groups/groups.ts";
+
 
 
 type Props = {
-    groupId?: string;
-    groupName: string;
-    decksCount: number;
+    currentGroup: UserGroupsInfoResponse;
+    refetchUsersInfo: () => void
 }
 
-export default function Card({ groupName, decksCount}: Props) {
+
+// TODO: Move refetch
+export default function Card({ currentGroup, refetchUsersInfo }: Props) {
+    const { groupName, decksCount } = currentGroup;
     // TODO: Make it with ref
     const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
 
@@ -26,11 +30,11 @@ export default function Card({ groupName, decksCount}: Props) {
                 <div className="group-card-info-title">
                     <div>{groupName}</div>
                     { isEditVisible && <Pencil width={20} height={20} onClick={() => {
-                        console.log('edit')
+                        // @ts-ignore
                         return ModalBoxes.open({
                             className: 'admin-confirmation',
-                            title: 'Edit a group',
-                            component: <EditGroupModal refetchUsersInfo={() => {}}/>,
+                            title: `Edit a group: ${groupName}`,
+                            component: <EditGroupModal currentGroup={currentGroup} refetchGroups={refetchUsersInfo} />,
                         });
                     }} /> }
                 </div>

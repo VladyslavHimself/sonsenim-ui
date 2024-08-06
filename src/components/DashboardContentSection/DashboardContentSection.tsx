@@ -1,6 +1,6 @@
 import './DashboardContentSection.scss';
 import {useQueryClient} from "@tanstack/react-query";
-import {UserGroupsResponse} from "@/api/groups/groups.ts";
+import {UserGroupResponse} from "@/api/groups/groups.ts";
 import NoGroupsAlert from "@/components/DashboardContentSection/NoGroupsAlert.tsx";
 import useUserGroupStatistics from "@/api/groups/useUserGroupStatistics.ts";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
@@ -68,7 +68,7 @@ export default function DashboardContentSection({ selectedGroup }: Props) {
     const query = useQueryClient();
     const { groupStats } = useUserGroupStatistics(selectedGroup.value);
     const isUserHaveAnyGroups =
-        query.getQueryData<UserGroupsResponse[]>(['user-groups'])?.length;
+        query.getQueryData<UserGroupResponse[]>(['user-groups'])?.length;
 
     if (!isUserHaveAnyGroups) {
         return (

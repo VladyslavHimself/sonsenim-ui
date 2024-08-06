@@ -27,8 +27,8 @@ export default function GroupsContentSection() {
 
             <div className="groups-content-section-cards">
                 {
-                    groupsInfo?.map(({groupId, groupName, decksCount}) => (
-                        <Card key={groupId} groupName={groupName} decksCount={decksCount} />
+                    groupsInfo?.map((groupInfo) => (
+                        <Card key={groupInfo.groupId} currentGroup={groupInfo} refetchUsersInfo={refetch} />
                     ))
                 }
             </div>
