@@ -24,6 +24,7 @@ const TOP_NAVLINKS = [
     }
 
 ];
+// @ts-ignore
 const BOTTOM_NAVLINKS = (actions, states) => [
     {
         title: "Hide panel",
@@ -52,6 +53,8 @@ export default function NavSidebarList(
     const location = useLocation();
     const logout = useLogout();
 
+    console.log(location.pathname);
+
     return useMemo(() => (
         <div className="nav-sidebar-list">
             <div>
@@ -59,7 +62,7 @@ export default function NavSidebarList(
                     TOP_NAVLINKS.map(({title, icon, alt, href}) => (
                         <Link to={href}>
                             <div
-                                className={`nav-sidebar-item ${location.pathname === href && "nav-sidebar-item--active"}`}>
+                                className={`nav-sidebar-item ${location.pathname.includes(href) && "nav-sidebar-item--active"}`}>
                                 <img src={icon} alt={alt}/>
                                 <span>{title}</span>
                             </div>

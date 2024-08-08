@@ -7,10 +7,12 @@ import Card from "@/components/Card/Card.tsx";
 import useUserGroupsInfo from "@/api/groups/useUserGroupsInfo.ts";
 import ModalBoxes from "@/modals/ModalBoxes.tsx";
 import CreateNewGroupModal from "@/components/GroupModals/CreateNewGroupModal/CreateNewGroupModal.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 // TODO: Header component with/without additional button
-export default function GroupsContentSection() {
+export default function GroupsListContentSection() {
+    const navigate = useNavigate();
     const { groupsInfo, refetch } = useUserGroupsInfo();
     return (
         <div className="groups-content-section">
@@ -28,10 +30,19 @@ export default function GroupsContentSection() {
             <div className="groups-content-section-cards">
                 {
                     groupsInfo?.map((groupInfo) => (
-                        <Card key={groupInfo.groupId} currentGroup={groupInfo} refetchUsersInfo={refetch} />
+                        <Card
+                            key={groupInfo.groupId}
+                            currentGroup={groupInfo}
+                            refetchUsersInfo={refetch}
+                            onClickHandler={() => openGroupByGroupId(groupInfo.groupId)} />
                     ))
                 }
             </div>
         </div>
     );
+
+    function openGroupByGroupId(groupId: string) {
+        navigate(`/groups/${groupId}`);
+        console.log("clicked", groupId);
+    }
 };

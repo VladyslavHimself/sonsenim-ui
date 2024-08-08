@@ -1,11 +1,12 @@
 import '@/styles/layout-wrapper.styles.scss';
-import '@/styles/Groups.scss';
+import '@/styles/GroupsList.scss';
 import PageHeaderSection from "@/components/DashboardHeaderSection/PageHeaderSection.tsx";
 import {Input} from "@/components/ui/input.tsx";
-import GroupsContentSection from "@/components/GroupsContentSection/GroupsContentSection.tsx";
+import GroupsListContentSection from "@/components/GroupsContentSection/GroupsListContentSection.tsx";
 
 
-export default function Groups() {
+
+export default function GroupsList() {
     return (
             <div className="layout-wrapper">
                 <PageHeaderSection
@@ -23,7 +24,7 @@ export default function Groups() {
                             </div>
                         </>
                     )}/>
-                <GroupsContentSection />
+                <GroupsListContentSection />
             </div>
     );
 }

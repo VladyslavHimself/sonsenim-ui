@@ -11,8 +11,9 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {RootResolver} from "@/RootResolver.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
 import NavSidebar from "@/components/NavSidebar/NavSidebar.tsx";
-import Groups from "@/pages/Groups.tsx";
+import GroupsList from "@/pages/GroupsList.tsx";
 import ModalBoxesContainer from "@/modals/ModalBoxesContainer.tsx";
+import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/groups',
-                element: <ProtectedRoute><Groups /></ProtectedRoute>
+                element: <ProtectedRoute><GroupsList /></ProtectedRoute>,
+            },
+            {
+                path: '/groups/:groupId',
+                element: <ProtectedRoute><SelectedGroupPage /></ProtectedRoute>
             }
         ]
     }
