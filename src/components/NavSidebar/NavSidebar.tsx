@@ -3,10 +3,10 @@ import Logotype from '@/assets/logo.png';
 import {Outlet} from "react-router-dom";
 import useSidebarStatus from "@/components/NavSidebar/useSidebarStatus.tsx";
 import NavSidebarList from "@/components/NavSidebar/NavSidebarList/NavSidebarList.tsx";
-import {useState} from "react";
+import {memo, useState} from "react";
 
 // TODO: Add localStorage state
-export default function NavSidebar() {
+function NavSidebar() {
     const isSidebarMustBeShown = useSidebarStatus();
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
 
@@ -25,3 +25,5 @@ export default function NavSidebar() {
         </>
     );
 };
+
+export default memo(NavSidebar);

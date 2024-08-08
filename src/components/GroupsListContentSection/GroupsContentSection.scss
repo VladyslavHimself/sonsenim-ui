@@ -1,4 +1,6 @@
-.groups-content-section {
+// TODO: Rename styles to actual names
+
+.cardsList-content-section {
     height: 100%;
     margin-top: 30px;
 
@@ -9,7 +11,7 @@
 
 
 
-    .groups-content-section-header {
+    .cardsList-content-section-header {
         width: 100%;
         height: 70px;
 
@@ -20,7 +22,7 @@
         h1 { font-size: 32px; }
     }
 
-    .groups-content-section-cards {
+    .cardList-content-section-cards {
         display: flex;
         flex-wrap: wrap;
         align-content: flex-start;

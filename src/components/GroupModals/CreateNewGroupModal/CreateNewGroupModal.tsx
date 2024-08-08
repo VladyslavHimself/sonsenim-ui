@@ -9,7 +9,7 @@ import {useCreateUserGroupMutation} from "@/api/groups/useCreateUserGroupMutatio
 import {groupFieldsSchema} from "@/components/GroupModals/groupFields.schema.ts";
 
 type Props = {
-    modalBox: {
+    modalBox?: {
         close: () => void;
         id: string,
     },
@@ -18,7 +18,7 @@ type Props = {
 
 export default function CreateNewGroupModal({ modalBox, refetchUsersInfo }: Props) {
     const { createUserGroup } = useCreateUserGroupMutation(() => {
-        modalBox.close()
+        modalBox!.close()
         refetchUsersInfo();
     });
     const form = useForm<z.infer<typeof groupFieldsSchema>>({
