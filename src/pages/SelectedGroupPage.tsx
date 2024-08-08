@@ -1,12 +1,17 @@
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import '@/styles/layout-wrapper.styles.scss';
 import {Input} from "@/components/ui/input.tsx";
 import PageHeaderSection from "@/components/DashboardHeaderSection/PageHeaderSection.tsx";
 import {ListFilter} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
+import CardsListContentSection from "@/components/GroupsListContentSection/CardsListContentSection.tsx";
+import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
+import Card from "@/components/Card/Card.tsx";
 
 export default function SelectedGroupPage() {
-    const params = useParams();
+    const { groupId} = useParams();
+    const [searchParams] = useSearchParams();
+    const { aggregatedDecks, refetch } = useAggregatedDecks(groupId!);
 
     return (
         <div className="layout-wrapper">
@@ -26,6 +31,25 @@ export default function SelectedGroupPage() {
                         </div>
                     </>
                 )}/>
+
+            <CardsListContentSection Header={() => (
+                <>
+                    <h1>{searchParams.get('groupName')}</h1>
+                    <Button style={{padding: "25px 30px"}}>+ Create a new deck</Button>
+                </>
+            )}>
+                {
+                    // TODO: Add template (design), if user haven't any decks here
+                    aggregatedDecks?.map((deck) => (
+                        <Card
+                            key={groupId}
+                            cardTitle={deck.deckName}
+                            secondaryTile={<div>{`${deck.cardsInDeckTotal} cards`}</div>}
+                            onClickHandler={() => console.log('clicked')}
+                        />
+                    ))
+                }
+            </CardsListContentSection>
         </div>
     );
 };

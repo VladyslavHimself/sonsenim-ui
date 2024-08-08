@@ -7,7 +7,5 @@ export default function useUserGroups() {
         queryFn: () => GroupsApi.getUserGroups().then(({data}) => data)
         });
 
-
-
     return { userGroups, refetch, isLoading };
 };

@@ -9,7 +9,9 @@ import Card from "@/components/Card/Card.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import ModalBoxes from "@/modals/ModalBoxes.tsx";
 import CreateNewGroupModal from "@/components/GroupModals/CreateNewGroupModal/CreateNewGroupModal.tsx";
-
+import { EditGroupModal } from '@/components/GroupModals/EditGroupModal/EditGroupModal';
+import {UserGroupsInfoResponse} from "@/api/groups/groups.ts";
+import React from "react";
 
 
 export default function GroupsList() {
@@ -47,19 +49,44 @@ export default function GroupsList() {
                     </>
                 )}>
                     {
-                        groupsInfo?.map((groupInfo) => (
-                            <Card
-                                key={groupInfo.groupId}
-                                currentGroup={groupInfo}
-                                refetchUsersInfo={refetch}
-                                onClickHandler={() => openGroupByGroupId(groupInfo.groupId)} />
-                        ))
+                        // TODO: Add template (design), if user haven't any groups here
+                        groupsInfo?.map((currentGroup) => {
+                            const { groupId, groupName, decksCount} = currentGroup;
+                            return (
+                                <Card
+                                    key={groupId}
+                                    cardTitle={groupName}
+                                    secondaryTile={<div>{`${decksCount} decks`}</div>}
+                                    onClickHandler={() => openGroupByGroupId(groupId, groupName)}
+                                    onEditHandler={(e) =>
+                                        onEditGroupHandle(e, currentGroup)}
+                                    imageSrc={'test'}
+                                />
+                            );
+                        })
                     }
                 </CardsListContentSection>
             </div>
     );
 
-    function openGroupByGroupId(groupId: number) {
-        navigate(`/groups/${groupId}`);
+    function onEditGroupHandle(
+        e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+        currentGroup: UserGroupsInfoResponse
+    ) {
+        e.stopPropagation();
+        // @ts-ignore
+        return ModalBoxes.open({
+            className: 'admin-confirmation',
+            title: `Edit a group: ${currentGroup.groupName}`,
+            component: <EditGroupModal
+                currentGroup={currentGroup}
+                refetchGroups={refetch}
+            />
+        })
+    }
+
+    function openGroupByGroupId(groupId: number, groupName: string) {
+        // TODO: Make url by key generator
+        navigate(`/groups/${groupId}?groupName=${groupName}`);
     }
 }

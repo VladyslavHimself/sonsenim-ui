@@ -53,8 +53,6 @@ export default function NavSidebarList(
     const location = useLocation();
     const logout = useLogout();
 
-    console.log(location.pathname);
-
     return useMemo(() => (
         <div className="nav-sidebar-list">
             <div>

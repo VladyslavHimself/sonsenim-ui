@@ -8,7 +8,7 @@ type Props = {
 }
 
 // TODO: Header component with/without additional button
-export default function CardsListContentSection({ children, Header}: Props) {
+export default function CardsListContentSection({ children, Header }: Props) {
 
 
     return (
