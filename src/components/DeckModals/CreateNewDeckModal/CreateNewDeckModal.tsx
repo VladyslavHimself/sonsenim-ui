@@ -10,7 +10,11 @@ import {Separator} from "@radix-ui/react-separator";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group.tsx";
 import useAddDeckToGroupMutation from "@/api/decks/useAddDeckToGroupMutation.ts";
 
-export default function CreateNewDeckModal({ groupId }) {
+type Props = {
+    groupId: number
+}
+
+export default function CreateNewDeckModal({ groupId }: Props) {
     const { addDeckToGroup } = useAddDeckToGroupMutation(() => console.log("nice"));
     const form = useForm<z.infer<typeof deckConfigurationFieldsSchema>>({
         resolver: zodResolver(deckConfigurationFieldsSchema)
@@ -24,7 +28,7 @@ export default function CreateNewDeckModal({ groupId }) {
                           onSubmit={form.handleSubmit((values: z.infer<typeof deckConfigurationFieldsSchema>) => addDeckToGroup({
                               groupId: groupId,
                               // TODO: Think about make randomized order by default & delete param
-                              deckConfiguration: Object.assign(values, { isRandomizedOrder: true })
+                              deckConfiguration: Object.assign(values, { randomizedOrder: true })
                           }))}
                           style={{width: '100%'}}>
                         <FormField name="deckName" control={form.control} render={({field}) => (

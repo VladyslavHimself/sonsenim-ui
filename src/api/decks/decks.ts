@@ -4,7 +4,7 @@ export type Deck = {
     id: number;
     deckName: string;
     createdAt: string;
-    isRandomizedOrder: boolean;
+    randomizedOrder: boolean;
     isFlashcardNormal: boolean;
     isFlashcardReversed: boolean;
     isTyping: boolean;
