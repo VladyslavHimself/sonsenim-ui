@@ -36,8 +36,8 @@ export default function ModalBoxesContainer() {
             {modalBoxes.map(function ({ id, onCloseCallback, component, className, close, title }, index) {
                 return (
                     <div className={`modal-box ${id}`} key={index}>
-                        <div className="modal-box-overlay"></div>
-                        <div className="modal-box-container">
+                        <div className="modal-box-overlay" onClick={close}></div>
+                        <div className={`modal-box-container ${className}`}>
                             {!isEmpty(title) && (
                                 <div className="modal-box-header">
                                     {title}

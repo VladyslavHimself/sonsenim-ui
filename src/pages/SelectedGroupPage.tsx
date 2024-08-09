@@ -7,6 +7,8 @@ import {Button} from "@/components/ui/button.tsx";
 import CardsListContentSection from "@/components/GroupsListContentSection/CardsListContentSection.tsx";
 import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
 import Card from "@/components/Card/Card.tsx";
+import ModalBoxes from "@/modals/ModalBoxes.tsx";
+import DeckCardMenubar from "@/components/DeckMenubar/DeckCardMenubar.tsx";
 
 export default function SelectedGroupPage() {
     const { groupId} = useParams();
@@ -45,7 +47,11 @@ export default function SelectedGroupPage() {
                             key={groupId}
                             cardTitle={deck.deckName}
                             secondaryTile={<div>{`${deck.cardsInDeckTotal} cards`}</div>}
-                            onClickHandler={() => console.log('clicked')}
+                            onClickHandler={() => ModalBoxes.open({
+                                className: 'deck-menubar',
+                                component: <DeckCardMenubar />,
+                                width: 250
+                            })}
                         />
                     ))
                 }
