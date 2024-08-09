@@ -45,7 +45,6 @@ export function EditGroupModal({ modalBox, refetchGroups, currentGroup }: Props)
             <div className="create-new-group-modal modal-box-body">
                 <Form {...form}>
                     <form id="create-group-form" onSubmit={form.handleSubmit((values: z.infer<typeof groupFieldsSchema>) => {
-                        console.log(values);
                         updateUserGroup({
                             groupId: currentGroup.groupId,
                             groupBody: values

@@ -8,7 +8,8 @@ import CardsListContentSection from "@/components/GroupsListContentSection/Cards
 import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
 import Card from "@/components/Card/Card.tsx";
 import ModalBoxes from "@/modals/ModalBoxes.tsx";
-import DeckCardMenubar from "@/components/DeckMenubar/DeckCardMenubar.tsx";
+import DeckCardMenubar from "@/components/DeckCardMenubar/DeckCardMenubar.tsx";
+import CreateNewDeckModal from "@/components/DeckModals/CreateNewDeckModal/CreateNewDeckModal.tsx";
 
 export default function SelectedGroupPage() {
     const { groupId} = useParams();
@@ -37,7 +38,7 @@ export default function SelectedGroupPage() {
             <CardsListContentSection Header={() => (
                 <>
                     <h1>{searchParams.get('groupName')}</h1>
-                    <Button style={{padding: "25px 30px"}}>+ Create a new deck</Button>
+                    <Button style={{padding: "25px 30px"}} onClick={() => onCreateNewDeckModal(groupId)}>+ Create a new deck</Button>
                 </>
             )}>
                 {
@@ -49,8 +50,7 @@ export default function SelectedGroupPage() {
                             secondaryTile={<div>{`${deck.cardsInDeckTotal} cards`}</div>}
                             onClickHandler={() => ModalBoxes.open({
                                 className: 'deck-menubar',
-                                component: <DeckCardMenubar />,
-                                width: 250
+                                component: <DeckCardMenubar />
                             })}
                         />
                     ))
@@ -58,4 +58,12 @@ export default function SelectedGroupPage() {
             </CardsListContentSection>
         </div>
     );
+
+    function onCreateNewDeckModal(groupId: number) {
+        return ModalBoxes.open({
+            className: 'create-new-deck-modal',
+            title: 'Create a new deck',
+            component: <CreateNewDeckModal groupId={groupId} />
+        })
+    }
 };

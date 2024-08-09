@@ -42,7 +42,8 @@
     .modal-box-body {
       padding: 0 50px;
       min-height: 78px;
-      //border: 1px solid red;
+      display: flex;
+      flex-direction: column;
     }
   }
 
