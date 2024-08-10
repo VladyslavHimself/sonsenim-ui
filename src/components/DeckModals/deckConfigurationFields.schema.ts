@@ -6,7 +6,7 @@ import {z} from "zod";
 
 export const deckConfigurationFieldsSchema = z.object({
     deckName: z.string().min(4),
-    isFlashcardNormal: z.any().default(true),
-    isFlashcardReversed: z.any().default(false),
-    isTyping: z.any().default(false),
+    flashcardNormal: z.any().default(true),
+    flashcardReversed: z.any().default(false),
+    flashcardTyping: z.any().default(false),
 });

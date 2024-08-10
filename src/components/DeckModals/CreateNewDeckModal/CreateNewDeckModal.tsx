@@ -9,13 +9,20 @@ import {Button} from "@/components/ui/button.tsx";
 import {Separator} from "@radix-ui/react-separator";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group.tsx";
 import useAddDeckToGroupMutation from "@/api/decks/useAddDeckToGroupMutation.ts";
+import {DeckConfigurationBody} from "@/api/decks/decks.ts";
 
 type Props = {
-    groupId: number
+    groupId: number,
+    refetchDecks: () => void,
 }
 
-export default function CreateNewDeckModal({ groupId }: Props) {
-    const { addDeckToGroup } = useAddDeckToGroupMutation(() => console.log("nice"));
+// @ts-ignore
+export default function CreateNewDeckModal({ groupId, refetchDecks, modalBox }: Props) {
+    const { addDeckToGroup } = useAddDeckToGroupMutation(() => {
+        refetchDecks();
+        modalBox.close();
+    });
+
     const form = useForm<z.infer<typeof deckConfigurationFieldsSchema>>({
         resolver: zodResolver(deckConfigurationFieldsSchema)
     });
@@ -28,7 +35,7 @@ export default function CreateNewDeckModal({ groupId }: Props) {
                           onSubmit={form.handleSubmit((values: z.infer<typeof deckConfigurationFieldsSchema>) => addDeckToGroup({
                               groupId: groupId,
                               // TODO: Think about make randomized order by default & delete param
-                              deckConfiguration: Object.assign(values, { randomizedOrder: true })
+                              deckConfiguration: Object.assign(values as DeckConfigurationBody, { randomizedOrder: true })
                           }))}
                           style={{width: '100%'}}>
                         <FormField name="deckName" control={form.control} render={({field}) => (
@@ -44,19 +51,19 @@ export default function CreateNewDeckModal({ groupId }: Props) {
                         <Separator className="my-6 h-1 bg-[#F0F0F0]" />
                         <div className="create-new-deck-quiz-modes">
                             <span>Modes</span>
-                            <ToggleGroup defaultValue={['isFlashcardNormal']}  onValueChange={(values) => {
+                            <ToggleGroup defaultValue={['flashcardNormal']}  onValueChange={(values) => {
                                 // TODO: Optimize later
-                                form.setValue('isFlashcardNormal', !!values.find((value) => value === 'isFlashcardNormal'));
-                                form.setValue('isFlashcardReversed', !!values.find((value) => value === 'isFlashcardReversed'));
-                                form.setValue('isTyping', !!values.find((value) => value === 'isTyping'));
+                                form.setValue('flashcardNormal', !!values.find((value) => value === 'flashcardNormal'));
+                                form.setValue('flashcardReversed', !!values.find((value) => value === 'flashcardReversed'));
+                                form.setValue('flashcardTyping', !!values.find((value) => value === 'flashcardTyping'));
                             }} type="multiple" variant="outline">
-                                    <ToggleGroupItem className="create-new-deck-quiz-modes-toggle-item"  value="isFlashcardNormal" aria-label="Toggle normal mode">
+                                    <ToggleGroupItem className="create-new-deck-quiz-modes-toggle-item"  value="flashcardNormal" aria-label="Toggle normal mode">
                                         Normal
                                     </ToggleGroupItem>
-                                    <ToggleGroupItem className="create-new-deck-quiz-modes-toggle-item" value="isFlashcardReversed" aria-label="Toggle reversed mode">
+                                    <ToggleGroupItem className="create-new-deck-quiz-modes-toggle-item" value="flashcardReversed" aria-label="Toggle reversed mode">
                                         Reversed
                                     </ToggleGroupItem>
-                                    <ToggleGroupItem className="create-new-deck-quiz-modes-toggle-item" value="isTyping"  aria-label="Toggle typing mode">
+                                    <ToggleGroupItem className="create-new-deck-quiz-modes-toggle-item" value="flashcardTyping"  aria-label="Toggle typing mode">
                                         Typing
                                     </ToggleGroupItem>
                             </ToggleGroup>

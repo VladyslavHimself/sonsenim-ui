@@ -1,14 +1,17 @@
 import axios from "axios";
 
+export type DeckModes = {
+    flashcardNormal: boolean;
+    flashcardReversed: boolean;
+    flashcardTyping: boolean;
+    randomizedOrder: boolean;
+}
+
 export type Deck = {
     id: number;
     deckName: string;
     createdAt: string;
-    randomizedOrder: boolean;
-    isFlashcardNormal: boolean;
-    isFlashcardReversed: boolean;
-    isTyping: boolean;
-}
+} & DeckModes;
 
 export type DeckConfigurationBody = Omit<Deck, 'id' | 'createdAt'>
 
@@ -23,5 +26,13 @@ export const DecksApi = {
 
     addDeckToGroup(groupId: number, deckConfiguration: DeckConfigurationBody) {
         return axios.post(`/api/decks/${groupId}`, deckConfiguration)
+    },
+
+    updateDeck(groupId: number, deckConfiguration: DeckConfigurationBody) {
+        return axios.put(`/api/decks/${groupId}`, deckConfiguration);
+    },
+
+    deleteDeck(deckId: number) {
+        return axios.delete(`/api/decks/${deckId}`);
     }
 }

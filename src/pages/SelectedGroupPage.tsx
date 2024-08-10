@@ -50,7 +50,7 @@ export default function SelectedGroupPage() {
                             secondaryTile={<div>{`${deck.cardsInDeckTotal} cards`}</div>}
                             onClickHandler={() => ModalBoxes.open({
                                 className: 'deck-menubar',
-                                component: <DeckCardMenubar />
+                                component: <DeckCardMenubar deckProperties={deck} refetchDecks={refetch} />,
                             })}
                         />
                     ))
@@ -63,7 +63,7 @@ export default function SelectedGroupPage() {
         return ModalBoxes.open({
             className: 'create-new-deck-modal',
             title: 'Create a new deck',
-            component: <CreateNewDeckModal groupId={groupId} />
+            component: <CreateNewDeckModal groupId={groupId} refetchDecks={refetch} />
         })
     }
 };
