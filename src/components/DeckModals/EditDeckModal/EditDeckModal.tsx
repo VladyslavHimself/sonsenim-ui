@@ -18,7 +18,7 @@ type Props = {
     modalBox?: any
 }
 
-// TODO: Approximate with "CreateNewDeckModal"
+// TODO: Approximate with "CreateNewDeckModal" & "AddNewCardModal"
 export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }: Props) {
     const { deleteDeck } = useDeleteDeckMutation(() => {
         refetchDecks();
