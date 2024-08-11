@@ -5,8 +5,14 @@ import ModalBoxes from "@/modals/ModalBoxes.tsx";
 import EditDeckModal from "@/components/DeckModals/EditDeckModal/EditDeckModal.tsx";
 import AddNewCardModal from "@/components/CardModals/AddNewCardModal/AddNewCardModal.tsx";
 
-// @ts-ignore
-export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks }) {
+type Props = {
+    modalBox?: any,
+    deckProperties: any,
+    refetchDecks: () => void,
+}
+
+
+export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks }: Props) {
     return (
         <div className="deck-menubar-container">
             <Button variant="outline" className="menubar-list-item"><Brain /> Start Learning</Button>
@@ -22,7 +28,8 @@ export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks
         ModalBoxes.open({
             className: 'edit-deck-modal',
             title: 'Edit deck',
-            component: <EditDeckModal deckProperties={deckProperties} refetchDecks={refetchDecks} />
+            component: <EditDeckModal deckProperties={deckProperties} refetchDecks={refetchDecks} />,
+            onClose: () => {}
         })
         modalBox.close();
     }
@@ -31,7 +38,8 @@ export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks
         ModalBoxes.open({
             className: 'add-new-card-modal',
             title: 'Add new card',
-            component: <AddNewCardModal deckId={deckProperties.id} refetchDecks={refetchDecks} />
+            component: <AddNewCardModal deckId={deckProperties.id} refetchDecks={refetchDecks} />,
+            onClose: () => {}
         })
         modalBox.close();
     }

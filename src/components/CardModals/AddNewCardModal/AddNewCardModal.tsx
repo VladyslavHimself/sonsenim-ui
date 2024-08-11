@@ -10,7 +10,7 @@ import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
 
 type Props = {
     deckId: number,
-    modalBox: any,
+    modalBox?: any,
     refetchDecks: () => void
 }
 
@@ -30,7 +30,8 @@ export default function AddNewCardModal({ deckId, refetchDecks }: Props) {
             <Form {...form}>
                 <form
                     id="add-new-card-form"
-                    onSubmit={form.handleSubmit((values: z.infer<typeof newCardConfigurationSchema>) => createNewCard(values))}>
+                    onSubmit={form.handleSubmit((values: z.infer<typeof newCardConfigurationSchema>) =>
+                        createNewCard(values as unknown as NewCardConfigurationBody))}>
                     <FormField name="primaryWord" control={form.control} render={({field}) => (
                         <FormItem style={{ marginTop: 15}}>
                             <FormLabel className="auth-container-input-label">Word *</FormLabel>

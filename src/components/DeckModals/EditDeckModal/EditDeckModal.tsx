@@ -10,7 +10,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {DeckModes, DeckWithAggregatedDataResponse} from "@/api/decks/decks.ts";
 import {useMemo} from "react";
 import {Trash2Icon} from "lucide-react";
-import useUpdateDeckMutation from "@/api/decks/useUpdateDeckMutation.ts";
+import useUpdateDeckMutation, {EditDeckMutationVariables} from "@/api/decks/useUpdateDeckMutation.ts";
 import useDeleteDeckMutation from "@/api/decks/useDeleteDeckMutation.ts";
 type Props = {
     deckProperties: DeckWithAggregatedDataResponse,
@@ -20,15 +20,8 @@ type Props = {
 
 // TODO: Approximate with "CreateNewDeckModal" & "AddNewCardModal"
 export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }: Props) {
-    const { deleteDeck } = useDeleteDeckMutation(() => {
-        refetchDecks();
-        modalBox.close();
-    });
-
-    const { updateDeck } = useUpdateDeckMutation(() => {
-        refetchDecks();
-        modalBox.close();
-    });
+    const { deleteDeck } = useDeleteDeckMutation(onMakeModalAction);
+    const { updateDeck } = useUpdateDeckMutation(onMakeModalAction);
 
     const form = useForm<z.infer<typeof deckConfigurationFieldsSchema>>({
         resolver: zodResolver(deckConfigurationFieldsSchema),
@@ -60,7 +53,7 @@ export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }
                           onSubmit={form.handleSubmit((values: z.infer<typeof deckConfigurationFieldsSchema>) => updateDeck({
                               deckId: deckProperties.id,
                               deckConfiguration: Object.assign(values, { randomizedOrder: true })
-                          }))}
+                          } as EditDeckMutationVariables))}
                           style={{width: '100%'}}>
                         <FormField name="deckName" control={form.control} render={({field}) => (
                             <FormItem style={{width: 550}}>
@@ -104,7 +97,6 @@ export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }
                     className="modal-cancel-button"
                 ><Trash2Icon/></Button>
                 <Button
-                    // disabled={form.getValues().deckName === deckProperties.deckName}
                     form="edit-deck-form"
                     type="submit"
                     className="modal-confirm-button"
@@ -112,4 +104,9 @@ export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }
             </div>
         </>
     );
+
+    function onMakeModalAction() {
+        refetchDecks();
+        modalBox.close();
+    }
 };

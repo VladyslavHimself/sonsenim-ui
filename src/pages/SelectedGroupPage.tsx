@@ -12,7 +12,7 @@ import DeckCardMenubar from "@/components/DeckCardMenubar/DeckCardMenubar.tsx";
 import CreateNewDeckModal from "@/components/DeckModals/CreateNewDeckModal/CreateNewDeckModal.tsx";
 
 export default function SelectedGroupPage() {
-    const { groupId} = useParams();
+    const { groupId } = useParams();
     const [searchParams] = useSearchParams();
     const { aggregatedDecks, refetch } = useAggregatedDecks(groupId!);
 
@@ -38,7 +38,7 @@ export default function SelectedGroupPage() {
             <CardsListContentSection Header={() => (
                 <>
                     <h1>{searchParams.get('groupName')}</h1>
-                    <Button style={{padding: "25px 30px"}} onClick={() => onCreateNewDeckModal(groupId)}>+ Create a new deck</Button>
+                    <Button style={{padding: "25px 30px"}} onClick={() => onCreateNewDeckModal(+groupId!)}>+ Create a new deck</Button>
                 </>
             )}>
                 {
@@ -51,6 +51,7 @@ export default function SelectedGroupPage() {
                             onClickHandler={() => ModalBoxes.open({
                                 className: 'deck-menubar',
                                 component: <DeckCardMenubar deckProperties={deck} refetchDecks={refetch} />,
+                                onClose: () => {}
                             })}
                         />
                     ))
@@ -63,7 +64,8 @@ export default function SelectedGroupPage() {
         return ModalBoxes.open({
             className: 'create-new-deck-modal',
             title: 'Create a new deck',
-            component: <CreateNewDeckModal groupId={groupId} refetchDecks={refetch} />
+            component: <CreateNewDeckModal groupId={groupId} refetchDecks={refetch} />,
+            onClose: () => {}
         })
     }
 };
