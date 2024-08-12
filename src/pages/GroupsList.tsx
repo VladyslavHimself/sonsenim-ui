@@ -87,6 +87,8 @@ export default function GroupsList() {
 
     function openGroupByGroupId(groupId: number, groupName: string) {
         // TODO: Make url by key generator
-        navigate(`/groups/${groupId}?groupName=${groupName}`);
+        navigate(`/groups/${groupId}`, {
+            state: { groupName }
+        });
     }
 }

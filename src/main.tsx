@@ -14,6 +14,7 @@ import NavSidebar from "@/pages/NavSidebar/NavSidebar.tsx";
 import GroupsList from "@/pages/GroupsList.tsx";
 import ModalBoxesContainer from "@/ModalBoxes/ModalBoxesContainer.tsx";
 import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
+import CardListPage from "@/pages/CardListPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: '/groups/:groupId',
                 element: <ProtectedRoute><SelectedGroupPage /></ProtectedRoute>
+            },
+            {
+                path: '/groups/:groupId/card-list/:deckId',
+                element: <ProtectedRoute><CardListPage /></ProtectedRoute>
             }
         ]
     }
@@ -53,7 +58,6 @@ const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-
           <AuthProvider>
               <Toaster />
               <ModalBoxesContainer />

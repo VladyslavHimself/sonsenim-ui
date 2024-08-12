@@ -12,13 +12,12 @@ type Props = {
     imageSrc?: string
 }
 
-// cardTitle, secondaryTile, onEditHandler
+
 
 // TODO: Move refetch
 export default function Card({ cardTitle, secondaryTile, onClickHandler, onEditHandler, imageSrc }: Props) {
     // TODO: Make it with ref
     const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
-
     return (
 
         // TODO: Rename classes

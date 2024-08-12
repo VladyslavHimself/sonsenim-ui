@@ -4,20 +4,23 @@ import {Brain, Download, Edit, List, PlusIcon, Upload} from "lucide-react";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import EditDeckModal from "@/components/Modals/DeckModals/EditDeckModal.tsx";
 import AddNewCardModal from "@/components/Modals/CardModals/AddNewCardModal.tsx";
+import {NavigateFunction} from "react-router-dom";
 
 type Props = {
     modalBox?: any,
+    groupId: string,
     deckProperties: any,
     refetchDecks: () => void,
+    navigate: NavigateFunction,
 }
 
 
-export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks }: Props) {
+export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks, groupId, navigate }: Props) {
     return (
         <div className="deck-menubar-container">
             <Button variant="outline" className="menubar-list-item"><Brain /> Start Learning</Button>
             <Button variant="outline" className="menubar-list-item" onClick={onAddNewCardHandle}><PlusIcon /> Add new card</Button>
-            <Button variant="outline" className="menubar-list-item"><List />Card List</Button>
+            <Button variant="outline" className="menubar-list-item" onClick={openCardListPage}><List />Card List</Button>
             <Button variant="outline" className="menubar-list-item" onClick={onEditDeckHandle}><Edit />Edit deck</Button>
             <Button disabled variant="outline" className="menubar-list-item"><Upload />Export cards</Button>
             <Button disabled variant="outline" className="menubar-list-item"><Download />Import cards</Button>
@@ -41,6 +44,11 @@ export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks
             component: <AddNewCardModal deckId={deckProperties.id} refetchDecks={refetchDecks} />,
             onClose: () => {}
         })
+        modalBox.close();
+    }
+
+    function openCardListPage() {
+        navigate(`/groups/${groupId}/card-list/${deckProperties.id}`);
         modalBox.close();
     }
 };

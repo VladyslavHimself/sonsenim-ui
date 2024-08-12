@@ -1,4 +1,4 @@
-import {useParams, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import '@/styles/layout-wrapper.styles.scss';
 import {Input} from "@/components/ui/input.tsx";
 import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSection.tsx";
@@ -13,8 +13,9 @@ import CreateNewDeckModal from "@/components/Modals/DeckModals/CreateNewDeckModa
 
 export default function SelectedGroupPage() {
     const { groupId } = useParams();
-    const [searchParams] = useSearchParams();
     const { aggregatedDecks, refetch } = useAggregatedDecks(groupId!);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <div className="layout-wrapper">
@@ -37,7 +38,7 @@ export default function SelectedGroupPage() {
 
             <CardsListContentSection Header={() => (
                 <>
-                    <h1>{searchParams.get('groupName')}</h1>
+                    <h1>{location.state.groupName}</h1>
                     <Button style={{padding: "25px 30px"}} onClick={() => onCreateNewDeckModal(+groupId!)}>+ Create a new deck</Button>
                 </>
             )}>
@@ -50,7 +51,12 @@ export default function SelectedGroupPage() {
                             secondaryTile={<div>{`${deck.cardsInDeckTotal} cards`}</div>}
                             onClickHandler={() => ModalBoxes.open({
                                 className: 'deck-menubar',
-                                component: <DeckCardMenubar deckProperties={deck} refetchDecks={refetch} />,
+                                component: <DeckCardMenubar
+                                    navigate={navigate}
+                                    deckProperties={deck}
+                                    groupId={groupId!}
+                                    refetchDecks={refetch}
+                                />,
                                 onClose: () => {}
                             })}
                         />
