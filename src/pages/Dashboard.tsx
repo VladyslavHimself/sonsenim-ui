@@ -1,6 +1,6 @@
 import '@/styles/layout-wrapper.styles.scss';
-import PageHeaderSection from "@/components/DashboardHeaderSection/PageHeaderSection.tsx";
-import DashboardContentSection from "@/components/DashboardContentSection/DashboardContentSection.tsx";
+import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSection.tsx";
+import DashboardContentSection from "@/components/Dashboard/DashboardContentSection/DashboardContentSection.tsx";
 import useUserGroups from "@/api/groups/useUserGroups.ts";
 import {useMemo, useState} from "react";
 import {Combobox, SelectionItem} from "@/components/ui/combobox.tsx";

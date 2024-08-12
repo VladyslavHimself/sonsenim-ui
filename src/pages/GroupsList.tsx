@@ -1,15 +1,15 @@
 import '@/styles/layout-wrapper.styles.scss';
 import '@/styles/GroupsList.scss';
-import PageHeaderSection from "@/components/DashboardHeaderSection/PageHeaderSection.tsx";
+import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSection.tsx";
 import {Input} from "@/components/ui/input.tsx";
-import CardsListContentSection from "@/components/GroupsListContentSection/CardsListContentSection.tsx";
+import CardsListContentSection from "@/components/Groups/GroupsListContentSection/CardsListContentSection.tsx";
 import useUserGroupsInfo from "@/api/groups/useUserGroupsInfo.ts";
 import {useNavigate} from "react-router-dom";
 import Card from "@/components/Card/Card.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import ModalBoxes from "@/modals/ModalBoxes.tsx";
-import CreateNewGroupModal from "@/components/GroupModals/CreateNewGroupModal/CreateNewGroupModal.tsx";
-import { EditGroupModal } from '@/components/GroupModals/EditGroupModal/EditGroupModal';
+import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
+import CreateNewGroupModal from "@/components/Modals/GroupModals/CreateNewGroupModal.tsx";
+import { EditGroupModal } from '@/components/Modals/GroupModals/EditGroupModal.tsx';
 import {UserGroupsInfoResponse} from "@/api/groups/groups.ts";
 import React from "react";
 

@@ -40,10 +40,34 @@
     }
 
     .modal-box-body {
+      width: 100%;
       padding: 0 50px;
       min-height: 78px;
+
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  .modal-box-footer {
+    display: flex;
+    padding: 25px 50px 35px 50px;
+
+    .modal-box-cancel-button {
+      background-color: #FF7474;
+      flex: 0 1 45px;
+      padding: 25px 20px;
+      border-radius: 12px;
+
+      margin-right: 25px;
+    }
+
+    .modal-box-confirm-button {
+      width: 100%;
+      font-family: 'Gilroy Bold', sans-serif;
+      font-size: 18px;
+      padding: 25px;
+      border-radius: 12px;
     }
   }
 

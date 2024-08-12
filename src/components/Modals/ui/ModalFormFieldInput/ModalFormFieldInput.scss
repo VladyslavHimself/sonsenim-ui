@@ -1,0 +1,11 @@
+.modal-form-field-input-label {
+    font-family: "Gilroy Regular", sans-serif;
+    font-size: 20px;
+}
+
+.modal-form-field-input {
+    &::placeholder {
+        font-family: "Gilroy Light", sans-serif;
+        color: #B9B9B9;
+    }
+}

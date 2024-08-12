@@ -1,8 +1,8 @@
 import './NavSidebar.scss';
 import Logotype from '@/assets/logo.png';
 import {Outlet} from "react-router-dom";
-import useSidebarStatus from "@/components/NavSidebar/useSidebarStatus.tsx";
-import NavSidebarList from "@/components/NavSidebar/NavSidebarList/NavSidebarList.tsx";
+import useSidebarStatus from "@/pages/NavSidebar/useSidebarStatus.tsx";
+import NavSidebarList from "@/pages/NavSidebar/NavSidebarList/NavSidebarList.tsx";
 import {memo, useState} from "react";
 
 // TODO: Add localStorage state

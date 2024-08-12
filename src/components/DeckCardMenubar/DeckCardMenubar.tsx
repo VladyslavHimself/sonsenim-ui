@@ -1,9 +1,9 @@
 import './DeckMenubar.scss';
 import {Button} from "@/components/ui/button.tsx";
 import {Brain, Download, Edit, List, PlusIcon, Upload} from "lucide-react";
-import ModalBoxes from "@/modals/ModalBoxes.tsx";
-import EditDeckModal from "@/components/DeckModals/EditDeckModal/EditDeckModal.tsx";
-import AddNewCardModal from "@/components/CardModals/AddNewCardModal/AddNewCardModal.tsx";
+import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
+import EditDeckModal from "@/components/Modals/DeckModals/EditDeckModal.tsx";
+import AddNewCardModal from "@/components/Modals/CardModals/AddNewCardModal.tsx";
 
 type Props = {
     modalBox?: any,

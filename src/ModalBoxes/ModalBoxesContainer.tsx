@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React, {useEffect, useState} from "react";
-import ModalBoxes from "@/modals/ModalBoxes.tsx";
+import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import {Button} from "@/components/ui/button.js";
 import {isEmpty, isFunction} from "lodash";
 

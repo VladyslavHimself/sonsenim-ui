@@ -1,6 +1,6 @@
 import './NoGroupsAlert.scss';
 
-import AvatarImg from '../../assets/Icons/scaledAvatar.png';
+import AvatarImg from '../../../assets/Icons/scaledAvatar.png';
 
 export default function NoGroupsAlert() {
     return (

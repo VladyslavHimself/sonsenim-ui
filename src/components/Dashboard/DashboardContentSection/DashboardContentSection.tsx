@@ -1,7 +1,7 @@
 import './DashboardContentSection.scss';
 import {useQueryClient} from "@tanstack/react-query";
 import {UserGroupResponse} from "@/api/groups/groups.ts";
-import NoGroupsAlert from "@/components/DashboardContentSection/NoGroupsAlert.tsx";
+import NoGroupsAlert from "@/components/Dashboard/DashboardContentSection/NoGroupsAlert.tsx";
 import useUserGroupStatistics from "@/api/groups/useUserGroupStatistics.ts";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";

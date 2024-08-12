@@ -12,6 +12,7 @@ export function useCreateUserGroupMutation(callback: Function) {
             callback(data, variables, context);
         },
         onError: () =>
+            // TODO: Make ToastManager
             toast({
                 variant: 'destructive',
                 title: "Group creation failed",

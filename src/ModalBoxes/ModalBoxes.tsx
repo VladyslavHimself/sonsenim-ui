@@ -2,8 +2,27 @@
 
 import { EventEmitter } from 'events';
 import { v4 as uuid } from 'uuid';
+import {Button, ButtonProps} from "@/components/ui/button.tsx";
+import React from "react";
+
+type ConfirmFooterProps = {
+    closeButtonProperties?: {
+        label: string | Element,
+        action?: () => void,
+        restProps?: ButtonProps & React.RefAttributes<HTMLButtonElement>
+    },
+    submitButtonProperties: {
+        label: string | Element,
+        formId: string,
+        action?: () => void,
+        restProps?: ButtonProps & React.RefAttributes<HTMLButtonElement>
+    }
+}
 
 class ModalBoxes extends EventEmitter {
+    ConfirmFooter: any;
+    Body: any;
+
     constructor() {
         super();
         this.modalBoxes = [];
@@ -84,5 +103,36 @@ class ModalBoxes extends EventEmitter {
         this.removeListener('change', callback);
     }
 }
+
+
+ModalBoxes.prototype.Footer = function ({ children }) {
+    return <div className="modal-box-footer">{children}</div>
+}
+
+
+// TODO: Rename close button to more clearly naming (later)
+ModalBoxes.prototype.ConfirmFooter = function ({ closeButtonProperties, submitButtonProperties }: ConfirmFooterProps) {
+    return <div className="modal-box-footer">
+        {
+            closeButtonProperties && <Button
+                onClick={closeButtonProperties.action}
+                className="modal-box-cancel-button"
+                {...closeButtonProperties.restProps}
+            >{closeButtonProperties.label}</Button>
+        }
+        <Button
+            form={submitButtonProperties.formId}
+            type="submit"
+            className="modal-box-confirm-button"
+            {...submitButtonProperties.restProps}
+        >{submitButtonProperties.label}</Button>
+    </div>
+}
+
+ModalBoxes.prototype.Body = function ({ children }) {
+    return <div className="modal-box-body">{children}</div>
+}
+
+// TODO: Add context API to pass the data
 
 export default new ModalBoxes();

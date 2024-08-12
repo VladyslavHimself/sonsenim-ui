@@ -1,15 +1,15 @@
 import {useParams, useSearchParams} from "react-router-dom";
 import '@/styles/layout-wrapper.styles.scss';
 import {Input} from "@/components/ui/input.tsx";
-import PageHeaderSection from "@/components/DashboardHeaderSection/PageHeaderSection.tsx";
+import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSection.tsx";
 import {ListFilter} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
-import CardsListContentSection from "@/components/GroupsListContentSection/CardsListContentSection.tsx";
+import CardsListContentSection from "@/components/Groups/GroupsListContentSection/CardsListContentSection.tsx";
 import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
 import Card from "@/components/Card/Card.tsx";
-import ModalBoxes from "@/modals/ModalBoxes.tsx";
+import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import DeckCardMenubar from "@/components/DeckCardMenubar/DeckCardMenubar.tsx";
-import CreateNewDeckModal from "@/components/DeckModals/CreateNewDeckModal/CreateNewDeckModal.tsx";
+import CreateNewDeckModal from "@/components/Modals/DeckModals/CreateNewDeckModal.tsx";
 
 export default function SelectedGroupPage() {
     const { groupId } = useParams();
