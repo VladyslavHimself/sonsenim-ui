@@ -2,7 +2,7 @@ import {z} from "zod";
 
 
 export const newCardConfigurationSchema = z.object({
-    primaryWord: z.string(),
-    definition: z.string(),
-    explanation: z.string().optional()
+    primaryWord: z.string().min(1),
+    definition: z.string().min(1),
+    explanation: z.any().optional()
 });

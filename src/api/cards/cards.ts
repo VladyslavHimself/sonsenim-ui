@@ -26,6 +26,10 @@ const CardsApi = {
     // TODO: Change id params to string in other areas
     getCardsInDeck(deckId: string) {
         return axios.get<Card[]>(`/api/cards/${deckId}`);
+    },
+
+    updateCard(cardId: string, deckId: string, cardConfiguration: NewCardConfigurationBody) {
+        return axios.put(`/api/cards/${deckId}/${cardId}`, cardConfiguration);
     }
 };
 

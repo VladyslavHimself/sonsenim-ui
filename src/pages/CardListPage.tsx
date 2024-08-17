@@ -9,21 +9,22 @@ import CardListTableContent from "@/components/CardListTableContent/CardListTabl
 import {useMemo} from "react";
 
 export type CardTableEntity = Omit<Card,
-    'createdAt' | 'explanation' | 'nextRepetitionTime'
+    'createdAt' | 'nextRepetitionTime'
     > & { level: string }
 
 export default function CardListPage() {
     const { deckId } = useParams();
-    const { deckCards } = useCards(deckId!);
+    const { deckCards, refetch } = useCards(deckId!);
 
     const cardEntitiesForTable = useMemo(() => {
-        return deckCards?.map(({ cardId, intervalStrength, primaryWord, definition}): CardTableEntity => {
+        return deckCards?.map(({ cardId, intervalStrength, primaryWord, definition, explanation}): CardTableEntity => {
             return {
                 cardId,
                 level: resolveStrengthLevel(intervalStrength),
                 intervalStrength,
                 primaryWord,
-                definition
+                definition,
+                explanation
             };
         })
     }, [deckCards]);
@@ -41,7 +42,7 @@ export default function CardListPage() {
                     </>
                 )}/>
 
-            <CardListTableContent deckCards={cardEntitiesForTable!} />
+            <CardListTableContent deckCards={cardEntitiesForTable!} refetchCards={refetch} />
         </div>
     );
 };
@@ -51,19 +52,10 @@ const SEVEN_DAYS = 7;
 const NINETY_DAYS = 90;
 
 function resolveStrengthLevel(intervalStrengthTime: number): string {
-    if (intervalStrengthTime < EIGHT_HOURS) {
-        return "Very low";
-    }
-    if (intervalStrengthTime >= EIGHT_HOURS && intervalStrengthTime < SEVEN_DAYS) {
-        return "Low";
-    }
-    if (intervalStrengthTime >= SEVEN_DAYS && intervalStrengthTime < NINETY_DAYS) {
-        return "Medium";
-    }
-    if (intervalStrengthTime >= NINETY_DAYS) {
-        return "High";
-    }
-    return "Unknown";
+    if (intervalStrengthTime < EIGHT_HOURS) return "Very low";
+    if (intervalStrengthTime < SEVEN_DAYS) return "Low";
+    if (intervalStrengthTime < NINETY_DAYS) return "Medium";
+    return "High";
 }
 
 
