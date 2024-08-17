@@ -41,7 +41,7 @@ export default function CreateNewGroupModal({ modalBox, refetchUsersInfo }: Prop
                 </Form>
             </ModalBoxes.Body>
 
-            <ModalBoxes.ConfirmFooter
+            <ModalBoxes.ModalFooter
                 submitButtonProperties={{
                     label: 'Create',
                     formId: 'create-group-form'

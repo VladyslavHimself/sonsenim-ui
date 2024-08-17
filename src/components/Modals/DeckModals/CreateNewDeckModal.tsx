@@ -47,7 +47,7 @@ export default function CreateNewDeckModal({ groupId, refetchDecks, modalBox }: 
                     </form>
                 </Form>
             </ModalBoxes.Body>
-            <ModalBoxes.ConfirmFooter
+            <ModalBoxes.ModalFooter
                 submitButtonProperties={{
                     label: 'Create',
                     formId: 'create-deck-form',

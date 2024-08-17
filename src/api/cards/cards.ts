@@ -30,6 +30,10 @@ const CardsApi = {
 
     updateCard(cardId: string, deckId: string, cardConfiguration: NewCardConfigurationBody) {
         return axios.put(`/api/cards/${deckId}/${cardId}`, cardConfiguration);
+    },
+
+    removeCardFromDeck(deckId: string, cardId: string) {
+        return axios.delete(`/api/cards/${deckId}/${cardId}`);
     }
 };
 

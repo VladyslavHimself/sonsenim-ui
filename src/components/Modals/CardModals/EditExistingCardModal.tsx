@@ -7,7 +7,7 @@ import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
 import {CardTableEntity} from "@/pages/CardListPage.tsx";
-import onEditCardMutation from "@/api/cards/onEditCardMutation.ts";
+import useEditCardMutation from "@/api/cards/useEditCardMutation.ts";
 
 type Props = {
     card: CardTableEntity,
@@ -18,7 +18,7 @@ type Props = {
 
 export default function EditExistingCardModal({ card, deckId, refetchCardsFn, modalBox }: Props) {
     const { primaryWord, explanation, definition, cardId } = card;
-    const { updateCardMutation } = onEditCardMutation(() => {
+    const { updateCardMutation } = useEditCardMutation(() => {
         refetchCardsFn();
         modalBox.close();
     });
@@ -41,7 +41,7 @@ export default function EditExistingCardModal({ card, deckId, refetchCardsFn, mo
                 </form>
             </Form>
         </ModalBoxes.Body>
-        <ModalBoxes.ConfirmFooter
+        <ModalBoxes.ModalFooter
             submitButtonProperties={{
                 label: "Edit",
                 formId: "edit-card-form",

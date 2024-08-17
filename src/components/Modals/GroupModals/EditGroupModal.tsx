@@ -52,7 +52,7 @@ export function EditGroupModal({ modalBox, refetchGroups, currentGroup }: Props)
                 </Form>
             </ModalBoxes.Body>
 
-            <ModalBoxes.ConfirmFooter
+            <ModalBoxes.ModalFooter
                 closeButtonProperties={{
                     label: <Trash2Icon />,
                     action: () => deleteUserGroup(currentGroup.groupId)

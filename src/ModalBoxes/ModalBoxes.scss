@@ -53,6 +53,11 @@
     display: flex;
     padding: 25px 50px 35px 50px;
 
+
+    &.modal-box-confirm-footer {
+      padding: 25px 0 35px 0;
+    }
+
     .modal-box-cancel-button {
       background-color: #FF7474;
       flex: 0 1 45px;
@@ -62,7 +67,7 @@
       margin-right: 25px;
     }
 
-    .modal-box-confirm-button {
+    .modal-box-submit-button {
       width: 100%;
       font-family: 'Gilroy Bold', sans-serif;
       font-size: 18px;
@@ -70,6 +75,4 @@
       border-radius: 12px;
     }
   }
-
-
 }

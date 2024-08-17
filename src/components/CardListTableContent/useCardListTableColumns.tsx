@@ -8,6 +8,7 @@ import {ColumnDef} from "@tanstack/react-table";
 import {CardTableEntity} from "@/pages/CardListPage.tsx";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import EditExistingCardModal from "@/components/Modals/CardModals/EditExistingCardModal.tsx";
+import RemoveCardConfirmModal from "@/components/Modals/RemoveCardConfirmModal/RemoveCardConfirmModal.tsx";
 
 
 export default function useCardListTableColumns(refetchCardsFn: () => void) {
@@ -84,10 +85,25 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                         <Popover>
                             <PopoverTrigger><MoreVerticalIcon /></PopoverTrigger>
                             <PopoverContent side="left">
-                                <Button variant="ghost" className="popup-menu-card-button" onClick={() => openEditCardModal(row.original, deckId!, refetchCardsFn)}>
-                                    <PencilIcon style={{marginRight: '15px'}}/>Edit
+                                <Button variant="ghost" className="popup-menu-card-button"
+                                        onClick={() => openEditCardModal(
+                                            row.original,
+                                            deckId!,
+                                            refetchCardsFn)
+                                }>
+                                    <PencilIcon style={{marginRight: '15px'}}/>
+                                    Edit
                                 </Button>
-                                <Button variant="ghost" className="popup-menu-card-button remove-button"><Trash2Icon style={{marginRight: '15px'}}/>Remove</Button>
+                                <Button
+                                    variant="ghost" className="popup-menu-card-button remove-button"
+                                    onClick={() => openDeleteCardConfirm(
+                                        deckId!,
+                                        row.original.cardId as unknown as string,
+                                        refetchCardsFn)
+                                }>
+                                    <Trash2Icon style={{marginRight: '15px'}}/>
+                                    Remove
+                                </Button>
                             </PopoverContent>
                         </Popover>
                     </div>;
@@ -103,5 +119,14 @@ function openEditCardModal(selectedCard: CardTableEntity, deckId: string, refetc
         title: 'Edit card',
         component: <EditExistingCardModal card={selectedCard} deckId={deckId} refetchCardsFn={refetchCardsFn} />,
         onClose: () => {}
+    })
+}
+
+function openDeleteCardConfirm(deckId: string, cardId: string, refetchCardsFn: () => void) {
+    ModalBoxes.open({
+        className: 'remove-card-confirm-modal',
+        title: 'Delete card',
+        component: <RemoveCardConfirmModal deckId={deckId} cardId={cardId!} />,
+        onClose: () => refetchCardsFn()
     })
 }

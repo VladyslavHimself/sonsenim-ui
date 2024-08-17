@@ -3,7 +3,7 @@ import {Form} from "@/components/ui/form.tsx";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {newCardConfigurationSchema} from "@/components/Modals/CardModals/newCardConfiguration.schema.ts";
-import onAddNewCardMutation from "@/api/cards/onAddNewCardMutation.ts";
+import useAddNewCardMutation from "@/api/cards/useAddNewCardMutation.ts";
 import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function AddNewCardModal({ deckId, refetchDecks }: Props) {
-    const { addNewCard } = onAddNewCardMutation(() => {
+    const { addNewCard } = useAddNewCardMutation(() => {
         refetchDecks();
         form.setValue('primaryWord', '')
         form.setValue('definition', '')
@@ -39,7 +39,7 @@ export default function AddNewCardModal({ deckId, refetchDecks }: Props) {
                 </form>
             </Form>
         </ModalBoxes.Body>
-        <ModalBoxes.ConfirmFooter
+        <ModalBoxes.ModalFooter
             submitButtonProperties={{
                 label: "Add new card",
                 formId: "add-new-card-form",

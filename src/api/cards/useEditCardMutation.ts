@@ -4,24 +4,26 @@ import {toast} from "@/components/ui/use-toast.ts";
 import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
 
 type CardConfigurationVariables = {
-    deckId: number,
+    cardId: string;
+    deckId: string,
     cardConfiguration: NewCardConfigurationBody
+
 }
 
-export default function onAddNewCardMutation(callback: Function) {
-    const { mutate: addNewCard } = useMutation({
-        mutationKey: ['add-new-card'],
+export default function useEditCardMutation(callback: Function) {
+    const { mutate: updateCardMutation } = useMutation({
+        mutationKey: ['edit-existing-card'],
         mutationFn: (variables: CardConfigurationVariables) =>
-            CardsApi.addCardToDeck(variables.deckId, variables.cardConfiguration),
+            CardsApi.updateCard(variables.cardId, variables.deckId, variables.cardConfiguration),
         onSuccess: (data, variables, context) => {
             callback(data, variables, context);
         },
         onError: () => toast({
             variant: "destructive",
-            title: "Card creation failed",
-            description: "Can't create card, please try again later"
+            title: "Card editing failed",
+            description: "Can't edit card, please try again later"
         })
     });
 
-    return { addNewCard };
+    return { updateCardMutation };
 }

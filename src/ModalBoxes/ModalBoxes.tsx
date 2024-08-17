@@ -5,13 +5,13 @@ import { v4 as uuid } from 'uuid';
 import {Button, ButtonProps} from "@/components/ui/button.tsx";
 import React from "react";
 
-type ConfirmFooterProps = {
+type FooterModalProps = {
     closeButtonProperties?: {
         label: string | Element,
         action?: () => void,
         restProps?: ButtonProps & React.RefAttributes<HTMLButtonElement>
     },
-    submitButtonProperties: {
+    submitButtonProperties?: {
         label: string | Element,
         formId: string,
         action?: () => void,
@@ -19,7 +19,16 @@ type ConfirmFooterProps = {
     }
 }
 
+type FooterConfirmProps = {
+    confirmButtonProperties: {
+        label: string | Element,
+        action: () => void,
+        restProps?: ButtonProps & React.RefAttributes<HTMLButtonElement>
+    }
+}
+
 class ModalBoxes extends EventEmitter {
+    ModalFooter: any;
     ConfirmFooter: any;
     Body: any;
 
@@ -111,7 +120,7 @@ ModalBoxes.prototype.Footer = function ({ children }) {
 
 
 // TODO: Rename close button to more clearly naming (later)
-ModalBoxes.prototype.ConfirmFooter = function ({ closeButtonProperties, submitButtonProperties }: ConfirmFooterProps) {
+ModalBoxes.prototype.ModalFooter = function ({ closeButtonProperties, submitButtonProperties }: FooterModalProps) {
     return <div className="modal-box-footer">
         {
             closeButtonProperties && <Button
@@ -123,9 +132,19 @@ ModalBoxes.prototype.ConfirmFooter = function ({ closeButtonProperties, submitBu
         <Button
             form={submitButtonProperties.formId}
             type="submit"
-            className="modal-box-confirm-button"
+            className="modal-box-submit-button"
             {...submitButtonProperties.restProps}
         >{submitButtonProperties.label}</Button>
+    </div>
+}
+
+ModalBoxes.prototype.ConfirmFooter = function ({ confirmButtonProperties }: FooterConfirmProps) {
+    return <div className="modal-box-footer modal-box-confirm-footer">
+        <Button
+            onClick={confirmButtonProperties.action}
+            className={`modal-box-submit-button ${confirmButtonProperties.className}`}
+            {...confirmButtonProperties.restProps}
+        >{confirmButtonProperties.label}</Button>
     </div>
 }
 

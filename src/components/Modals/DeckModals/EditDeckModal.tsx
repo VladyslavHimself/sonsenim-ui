@@ -64,7 +64,7 @@ export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }
                 </Form>
             </ModalBoxes.Body>
 
-            <ModalBoxes.ConfirmFooter
+            <ModalBoxes.ModalFooter
                 closeButtonProperties={{
                     label: <Trash2Icon />,
                     action: () => deleteDeck(deckProperties.id)
