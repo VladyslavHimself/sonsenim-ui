@@ -9,6 +9,7 @@ import {NavigateFunction} from "react-router-dom";
 type Props = {
     modalBox?: any,
     groupId: string,
+    groupName: string,
     deckProperties: any,
     refetchDecks: () => void,
     navigate: NavigateFunction,
@@ -18,7 +19,7 @@ type Props = {
 export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks, groupId, navigate }: Props) {
     return (
         <div className="deck-menubar-container">
-            <Button variant="outline" className="menubar-list-item"><Brain /> Start Learning</Button>
+            <Button variant="outline" className="menubar-list-item" onClick={openMemoizationPage}><Brain /> Start Learning</Button>
             <Button variant="outline" className="menubar-list-item" onClick={onAddNewCardHandle}><PlusIcon /> Add new card</Button>
             <Button variant="outline" className="menubar-list-item" onClick={openCardListPage}><List />Card List</Button>
             <Button variant="outline" className="menubar-list-item" onClick={onEditDeckHandle}><Edit />Edit deck</Button>
@@ -49,6 +50,13 @@ export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks
 
     function openCardListPage() {
         navigate(`/groups/${groupId}/card-list/${deckProperties.id}`);
+        modalBox.close();
+    }
+
+    function openMemoizationPage() {
+        navigate(`/memoization`, {
+            state: { groupId, deckProperties },
+        });
         modalBox.close();
     }
 };

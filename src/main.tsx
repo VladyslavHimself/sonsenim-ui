@@ -15,6 +15,7 @@ import GroupsList from "@/pages/GroupsList.tsx";
 import ModalBoxesContainer from "@/ModalBoxes/ModalBoxesContainer.tsx";
 import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
 import CardListPage from "@/pages/CardListPage.tsx";
+import MemoizationPage from "@/pages/MemoizationPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: '/groups/:groupId/card-list/:deckId',
                 element: <ProtectedRoute><CardListPage /></ProtectedRoute>
+            },
+            {
+                path: '/memoization',
+                element: <ProtectedRoute><MemoizationPage /></ProtectedRoute>
             }
         ]
     }
