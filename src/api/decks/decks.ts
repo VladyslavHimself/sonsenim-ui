@@ -20,6 +20,10 @@ export type DeckWithAggregatedDataResponse = Deck & {
 }
 
 export const DecksApi = {
+    getDeckById(deckId: string) {
+      return axios.get(`/api/decks/id/${deckId}`);
+    },
+
     getDecksWithAggregatedData(groupId: string) {
         return axios.get<DeckWithAggregatedDataResponse[]>(`/api/decks/stats/${groupId}`);
     },

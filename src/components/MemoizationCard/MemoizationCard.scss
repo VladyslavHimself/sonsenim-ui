@@ -1,0 +1,33 @@
+.memoization-card-container {
+    width: 1038px;
+    height: 500px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    border-radius: 13px;
+    background-color: #FBFBFB;
+    margin: 0 auto;
+
+    font-family: "Gilroy Medium", sans-serif;
+
+    .memoization-card-word {
+        font-size: 32px;
+    }
+
+    .memoization-card-flip-word {
+        margin-top: 42px;
+        font-size: 32px;
+        color: #636363;
+    }
+
+    .memoization-card-description {
+        width: 80%;
+        color: #636363;
+
+        margin-top: 25px;
+        font-size: 24px;
+    }
+}

@@ -54,9 +54,7 @@ export default function DeckCardMenubar({ modalBox, deckProperties, refetchDecks
     }
 
     function openMemoizationPage() {
-        navigate(`/memoization`, {
-            state: { groupId, deckProperties },
-        });
+        navigate(`/memoization/${deckProperties.id}`);
         modalBox.close();
     }
-};
+}

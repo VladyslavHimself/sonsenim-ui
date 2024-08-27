@@ -1,19 +1,13 @@
 import './MemoizationPageHeader.scss';
 import {Button} from "@/components/ui/button.tsx";
 import {House} from "lucide-react";
-import {useLocation, useNavigate} from "react-router-dom";
-import {useQueryClient} from "@tanstack/react-query";
-
+import {useNavigate} from "react-router-dom";
+import {useMemoizationPageState} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
 
 export default function MemoizationPageHeader() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const query = useQueryClient();
-
-
-    const deck = query.getQueryData(['aggregated-decks', location.state.groupId]);
-
-    console.log(deck);
+    const { deck } = useMemoizationPageState();
+    
 
     return (
         <div className="memoization-page-header">
@@ -21,8 +15,8 @@ export default function MemoizationPageHeader() {
                     onClick={() => navigate('/dashboard', { replace: true })}>
                 <House size={25} />
             </Button>
-            <h2>{  }</h2>
+            <h2>{ deck?.deckName }</h2>
             <Button>Finish</Button>
         </div>
     );
-};
+}

@@ -15,7 +15,8 @@ import GroupsList from "@/pages/GroupsList.tsx";
 import ModalBoxesContainer from "@/ModalBoxes/ModalBoxesContainer.tsx";
 import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
 import CardListPage from "@/pages/CardListPage.tsx";
-import MemoizationPage from "@/pages/MemoizationPage.tsx";
+import MemoizationPage from "@/pages/MemoizationPage/MemoizationPage.tsx";
+import MemoizationPageProvider from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
 
 const router = createBrowserRouter([
     {
@@ -51,8 +52,14 @@ const router = createBrowserRouter([
                 element: <ProtectedRoute><CardListPage /></ProtectedRoute>
             },
             {
-                path: '/memoization',
-                element: <ProtectedRoute><MemoizationPage /></ProtectedRoute>
+                path: '/memoization/:deckId',
+                element: (
+                    <ProtectedRoute>
+                        <MemoizationPageProvider>
+                            <MemoizationPage />
+                        </MemoizationPageProvider>
+                    </ProtectedRoute>
+                )
             }
         ]
     }

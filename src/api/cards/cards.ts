@@ -17,9 +17,17 @@ export type Card = {
     createdAt: string,
 }
 
+export type UpdateCardTimeCurveConfigurationBody = {
+    isAnswerRight: boolean
+}
+
 const CardsApi = {
     addCardToDeck(deckId: number, newCardConfiguration: NewCardConfigurationBody) {
-        return axios.post(`/api/cards/${deckId}`, newCardConfiguration)
+        return axios.post(`/api/cards/${deckId}`, newCardConfiguration);
+    },
+
+    getCardsToRepeatFromDeck(deckId: string) {
+        return axios.get<Card[]>(`/api/cards/${deckId}/to-repeat`);
     },
 
 
@@ -34,6 +42,10 @@ const CardsApi = {
 
     removeCardFromDeck(deckId: string, cardId: string) {
         return axios.delete(`/api/cards/${deckId}/${cardId}`);
+    },
+
+    updateCardTimeCurve(cardId: string, configuration: UpdateCardTimeCurveConfigurationBody) {
+        return axios.patch(`/api/cards/${cardId}/update-curve/1`, configuration);
     }
 };
 
