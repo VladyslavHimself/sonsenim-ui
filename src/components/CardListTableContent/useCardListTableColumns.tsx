@@ -58,7 +58,9 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
             {
                 accessorKey: 'intervalStrength',
                 header: "Interval",
-                cell: ({ row }) => <div className="data-table-cell">{row.getValue('intervalStrength')}</div>
+                cell: ({ row }) => {
+                    return <div className="data-table-cell">{resolveIntervalStrValues(row.getValue('intervalStrength'))}</div>;
+                }
             },
 
             {
@@ -110,7 +112,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                 }
             },
         ]
-    }, [])
+    }, [refetchCardsFn])
 }
 
 function openEditCardModal(selectedCard: CardTableEntity, deckId: string, refetchCardsFn: () => void) {
@@ -129,4 +131,17 @@ function openDeleteCardConfirm(deckId: string, cardId: string, refetchCardsFn: (
         component: <RemoveCardConfirmModal deckId={deckId} cardId={cardId!} />,
         onClose: () => refetchCardsFn()
     })
+}
+
+const intervalNums = {
+    [0]: 'Now',
+    [0.125]: '3 hours',
+    [0.25]: '6 hours',
+    [0.5]: '12 hours',
+} as const;
+
+type IntervalNumsValues = keyof typeof intervalNums;
+
+function resolveIntervalStrValues(intervalStrength: IntervalNumsValues) {
+    return intervalNums[intervalStrength] || `${intervalStrength} days`;
 }

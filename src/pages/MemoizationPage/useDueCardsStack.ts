@@ -17,9 +17,7 @@ export default function useDueCardsStack() {
         setDueCards(shuffleArray(data))
     });
     const currentCard = useMemo(() => dueCards[0], [dueCards]);
-    const { updateCardTimeCurve } = useUpdateCardTimeCurveMutation((data) => {
-        console.log(data);
-    });
+    const { updateCardTimeCurve } = useUpdateCardTimeCurveMutation((data) => {});
 
     function markCurrentCardAsCorrect() {
         if (isEmpty(dueCards)) return;
