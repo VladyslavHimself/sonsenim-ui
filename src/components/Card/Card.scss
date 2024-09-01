@@ -12,6 +12,33 @@
 
   margin: 20px;
 
+  position: relative;
+
+
+  // TODO: Find solution to simplify it
+  &[data-notification-message]:not([data-notification-message="0"]):after {
+    content: attr(data-notification-message);
+    position: absolute;
+    top: -10%;
+    left: 105%;
+
+    transform: translate(-105%, -10%);
+
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    background-color: #FF6F6D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    font-size: 14px;
+    font-family: "Gilroy Medium", sans-serif;
+    letter-spacing: 1px;
+  }
+
+
   &:hover {
     background-color: #e1e1e1;
   }
@@ -23,6 +50,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+
 
     .group-card-info-title {
       display: flex;

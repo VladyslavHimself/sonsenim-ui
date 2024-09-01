@@ -17,6 +17,7 @@ export type DeckConfigurationBody = Omit<Deck, 'id' | 'createdAt'>
 
 export type DeckWithAggregatedDataResponse = Deck & {
     cardsInDeckTotal: number;
+    dueCardsInDeck: number;
 }
 
 export const DecksApi = {

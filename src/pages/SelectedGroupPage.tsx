@@ -48,6 +48,7 @@ export default function SelectedGroupPage() {
                         <Card
                             key={groupId}
                             cardTitle={deck.deckName}
+                            notificationMessage={deck?.dueCardsInDeck}
                             secondaryTile={<div>{`${deck.cardsInDeckTotal} cards`}</div>}
                             onClickHandler={() => ModalBoxes.open({
                                 className: 'deck-menubar',

@@ -10,12 +10,20 @@ type Props = {
     onClickHandler: MouseEventHandler<HTMLDivElement>,
     onEditHandler?: MouseEventHandler<SVGSVGElement>,
     imageSrc?: string
+    notificationMessage?: number;
 }
 
 
 
 // TODO: Move refetch
-export default function Card({ cardTitle, secondaryTile, onClickHandler, onEditHandler, imageSrc }: Props) {
+export default function Card({
+     cardTitle,
+     notificationMessage,
+     secondaryTile,
+     onClickHandler,
+     onEditHandler,
+     imageSrc
+}: Props) {
     // TODO: Make it with ref
     const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
     return (
@@ -25,6 +33,9 @@ export default function Card({ cardTitle, secondaryTile, onClickHandler, onEditH
              onMouseEnter={() => setIsEditVisible(true)}
              onMouseLeave={() => {setIsEditVisible(false)}}
              onClick={onClickHandler}
+             {...(notificationMessage !== undefined && {
+                 'data-notification-message': notificationMessage
+             })}
         >
             <div className="group-card-info">
                 <div className="group-card-info-title">
