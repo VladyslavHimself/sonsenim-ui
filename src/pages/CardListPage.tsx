@@ -41,11 +41,10 @@ export default function CardListPage() {
                         </div>
                     </>
                 )}/>
-
             <CardListTableContent deckCards={cardEntitiesForTable!} refetchCards={refetch} />
         </div>
     );
-};
+}
 
 const EIGHT_HOURS = 0.4;
 const SEVEN_DAYS = 7;

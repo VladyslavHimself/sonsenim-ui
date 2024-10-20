@@ -45,7 +45,7 @@ const CardsApi = {
     },
 
     updateCardTimeCurve(cardId: string, configuration: UpdateCardTimeCurveConfigurationBody) {
-        return axios.patch(`/api/cards/${cardId}/update-curve/1`, configuration);
+        return axios.patch(`/api/cards/${cardId}/update-curve`, configuration);
     }
 };
 
