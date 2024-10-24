@@ -2,12 +2,16 @@ import './MemoizationPageHeader.scss';
 import {Button} from "@/components/ui/button.tsx";
 import {House} from "lucide-react";
 import {useNavigate} from "react-router-dom";
-import {useMemoizationPageState} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
+import {
+    IS_REGULAR_TEST,
+    useMemoizationPageState
+} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
 
 export default function MemoizationPageHeader() {
     const navigate = useNavigate();
-    const { deck } = useMemoizationPageState();
-    
+    const { deck, currentTestStage } = useMemoizationPageState();
+
+    const headerTitle = currentTestStage === IS_REGULAR_TEST ? deck?.deckName : "Error Correction";
 
     return (
         <div className="memoization-page-header">
@@ -15,7 +19,7 @@ export default function MemoizationPageHeader() {
                     onClick={() => navigate('/dashboard', { replace: true })}>
                 <House size={25} />
             </Button>
-            <h2>{ deck?.deckName }</h2>
+            <h2>{ headerTitle }</h2>
             <Button>Finish</Button>
         </div>
     );
