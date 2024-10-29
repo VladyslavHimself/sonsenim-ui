@@ -54,6 +54,7 @@ export default function MemoizationPageProvider({ children }: Props) {
     return (
         <MemoizationPageStateContext.Provider value={{
             deck,
+            dueCards,
             currentCard,
             currentCardFlowStage,
             currentTestStage,

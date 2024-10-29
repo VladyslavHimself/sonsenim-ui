@@ -38,7 +38,7 @@ export default function useDueCardsStack() {
         setCardsToRepeat(prevState => [...prevState, currentCard]);
         isServerShouldUpdate && updateCardTimeCurve({
             cardId: currentCard.cardId as unknown as string,
-            configuration: { isAnswerRight: false }
+            configuration: { answerIsRight: false }
         });
         setDueCards(prevCards => prevCards.slice(1));
     }

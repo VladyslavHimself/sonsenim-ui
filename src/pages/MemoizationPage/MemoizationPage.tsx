@@ -9,7 +9,7 @@ import {
 import MemoizationCard from "@/components/MemoizationCard/MemoizationCard.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import { LucideRotateCw, ThumbsDown, ThumbsUp} from "lucide-react";
-import {isFunction} from "lodash";
+import { isFunction } from "lodash";
 import {CardChoiceFlowResolveType} from "@/pages/MemoizationPage/useDueCardsStack.ts";
 // TODO: REMINDER - Implement query cache manager to get cached data from react-query
 
@@ -32,7 +32,7 @@ export default function MemoizationPage() {
             { currentCardFlowStage === IS_PENDING_ANSWER &&
                 (<div className="memoization-page-buttons">
                     <Button className="memoization-button"
-                            onClick={() => setFlippedStatus()}><LucideRotateCw /> Flip card</Button>
+                            onClick={() => setFlippedStatus()}><LucideRotateCw />Flip card</Button>
                 </div>)
             }
 
@@ -51,9 +51,10 @@ export default function MemoizationPage() {
 
     function setFlippedStatus() { setCurrentCardFlowStage(IS_CARD_FLIPPED); }
     function setPendingAnswerStatus() { setCurrentCardFlowStage(IS_PENDING_ANSWER); }
-}
 
-function withSetNextStage(setStage: () => void, fn?: () => void) {
-    isFunction(setStage) && setStage();
-    isFunction(fn) && fn();
+
+    function withSetNextStage(setStage: () => void, fn?: () => void) {
+        isFunction(setStage) && setStage();
+        isFunction(fn) && fn();
+    }
 }

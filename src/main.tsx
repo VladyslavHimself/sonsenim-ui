@@ -17,6 +17,7 @@ import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
 import CardListPage from "@/pages/CardListPage.tsx";
 import MemoizationPage from "@/pages/MemoizationPage/MemoizationPage.tsx";
 import MemoizationPageProvider from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
+import MemoizationReview from "@/pages/MemoizationReview.tsx";
 
 const router = createBrowserRouter([
     {
@@ -58,6 +59,15 @@ const router = createBrowserRouter([
                         <MemoizationPageProvider>
                             <MemoizationPage />
                         </MemoizationPageProvider>
+                    </ProtectedRoute>
+                )
+            },
+
+            {
+                path: '/memoization/review',
+                element: (
+                    <ProtectedRoute>
+                        <MemoizationReview />
                     </ProtectedRoute>
                 )
             }
