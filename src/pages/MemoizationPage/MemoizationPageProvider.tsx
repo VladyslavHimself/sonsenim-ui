@@ -1,5 +1,5 @@
 import React, {PropsWithChildren, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import useDeck from "@/api/decks/useDeck.ts";
 import useDueCardsStack from "@/pages/MemoizationPage/useDueCardsStack.ts";
 import {
@@ -8,6 +8,7 @@ import {
     IS_REGULAR_TEST
 } from "@/pages/MemoizationPage/memoizationPage.constants.ts";
 import {MemoizationPageStage, MemoizationProgressStage} from "@/pages/MemoizationPage/memoizationPage.types.ts";
+import {isEmpty} from "lodash";
 
 
 // TODO: Add types later
@@ -18,6 +19,7 @@ export default function MemoizationPageProvider({ children }: PropsWithChildren)
     const [currentCardFlowStage, setCurrentCardFlowStage] = useState<MemoizationPageStage>(IS_PENDING_ANSWER);
     const [currentTestStage, setCurrentTestStage] = useState<MemoizationProgressStage>(IS_REGULAR_TEST);
     const { deckId } = useParams();
+    const navigate = useNavigate();
     const { deck } = useDeck(deckId!);
     const { currentCard,
         dueCards,
@@ -30,10 +32,11 @@ export default function MemoizationPageProvider({ children }: PropsWithChildren)
         setCardsToRepeat,
         markCurrentCardAsCorrect,
         markCurrentCardAsFailed,
+        cardsSnapshot
     } = useDueCardsStack();
 
     useEffect(() => {
-        if (dueCards.length === 0 && cardsToRepeat.length) {
+        if (isEmpty(dueCards) && !isEmpty(cardsToRepeat)) {
             setCurrentTestStage(IS_ERROR_CORRECTION);
             setDueCards([...cardsToRepeat]);
             setCardsTotal(cardsToRepeat.length);
@@ -41,6 +44,12 @@ export default function MemoizationPageProvider({ children }: PropsWithChildren)
             setCardsToRepeat([]);
         }
     }, [cardsToRepeat, dueCards, setCardsToRepeat, setCardsTotal, setDueCards, setResolvedCards]);
+
+    useEffect(() => {
+        if (isEmpty(dueCards) && isEmpty(cardsToRepeat) && cardsTotal !== 0) {
+            navigate('/memoization/review', { replace: true, state: { cardsSnapshot, deckId }});
+        }
+    }, [cardsSnapshot, cardsToRepeat, cardsTotal, deckId, dueCards, navigate]);
 
     return (
         <MemoizationPageStateContext.Provider value={{

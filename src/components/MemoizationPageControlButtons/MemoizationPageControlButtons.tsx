@@ -19,14 +19,14 @@ export default function MemoizationPageControlButtons() {
 
     return (
         <div className="memoization-page-buttons">
-            { currentCardFlowStage === IS_PENDING_ANSWER &&
+            {currentCardFlowStage === IS_PENDING_ANSWER &&
                 (<div className="memoization-page-buttons">
                     <Button className="memoization-button"
-                            onClick={() => setFlippedStatus()}><LucideRotateCw />Flip card</Button>
+                            onClick={() => setFlippedStatus()}><LucideRotateCw/>Flip card</Button>
                 </div>)
             }
 
-            { currentCardFlowStage === IS_CARD_FLIPPED && (
+            {currentCardFlowStage === IS_CARD_FLIPPED && (
                 <div className="memoization-page-buttons">
                     <Button className="memoization-button fail-button"
                             onClick={() => withSetNextStage(setPendingAnswerStatus,
@@ -39,8 +39,12 @@ export default function MemoizationPageControlButtons() {
         </div>
     );
 
-    function setFlippedStatus() { setCurrentCardFlowStage(IS_CARD_FLIPPED); }
-    function setPendingAnswerStatus() { setCurrentCardFlowStage(IS_PENDING_ANSWER); }
+    function setFlippedStatus() {
+        setCurrentCardFlowStage(IS_CARD_FLIPPED);
+    }
+
+    function setPendingAnswerStatus() {
+        setCurrentCardFlowStage(IS_PENDING_ANSWER); }
 }
 
 

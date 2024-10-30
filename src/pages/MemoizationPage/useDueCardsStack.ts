@@ -8,6 +8,7 @@ import useUpdateCardTimeCurveMutation from "@/api/cards/useUpdateCardTimeCurveMu
 import {CardChoiceFlowResolveType} from "@/pages/MemoizationPage/memoizationPage.types.ts";
 
 export default function useDueCardsStack() {
+    const [cardsSnapshot, setCardsSnapshot] = useState<Card[]>([]);
     const { deckId } = useParams();
     const [dueCards, setDueCards] = useState<Card[]>([]);
     const [cardsTotal, setCardsTotal] = useState<number>(0);
@@ -16,6 +17,7 @@ export default function useDueCardsStack() {
     useDueCards(deckId!, (data: Card[]) => {
         setCardsTotal(data.length);
         setDueCards(shuffleArray(data))
+        setCardsSnapshot(data);
     });
     const currentCard = useMemo(() => dueCards[0], [dueCards]);
     const { updateCardTimeCurve } = useUpdateCardTimeCurveMutation(() => {});
@@ -44,6 +46,7 @@ export default function useDueCardsStack() {
 
     return {
         currentCard,
+        cardsSnapshot,
         cardsTotal,
         dueCards,
         resolvedCards,
