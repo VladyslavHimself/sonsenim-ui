@@ -1,16 +1,15 @@
 import {Progress} from "@/components/ui/progress.tsx";
 import './MemoizationProgress.scss';
+import {useMemoizationPageState} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
 
-type Props = {
-    currentIndex: number,
-    cardsTotal: number,
-}
 
-export default function MemoizationProgress({ currentIndex, cardsTotal }: Props) {
+export default function MemoizationProgress() {
+    const { cardsTotal, resolvedCards } = useMemoizationPageState();
+
     return (
         <div className="memoization-page-progress">
-            <Progress value={Math.round((100 / cardsTotal) * currentIndex)} className="memoization-page-progress-item" />
-            <div className="memoization-page-progress-status">{currentIndex}/{cardsTotal}</div>
+            <Progress value={Math.round((100 / cardsTotal) * resolvedCards.length)} className="memoization-page-progress-item" />
+            <div className="memoization-page-progress-status">{resolvedCards.length}/{cardsTotal}</div>
         </div>
     );
 }

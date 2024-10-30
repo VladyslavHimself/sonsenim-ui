@@ -5,9 +5,7 @@ import {isEmpty} from "lodash";
 import {Card} from "@/api/cards/cards.ts";
 import {shuffleArray} from "@/pages/MemoizationPage/memoizationPage.service.ts";
 import useUpdateCardTimeCurveMutation from "@/api/cards/useUpdateCardTimeCurveMutation.ts";
-
-
-export type CardChoiceFlowResolveType = { isServerShouldUpdate: boolean }
+import {CardChoiceFlowResolveType} from "@/pages/MemoizationPage/memoizationPage.types.ts";
 
 export default function useDueCardsStack() {
     const { deckId } = useParams();

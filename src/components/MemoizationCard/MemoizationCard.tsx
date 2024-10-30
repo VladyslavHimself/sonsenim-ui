@@ -1,5 +1,6 @@
 import './MemoizationCard.scss';
-import {IS_CARD_FLIPPED, useMemoizationPageState} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
+import {useMemoizationPageState} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
+import {IS_CARD_FLIPPED} from "@/pages/MemoizationPage/memoizationPage.constants.ts";
 
 export default function MemoizationCard() {
     const { currentCard, currentCardFlowStage } = useMemoizationPageState();

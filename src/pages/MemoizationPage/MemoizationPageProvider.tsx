@@ -1,29 +1,20 @@
-import React, {ReactNode, useEffect, useState} from "react";
+import React, {PropsWithChildren, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import useDeck from "@/api/decks/useDeck.ts";
 import useDueCardsStack from "@/pages/MemoizationPage/useDueCardsStack.ts";
+import {
+    IS_ERROR_CORRECTION,
+    IS_PENDING_ANSWER,
+    IS_REGULAR_TEST
+} from "@/pages/MemoizationPage/memoizationPage.constants.ts";
+import {MemoizationPageStage, MemoizationProgressStage} from "@/pages/MemoizationPage/memoizationPage.types.ts";
 
 
 // TODO: Add types later
 const MemoizationPageStateContext = React.createContext<any>(null);
 const MemoizationPageActionsContext = React.createContext<any>(null);
 
-
-export type MemoizationProgressStage = 'IS_ERROR_CORRECTION' | 'IS_REGULAR_TEST';
-
-export const IS_ERROR_CORRECTION: MemoizationProgressStage = "IS_ERROR_CORRECTION";
-export const IS_REGULAR_TEST: MemoizationProgressStage = "IS_REGULAR_TEST";
-
-export type MemoizationPageStage = 'isPendingAnswer' | 'isCardFlipped';
-export const IS_PENDING_ANSWER: MemoizationPageStage = 'isPendingAnswer';
-export const IS_CARD_FLIPPED: MemoizationPageStage = 'isCardFlipped';
-
-
-type Props = {
-    children: ReactNode;
-}
-
-export default function MemoizationPageProvider({ children }: Props) {
+export default function MemoizationPageProvider({ children }: PropsWithChildren) {
     const [currentCardFlowStage, setCurrentCardFlowStage] = useState<MemoizationPageStage>(IS_PENDING_ANSWER);
     const [currentTestStage, setCurrentTestStage] = useState<MemoizationProgressStage>(IS_REGULAR_TEST);
     const { deckId } = useParams();
