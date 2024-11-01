@@ -8,6 +8,5 @@ export default function useCards(deckId: string) {
         queryFn: () => CardsApi.getCardsInDeck(deckId).then(({ data }) => data)
     });
 
-
     return { deckCards, isLoading, refetch };
 }

@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import {Card} from "@/api/cards/cards.ts";
 import CardListTableContent from "@/components/CardListTableContent/CardListTableContent.tsx";
 import {useMemo} from "react";
+import {resolveStrengthLevel} from "@/generals.service.ts";
 
 export type CardTableEntity = Omit<Card,
     'createdAt' | 'nextRepetitionTime'
@@ -46,16 +47,7 @@ export default function CardListPage() {
     );
 }
 
-const EIGHT_HOURS = 0.4;
-const SEVEN_DAYS = 7;
-const NINETY_DAYS = 90;
 
-function resolveStrengthLevel(intervalStrengthTime: number): string {
-    if (intervalStrengthTime < EIGHT_HOURS) return "Very low";
-    if (intervalStrengthTime < SEVEN_DAYS) return "Low";
-    if (intervalStrengthTime < NINETY_DAYS) return "Medium";
-    return "High";
-}
 
 
 

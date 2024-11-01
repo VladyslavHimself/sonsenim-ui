@@ -9,6 +9,8 @@ import {CardTableEntity} from "@/pages/CardListPage.tsx";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import EditExistingCardModal from "@/components/Modals/CardModals/EditExistingCardModal.tsx";
 import RemoveCardConfirmModal from "@/components/Modals/RemoveCardConfirmModal/RemoveCardConfirmModal.tsx";
+import LevelIndicator from "@/components/LevelIndicator/LevelIndicator.tsx";
+import {resolveIntervalStrValues} from "@/generals.service.ts";
 
 
 export default function useCardListTableColumns(refetchCardsFn: () => void) {
@@ -67,12 +69,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                 accessorKey: 'level',
                 header: "Level",
                 cell: ({ row }) => <div className="data-table-cell">
-                    <div data-level={row.getValue('level')} className="data-table-cell-level-indicator">
-                        <div />
-                        <div />
-                        <div />
-                        <div />
-                    </div>
+                    <LevelIndicator level={row.getValue('level')} />
                     {row.getValue('level')}
                 </div>
             },
@@ -133,15 +130,3 @@ function openDeleteCardConfirm(deckId: string, cardId: string, refetchCardsFn: (
     })
 }
 
-const intervalNums = {
-    [0]: 'Now',
-    [0.125]: '3 hours',
-    [0.25]: '6 hours',
-    [0.5]: '12 hours',
-} as const;
-
-type IntervalNumsValues = keyof typeof intervalNums;
-
-function resolveIntervalStrValues(intervalStrength: IntervalNumsValues) {
-    return intervalNums[intervalStrength] || `${intervalStrength} days`;
-}
