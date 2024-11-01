@@ -18,7 +18,7 @@ export default function MemoizationReviewScoreboard({ scoreList }: Props) {
                         const { definition, previousIntervalStr, actualIntervalStr } = score;
                         const strengthLevelText = resolveStrengthLevel(actualIntervalStr);
                         const isProgressed = actualIntervalStr > previousIntervalStr;
-
+                        console.log(previousIntervalStr, actualIntervalStr);
                         return (
                             <div className="review-scoreboard-item">
                                 <div className="review-scoreboard-item-word">{definition}</div>

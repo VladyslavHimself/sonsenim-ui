@@ -47,7 +47,11 @@ export default function MemoizationPageProvider({ children }: PropsWithChildren)
 
     useEffect(() => {
         if (isEmpty(dueCards) && isEmpty(cardsToRepeat) && cardsTotal !== 0) {
-            navigate('/memoization/review', { replace: true, state: { cardsSnapshot, deckId }});
+            // TODO: hardcoded. Replace card comparison with payload data instead of additional request
+            setTimeout(() => {
+                navigate('/memoization/review', { replace: true, state: { cardsSnapshot, deckId }});
+            }, 200)
+            // navigate('/memoization/review', { replace: true, state: { cardsSnapshot, deckId }});
         }
     }, [cardsSnapshot, cardsToRepeat, cardsTotal, deckId, dueCards, navigate]);
 
