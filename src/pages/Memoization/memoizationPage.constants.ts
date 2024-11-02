@@ -2,7 +2,7 @@ import {
     CardChoiceFlowResolveType,
     MemoizationPageStage,
     MemoizationProgressStage
-} from "@/pages/MemoizationPage/memoizationPage.types.ts";
+} from "@/pages/Memoization/memoizationPage.types.ts";
 
 export const IS_ERROR_CORRECTION: MemoizationProgressStage = "IS_ERROR_CORRECTION";
 export const IS_REGULAR_TEST: MemoizationProgressStage = "IS_REGULAR_TEST";

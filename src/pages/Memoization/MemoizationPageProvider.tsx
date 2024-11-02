@@ -1,13 +1,13 @@
 import React, {PropsWithChildren, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import useDeck from "@/api/decks/useDeck.ts";
-import useDueCardsStack from "@/pages/MemoizationPage/useDueCardsStack.ts";
+import useDueCardsStack from "@/pages/Memoization/useDueCardsStack.ts";
 import {
     IS_ERROR_CORRECTION,
     IS_PENDING_ANSWER,
     IS_REGULAR_TEST
-} from "@/pages/MemoizationPage/memoizationPage.constants.ts";
-import {MemoizationPageStage, MemoizationProgressStage} from "@/pages/MemoizationPage/memoizationPage.types.ts";
+} from "@/pages/Memoization/memoizationPage.constants.ts";
+import {MemoizationPageStage, MemoizationProgressStage} from "@/pages/Memoization/memoizationPage.types.ts";
 import {isEmpty} from "lodash";
 
 

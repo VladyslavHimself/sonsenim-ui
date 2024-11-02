@@ -4,8 +4,8 @@ import {House} from "lucide-react";
 import {useNavigate} from "react-router-dom";
 import {
     useMemoizationPageState
-} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
-import {IS_REGULAR_TEST} from "@/pages/MemoizationPage/memoizationPage.constants.ts";
+} from "@/pages/Memoization/MemoizationPageProvider.tsx";
+import {IS_REGULAR_TEST} from "@/pages/Memoization/memoizationPage.constants.ts";
 
 export default function MemoizationPageHeader() {
     const navigate = useNavigate();

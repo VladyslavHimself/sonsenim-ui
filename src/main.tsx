@@ -4,7 +4,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import SignIn from "./pages/SignIn.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import {AuthProvider} from "./security/AuthProvider.tsx";
-import Dashboard from "./pages/Dashboard.tsx";
+import Dashboard from "./pages/Dashboard/Dashboard.tsx";
 import ProtectedRoute from "./security/ProtectedRoute.tsx";
 import './index.css';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
@@ -15,9 +15,10 @@ import GroupsList from "@/pages/GroupsList.tsx";
 import ModalBoxesContainer from "@/ModalBoxes/ModalBoxesContainer.tsx";
 import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
 import CardListPage from "@/pages/CardListPage.tsx";
-import MemoizationPage from "@/pages/MemoizationPage/MemoizationPage.tsx";
-import MemoizationPageProvider from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
+import MemoizationPage from "@/pages/Memoization/MemoizationPage.tsx";
+import MemoizationPageProvider from "@/pages/Memoization/MemoizationPageProvider.tsx";
 import MemoizationReview from "@/pages/MemoizationReview.tsx";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const router = createBrowserRouter([
     {
@@ -87,6 +88,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                   <RouterProvider router={router} />
               </div>
           </AuthProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
   </React.StrictMode>,
 )

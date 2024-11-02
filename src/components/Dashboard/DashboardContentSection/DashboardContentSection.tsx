@@ -65,6 +65,7 @@ const mockedDS = [
 ]
 
 export default function DashboardContentSection({ selectedGroup }: Props) {
+    console.log(selectedGroup)
     const query = useQueryClient();
     const { groupStats } = useUserGroupStatistics(selectedGroup.value);
     const isUserHaveAnyGroups =

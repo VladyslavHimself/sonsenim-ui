@@ -4,10 +4,10 @@ import {
     IS_CARD_FLIPPED, IS_PENDING_ANSWER,
     IS_REGULAR_TEST,
     REGULAR_TEST_BUTTONS_CONFIGURATION
-} from "@/pages/MemoizationPage/memoizationPage.constants.ts";
+} from "@/pages/Memoization/memoizationPage.constants.ts";
 import {Button} from "@/components/ui/button.tsx";
 import {LucideRotateCw, ThumbsDown, ThumbsUp} from "lucide-react";
-import {useMemoizationPageActions, useMemoizationPageState} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
+import {useMemoizationPageActions, useMemoizationPageState} from "@/pages/Memoization/MemoizationPageProvider.tsx";
 import {isFunction} from "lodash";
 
 export default function MemoizationPageControlButtons() {

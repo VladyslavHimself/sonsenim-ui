@@ -3,9 +3,9 @@ import {useParams} from "react-router-dom";
 import {useMemo, useState} from "react";
 import {isEmpty} from "lodash";
 import {Card} from "@/api/cards/cards.ts";
-import {shuffleArray} from "@/pages/MemoizationPage/memoizationPage.service.ts";
+import {shuffleArray} from "@/pages/Memoization/memoizationPage.service.ts";
 import useUpdateCardTimeCurveMutation from "@/api/cards/useUpdateCardTimeCurveMutation.ts";
-import {CardChoiceFlowResolveType} from "@/pages/MemoizationPage/memoizationPage.types.ts";
+import {CardChoiceFlowResolveType} from "@/pages/Memoization/memoizationPage.types.ts";
 
 export default function useDueCardsStack() {
     const [cardsSnapshot, setCardsSnapshot] = useState<Card[]>([]);

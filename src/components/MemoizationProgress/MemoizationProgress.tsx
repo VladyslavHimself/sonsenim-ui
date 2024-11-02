@@ -1,6 +1,6 @@
 import {Progress} from "@/components/ui/progress.tsx";
 import './MemoizationProgress.scss';
-import {useMemoizationPageState} from "@/pages/MemoizationPage/MemoizationPageProvider.tsx";
+import {useMemoizationPageState} from "@/pages/Memoization/MemoizationPageProvider.tsx";
 
 
 export default function MemoizationProgress() {
