@@ -2,7 +2,6 @@ import HomeIcon from "@/assets/Icons/Home.svg";
 import GroupsIcon from "@/assets/Icons/Groups.svg";
 import LeftArrow from "@/assets/Icons/LeftArrow.svg";
 import RightArrow from "@/assets/Icons/RightArrow.svg";
-import SettingsIcon from "@/assets/Icons/Setting.svg";
 import LogoutIcon from "@/assets/Icons/Logout.svg";
 import {Link, useLocation} from "react-router-dom";
 import useLogout from "@/hooks/useLogout.ts";
@@ -31,12 +30,6 @@ const BOTTOM_NAVLINKS = (actions, states) => [
         icon: states.isSidebarCollapsed ? RightArrow : LeftArrow,
         alt: "hide-panel",
         action: actions.collapseSidebar
-    },
-    {
-        title: "Settings",
-        icon: SettingsIcon,
-        alt: "settings-icon",
-        action: () => {}
     },
     {
         title: "Log out",
@@ -80,7 +73,7 @@ export default function NavSidebarList(
                 }
             </div>
         </div>
-    ), [location, isSidebarCollapsed]);
+    ), [logout, collapseSidebar, isSidebarCollapsed, location.pathname]);
 
 
     function collapseSidebar() {
