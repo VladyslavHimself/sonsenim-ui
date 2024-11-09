@@ -33,16 +33,13 @@ export default function CardListPage() {
     return (
         // TODO: Add overflow fix
         <div className="card-list-page layout-wrapper">
-            <PageHeaderSection
-                LeftCornerSection={() => (
-                    <>
-                        <div className="groups-header-section">
-                            <Input placeholder="Search" className="groups-header-input"/>
-                            <Button variant="outline" className="groups-header-button"><ListFilter /></Button>
-                        </div>
-                    </>
-                )}/>
-            <CardListTableContent deckCards={cardEntitiesForTable!} refetchCards={refetch} />
+            <PageHeaderSection>
+                <div className="groups-header-section">
+                    <Input placeholder="Search" className="groups-header-input"/>
+                    <Button variant="outline" className="groups-header-button"><ListFilter/></Button>
+                </div>
+            </PageHeaderSection>
+            <CardListTableContent deckCards={cardEntitiesForTable!} refetchCards={refetch}/>
         </div>
     );
 }

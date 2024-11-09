@@ -18,8 +18,7 @@ export default function Dashboard() {
 
     return (
         <div className="layout-wrapper">
-            <PageHeaderSection
-                LeftCornerSection={() => (
+            <PageHeaderSection>
                 <Combobox
                     selectedValue={selectedGroup}
                     placeholder="Select group..."
@@ -27,7 +26,7 @@ export default function Dashboard() {
                     onChangeValue={onSelectGroup}
                     selectionList={groupsSelectionList || []}
                 />
-            )} />
+            </PageHeaderSection>
             <DashboardContentSection selectedGroup={selectedGroup} />
         </div>
     );

@@ -11,36 +11,38 @@ import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import CreateNewGroupModal from "@/components/Modals/GroupModals/CreateNewGroupModal.tsx";
 import { EditGroupModal } from '@/components/Modals/GroupModals/EditGroupModal.tsx';
 import {UserGroupsInfoResponse} from "@/api/groups/groups.ts";
-import React from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 
 
 export default function GroupsList() {
     const navigate = useNavigate();
     const { groupsInfo, refetch } = useUserGroupsInfo();
+    const [searchInput, setSearchInput] = useState('');
+
+    const filteredGroups = useMemo(() => {
+        if (searchInput) {
+
+            return [];
+        }
+
+        return groupsInfo;
+    }, [groupsInfo, searchInput]);
 
     return (
             <div className="layout-wrapper">
-                <PageHeaderSection
-                    LeftCornerSection={() => (
+                <PageHeaderSection>
+                    <div className="groups-header-section">
+                        <Input value={searchInput} onChange={(e) => {
+                            setSearchInput(e.target?.value);
+                        }} placeholder="Search" className="groups-header-input"/>
+                    </div>
+                </PageHeaderSection>
+                    <CardsListContentSection Header={() => (
                         <>
-                            {
-                                // TODO: Reminder
-                                //        * This should be quicksearch like in MUI.
-                                //        * Configurable to other related pages like "Decks" e.t.c
-                                //        * With debounce
-                                //        * Replace to 'Input.WithIcon' later
-                            }
-                            <div className="groups-header-section">
-                                <Input placeholder="Search" className="groups-header-input"/>
-                            </div>
-                        </>
-                    )}/>
-                <CardsListContentSection Header={() => (
-                    <>
-                        <h1>Groups</h1>
-                        <Button style={{padding: "25px 30px"}} onClick={() => {
-                            // @ts-ignore
-                            ModalBoxes.open({
+                            <h1>Groups</h1>
+                            <Button style={{padding: "25px 30px"}} onClick={() => {
+                                // @ts-ignore
+                                ModalBoxes.open({
                                 className: 'admin-confirmation',
                                 title: 'Create a new group',
                                 component: <CreateNewGroupModal refetchUsersInfo={refetch} />,
@@ -50,7 +52,7 @@ export default function GroupsList() {
                 )}>
                     {
                         // TODO: Add template (design), if user haven't any groups here
-                        groupsInfo?.map((currentGroup) => {
+                        filteredGroups?.map((currentGroup) => {
                             const { groupId, groupName, decksCount} = currentGroup;
                             return (
                                 <Card
@@ -91,4 +93,15 @@ export default function GroupsList() {
             state: { groupName }
         });
     }
+}
+
+function SearchBar(value, setValue) {
+    return (
+        <div className="groups-header-section">
+            <Input value={searchInput} onChange={(e) => {
+                e.preventDefault();
+                setSearchInput(e.target?.value);
+            }} placeholder="Search" className="groups-header-input"/>
+        </div>
+    )
 }

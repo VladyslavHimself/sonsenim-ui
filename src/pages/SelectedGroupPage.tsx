@@ -19,27 +19,18 @@ export default function SelectedGroupPage() {
 
     return (
         <div className="layout-wrapper">
-            <PageHeaderSection
-                LeftCornerSection={() => (
-                    <>
-                        {
-                            // TODO: Reminder
-                            //        * This should be quicksearch like in MUI.
-                            //        * Configurable to other related pages like "Decks" e.t.c
-                            //        * With debounce
-                            //        * Replace to 'Input.WithIcon' later
-                        }
-                        <div className="groups-header-section">
-                            <Input placeholder="Search" className="groups-header-input"/>
-                            <Button variant="outline" className="groups-header-button"><ListFilter /></Button>
-                        </div>
-                    </>
-                )}/>
+            <PageHeaderSection>
+                <div className="groups-header-section">
+                    <Input placeholder="Search" className="groups-header-input"/>
+                    <Button variant="outline" className="groups-header-button"><ListFilter/></Button>
+                </div>
+            </PageHeaderSection>
 
             <CardsListContentSection Header={() => (
                 <>
                     <h1>{location.state.groupName}</h1>
-                    <Button style={{padding: "25px 30px"}} onClick={() => onCreateNewDeckModal(+groupId!)}>+ Create a new deck</Button>
+                    <Button style={{padding: "25px 30px"}} onClick={() => onCreateNewDeckModal(+groupId!)}>+ Create a
+                        new deck</Button>
                 </>
             )}>
                 {

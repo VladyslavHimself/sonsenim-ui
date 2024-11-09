@@ -2,7 +2,7 @@ import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/Pag
 export default function Profile() {
     return (
         <div className="layout-wrapper">
-            <PageHeaderSection LeftCornerSection={() => (<></>)}/>
+            <PageHeaderSection />
         </div>
     );
 }
