@@ -6,7 +6,7 @@ import useCards from "@/api/cards/useCards.ts";
 import {useParams} from "react-router-dom";
 import {Card} from "@/api/cards/cards.ts";
 import CardListTableContent from "@/components/CardListTableContent/CardListTableContent.tsx";
-import {useMemo} from "react";
+import {useMemo, useState} from "react";
 import {resolveStrengthLevel} from "@/generals.service.ts";
 
 export type CardTableEntity = Omit<Card,
@@ -16,9 +16,20 @@ export type CardTableEntity = Omit<Card,
 export default function CardListPage() {
     const { deckId } = useParams();
     const { deckCards, refetch } = useCards(deckId!);
+    const [searchInput, setSearchInput] = useState('');
+
+    const filteredCardsList = useMemo(() => {
+        if (searchInput && deckCards) {
+            return deckCards.filter((deck) =>
+                deck.primaryWord.toLowerCase().includes(searchInput.toLowerCase()) ||
+                deck.definition.toLowerCase().includes(searchInput.toLowerCase()));
+        }
+
+        return deckCards;
+    }, [deckCards, searchInput]);
 
     const cardEntitiesForTable = useMemo(() => {
-        return deckCards?.map(({ cardId, intervalStrength, primaryWord, definition, explanation}): CardTableEntity => {
+        return filteredCardsList?.map(({ cardId, intervalStrength, primaryWord, definition, explanation}): CardTableEntity => {
             return {
                 cardId,
                 level: resolveStrengthLevel(intervalStrength),
@@ -28,14 +39,19 @@ export default function CardListPage() {
                 explanation
             };
         })
-    }, [deckCards]);
+    }, [filteredCardsList]);
 
     return (
-        // TODO: Add overflow fix
         <div className="card-list-page layout-wrapper">
             <PageHeaderSection>
                 <div className="groups-header-section">
-                    <Input placeholder="Search" className="groups-header-input"/>
+                    <Input
+                        placeholder="Search"
+                        className="groups-header-input"
+                        value={searchInput}
+                        onChange={(e) => {
+                            setSearchInput(e.target?.value)}}
+                    />
                     <Button variant="outline" className="groups-header-button"><ListFilter/></Button>
                 </div>
             </PageHeaderSection>
