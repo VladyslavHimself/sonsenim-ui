@@ -19,7 +19,7 @@ import MemoizationPage from "@/pages/Memoization/MemoizationPage.tsx";
 import MemoizationPageProvider from "@/pages/Memoization/MemoizationPageProvider.tsx";
 import MemoizationReview from "@/pages/MemoizationReview.tsx";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import Profile from "@/pages/Profile.tsx";
+import Profile from "@/pages/Profile/Profile.tsx";
 
 const router = createBrowserRouter([
     {

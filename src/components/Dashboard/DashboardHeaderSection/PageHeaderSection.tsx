@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import './PageHeaderSection.scss';
 import AvatarProfile from "@/components/AvatarProfile/AvatarProfile.tsx";
 
