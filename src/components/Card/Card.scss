@@ -15,6 +15,11 @@
   position: relative;
 
 
+  &:first-child {
+    margin-left: 0;
+  }
+
+
   // TODO: Find solution to simplify it
   &[data-notification-message]:not([data-notification-message="0"]):after {
     content: attr(data-notification-message);
