@@ -19,6 +19,7 @@ import MemoizationPage from "@/pages/Memoization/MemoizationPage.tsx";
 import MemoizationPageProvider from "@/pages/Memoization/MemoizationPageProvider.tsx";
 import MemoizationReview from "@/pages/MemoizationReview.tsx";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import Profile from "@/pages/Profile.tsx";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +29,6 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <RootResolver />
             },
-
             {
                 path: '/signIn',
                 element: <SignIn />
@@ -36,6 +36,14 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp />
+            },
+            {
+                path: '/profile',
+                element: (
+                    <ProtectedRoute>
+                        <Profile />
+                    </ProtectedRoute>
+                )
             },
             {
                 path: '/dashboard',
@@ -63,7 +71,6 @@ const router = createBrowserRouter([
                     </ProtectedRoute>
                 )
             },
-
             {
                 path: '/memoization/review',
                 element: (
