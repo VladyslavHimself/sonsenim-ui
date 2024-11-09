@@ -20,9 +20,9 @@ export default function GroupsList() {
     const [searchInput, setSearchInput] = useState('');
 
     const filteredGroups = useMemo(() => {
-        if (searchInput) {
-
-            return [];
+        if (searchInput && groupsInfo) {
+            return groupsInfo.filter((group) =>
+                group.groupName.toLowerCase().includes(searchInput.toLowerCase()));
         }
 
         return groupsInfo;
