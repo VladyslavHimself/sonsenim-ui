@@ -4,7 +4,12 @@ import axios from "axios";
 export type UserProfileResponse = {
     id: number,
     username: string,
+    firstName: string,
+    lastName: string,
     email: string,
+    createdAt: string,
+    totalDecks: number,
+    totalCards: number,
 }
 
 
