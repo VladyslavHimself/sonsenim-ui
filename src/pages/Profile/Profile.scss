@@ -61,4 +61,14 @@
             }
         }
     }
+
+    .profile-page-content-strip {
+        display: flex;
+        margin-top: 15px;
+
+        .content-card {
+            min-width: 195px;
+            width: 195px;
+        }
+    }
 }

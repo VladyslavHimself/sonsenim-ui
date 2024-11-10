@@ -2,6 +2,7 @@ import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/Pag
 import './Profile.scss';
 import {CircleUserRound} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
+import ContentCard from "@/components/ContentCard/ContentCard.tsx";
 
 export default function Profile() {
     return (
@@ -25,6 +26,11 @@ export default function Profile() {
                     </div>
                     <Button>Buy premium</Button>
                 </div>
+            </div>
+            <div className="profile-page-content-strip">
+                <ContentCard title="Member since" information="13/03/2002" />
+                <ContentCard title="Total decks" information="14" />
+                <ContentCard title="Total cards" information="2,048" />
             </div>
         </div>
     );

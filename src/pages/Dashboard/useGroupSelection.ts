@@ -1,11 +1,11 @@
 import {UserGroupResponse} from "@/api/groups/groups.ts";
 import {useEffect, useMemo, useState} from "react";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
-import {isEmpty} from "lodash";
+import {isEmpty, isUndefined} from "lodash";
 
 export default function useGroupSelection(userGroups: UserGroupResponse[]) {
     const [selectedGroup, setSelectedGroup] = useState<SelectionItem>(
-        JSON.parse(localStorage.getItem("selectedGroup")!) || []
+       JSON.parse(localStorage.getItem("selectedGroup")!) || []
     );
 
     const groupsSelectionList = useMemo(() => userGroups?.map(item => ({
@@ -25,7 +25,9 @@ export default function useGroupSelection(userGroups: UserGroupResponse[]) {
 
 
     function onSelectGroup(_selectedGroup: SelectionItem) {
-        setSelectedGroup(_selectedGroup);
-        localStorage.setItem('selectedGroup', JSON.stringify(_selectedGroup));
+        if (_selectedGroup) {
+            setSelectedGroup(_selectedGroup);
+            return localStorage.setItem('selectedGroup', JSON.stringify(_selectedGroup));
+        }
     }
 }

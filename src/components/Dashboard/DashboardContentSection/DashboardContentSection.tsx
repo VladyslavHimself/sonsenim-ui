@@ -5,6 +5,7 @@ import NoGroupsAlert from "@/components/Dashboard/DashboardContentSection/NoGrou
 import useUserGroupStatistics from "@/api/groups/useUserGroupStatistics.ts";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import ContentCard from "@/components/ContentCard/ContentCard.tsx";
 
 type Props = {
     selectedGroup: SelectionItem
@@ -83,15 +84,8 @@ export default function DashboardContentSection({ selectedGroup }: Props) {
         <div className="dashboard-content-section">
             <h1>Dashboard</h1>
             <div className="dashboard-content-strip">
-                <div className="dashboard-content-card">
-                    <span className="dashboard-content-card-count">{groupStats?.decksTotal || '-'}</span>
-                    <span className="dashboard-content-card-topic">Decks created</span>
-                </div>
-
-                <div className="dashboard-content-card">
-                    <span className="dashboard-content-card-count">{groupStats?.cardsTotal || '-'}</span>
-                    <span className="dashboard-content-card-topic">Studied cards</span>
-                </div>
+                <ContentCard title="Decks created" information={groupStats?.decksTotal.toString()} />
+                <ContentCard title="Studied cards" information={groupStats?.cardsTotal.toString()} />
             </div>
 
             <h2>Weekly report</h2>
