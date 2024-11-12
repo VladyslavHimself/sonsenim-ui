@@ -2,10 +2,7 @@ import '@/styles/layout-wrapper.styles.scss';
 import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSection.tsx";
 import DashboardContentSection from "@/components/Dashboard/DashboardContentSection/DashboardContentSection.tsx";
 import useUserGroups from "@/api/groups/useUserGroups.ts";
-import {useEffect, useMemo, useState} from "react";
-import {Combobox, SelectionItem} from "@/components/ui/combobox.tsx";
-import {isEmpty} from "lodash";
-import useUser from "@/api/user/useUser.ts";
+import {Combobox} from "@/components/ui/combobox.tsx";
 import useGroupSelection from "@/pages/Dashboard/useGroupSelection.ts";
 
 

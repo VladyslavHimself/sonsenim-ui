@@ -41,7 +41,9 @@ export default function SelectedGroupPage() {
                            onChange={(e) => {
                                setSearchInput(e.target?.value)}}
                     />
-                    <Button variant="outline" className="groups-header-button"><ListFilter/></Button>
+                    {
+                        // #TODO: Insert sorting combobox
+                    }
                 </div>
             </PageHeaderSection>
 
