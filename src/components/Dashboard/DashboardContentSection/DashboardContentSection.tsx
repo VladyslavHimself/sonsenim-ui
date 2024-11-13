@@ -6,6 +6,7 @@ import useUserGroupStatistics from "@/api/groups/useUserGroupStatistics.ts";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import ContentCard from "@/components/ContentCard/ContentCard.tsx";
+import useCardsIntervalHistory from "@/api/cards/useCardsIntervalHistory.ts";
 
 type Props = {
     selectedGroup: SelectionItem
@@ -66,11 +67,14 @@ const mockedDS = [
 ]
 
 export default function DashboardContentSection({ selectedGroup }: Props) {
-    console.log(selectedGroup)
     const query = useQueryClient();
     const { groupStats } = useUserGroupStatistics(selectedGroup.value);
     const isUserHaveAnyGroups =
         query.getQueryData<UserGroupResponse[]>(['user-groups'])?.length;
+
+    const { cardsIntervalHistoryData } = useCardsIntervalHistory(selectedGroup.value);
+
+    console.log(cardsIntervalHistoryData);
 
     if (!isUserHaveAnyGroups) {
         return (

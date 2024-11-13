@@ -36,6 +36,10 @@ const CardsApi = {
         return axios.get<Card[]>(`/api/cards/${deckId}`);
     },
 
+    getCardsIntervalHistory(groupId: string) {
+        return axios.get<string>(`/api/cards/${groupId}/history`);
+    },
+
     updateCard(cardId: string, deckId: string, cardConfiguration: NewCardConfigurationBody) {
         return axios.put(`/api/cards/${deckId}/${cardId}`, cardConfiguration);
     },
