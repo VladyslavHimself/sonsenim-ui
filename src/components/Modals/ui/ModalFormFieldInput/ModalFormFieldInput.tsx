@@ -1,6 +1,7 @@
 import {FormControl, FormField, FormItem, FormLabel} from "@/components/ui/form.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import './ModalFormFieldInput.scss';
+import React from "react";
 
 // TODO: add types to form property
 type Props = {

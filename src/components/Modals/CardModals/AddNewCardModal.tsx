@@ -7,6 +7,7 @@ import useAddNewCardMutation from "@/api/cards/useAddNewCardMutation.ts";
 import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
+import {useRef} from "react";
 
 type Props = {
     deckId: number,
@@ -30,8 +31,10 @@ export default function AddNewCardModal({ deckId, refetchDecks }: Props) {
             <Form {...form}>
                 <form
                     id="add-new-card-form"
-                    onSubmit={form.handleSubmit((values: z.infer<typeof newCardConfigurationSchema>) =>
-                        createNewCard(values as unknown as NewCardConfigurationBody))}
+                    onSubmit={form.handleSubmit((values: z.infer<typeof newCardConfigurationSchema>) => {
+                        createNewCard(values as unknown as NewCardConfigurationBody);
+                        form.setFocus("primaryWord")
+                    })}
                 >
                     <ModalFormFieldInput name="primaryWord" form={form.control} label="Word *" />
                     <ModalFormFieldInput style={{marginTop: 25}} name="definition" form={form.control} label="Definition *" />
