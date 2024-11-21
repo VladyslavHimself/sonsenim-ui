@@ -36,7 +36,7 @@ const CardsApi = {
         return axios.get<Card[]>(`/api/cards/${deckId}`);
     },
 
-    getCardsIntervalHistory(groupId: string) {
+    getCardsIntervalHistory(groupId: any[]) {
         return axios.get<string>(`/api/cards/${groupId}/history`);
     },
 
