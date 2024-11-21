@@ -18,9 +18,9 @@ export default function DashboardContentSection({ selectedGroup }: Props) {
     const isUserHaveAnyGroups =
         query.getQueryData<UserGroupResponse[]>(['user-groups'])?.length;
 
-    const { cardsIntervalHistoryData } = useCardsIntervalHistory(selectedGroup.value);
+    const { cardsIntervalHistoryData, actualDayInfo } = useCardsIntervalHistory(selectedGroup.value);
 
-    console.log(cardsIntervalHistoryData)
+    console.log(actualDayInfo);
 
     if (!isUserHaveAnyGroups) {
         return (
@@ -43,22 +43,22 @@ export default function DashboardContentSection({ selectedGroup }: Props) {
                 <div className="weekly-report-chart-legend">
                     <div className="weekly-report-chart-legend-item">
                         <div>Begin</div>
-                        <div>12</div>
+                        <div>{actualDayInfo?.veryLowIndicationCount}</div>
                     </div>
 
                     <div className="weekly-report-chart-legend-item">
                         <div>Low</div>
-                        <div>12</div>
+                        <div>{actualDayInfo?.lowIndicationCount}</div>
                     </div>
 
                     <div className="weekly-report-chart-legend-item">
                         <div>Med</div>
-                        <div>12</div>
+                        <div>{actualDayInfo?.midIndicationCount}</div>
                     </div>
 
                     <div className="weekly-report-chart-legend-item">
                         <div>High</div>
-                        <div>12</div>
+                        <div>{actualDayInfo?.highIndicationCount}</div>
                     </div>
                 </div>
                 {cardsIntervalHistoryData && <div className="weekly-report-chart">
