@@ -11,6 +11,7 @@ export default defineConfig({
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
         name: 'Sonsenim LMS',
+        display: "standalone",
         short_name: 'Sonsenim',
         theme_color: '#FAFAFA',
         icons: [

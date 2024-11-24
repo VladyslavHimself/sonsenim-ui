@@ -40,7 +40,7 @@ export default function SignUp() {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit((values: z.infer<typeof signUpSchema>) => registerUser(values))}>
                         <FormField name="username" control={form.control} render={({field}) => (
-                            <FormItem style={{ width: 480, marginTop: 15}}>
+                            <FormItem className="auth-container-form-item">
                                 <FormLabel className="auth-container-input-label">Username</FormLabel>
                                 <FormControl>
                                     <Input className="auth-container-input" {...field} />
@@ -48,9 +48,9 @@ export default function SignUp() {
                             </FormItem>
                         )}/>
 
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <div className="auth-container-section-field">
                             <FormField name="firstName" control={form.control} render={({field}) => (
-                                <FormItem style={{ width: 230, marginTop: 15}}>
+                                <FormItem className="auth-container-form-item divided-section">
                                     <FormLabel className="auth-container-input-label">Name</FormLabel>
                                     <FormControl>
                                         <Input className="auth-container-input" {...field} />
@@ -59,7 +59,7 @@ export default function SignUp() {
                             )}/>
 
                             <FormField name="lastName" control={form.control} render={({field}) => (
-                                <FormItem style={{ width: 230, marginTop: 15}}>
+                                <FormItem className="auth-container-form-item divided-section">
                                     <FormLabel className="auth-container-input-label">Surname</FormLabel>
                                     <FormControl>
                                         <Input className="auth-container-input" {...field} />
@@ -69,7 +69,7 @@ export default function SignUp() {
                         </div>
 
                         <FormField name="email" control={form.control} render={({field}) => (
-                            <FormItem style={{ width: 480, marginTop: 15}}>
+                            <FormItem className="auth-container-form-item">
                                 <FormLabel className="auth-container-input-label">Email</FormLabel>
                                 <FormControl>
                                     <Input className="auth-container-input" {...field} />
@@ -78,7 +78,7 @@ export default function SignUp() {
                         )}/>
 
                         <FormField name="password" control={form.control} render={({field}) => (
-                            <FormItem style={{ marginTop: 15}}>
+                            <FormItem className="auth-container-form-item">
                                 <FormLabel className="auth-container-input-label">Password</FormLabel>
                                 <FormControl>
                                     <Input type="password" className="auth-container-input" {...field} />

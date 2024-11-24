@@ -52,6 +52,20 @@
     }
   }
 
+  .auth-container-form-item {
+    width: 100%;
+    margin-top: 15px;
+
+    &.divided-section {
+      width: 49%;
+    }
+  }
+
+  .auth-container-section-field {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .auth-container-input-field {
     & > span {
       font-size: 24px;
@@ -99,5 +113,15 @@
 
   .auth-container-submit-button {
     margin-top: 27px;
+  }
+}
+
+@media(max-width: 600px) {
+  .auth-container-section-field {
+    flex-direction: column;
+
+    .auth-container-form-item {
+      width: 100% !important;
+    }
   }
 }
