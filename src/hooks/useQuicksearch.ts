@@ -8,10 +8,9 @@ export default function useQuicksearch<T>(
 ) {
     return useMemo(() => {
         if (value && unfilteredList) {
-            const lowerCasedValue = value.toLowerCase();
             return unfilteredList.filter((item) =>
                 filterKeys.some((key) =>
-                    (item[key] as string).toLowerCase().includes(lowerCasedValue)
+                    (item[key] as string).toLowerCase().includes(value.toLowerCase())
                 )
             );
         }
