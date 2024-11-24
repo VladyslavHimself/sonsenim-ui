@@ -6,7 +6,7 @@ import useUserGroupStatistics from "@/api/groups/useUserGroupStatistics.ts";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import ContentCard from "@/components/ContentCard/ContentCard.tsx";
-import useCardsIntervalHistory from "@/api/cards/useCardsIntervalHistory.ts";
+import useCardsIntervalHistory from "@/api/progressionHistory/useCardsIntervalHistory.ts";
 import {useMemo} from "react";
 
 type Props = {
