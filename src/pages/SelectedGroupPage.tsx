@@ -2,7 +2,6 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import '@/styles/layout-wrapper.styles.scss';
 import {Input} from "@/components/ui/input.tsx";
 import PageHeaderSection from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSection.tsx";
-import {ListFilter} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 import CardsListContentSection from "@/components/Groups/GroupsListContentSection/CardsListContentSection.tsx";
 import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
@@ -10,25 +9,17 @@ import Card from "@/components/Card/Card.tsx";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import DeckCardMenubar from "@/components/DeckCardMenubar/DeckCardMenubar.tsx";
 import CreateNewDeckModal from "@/components/Modals/DeckModals/CreateNewDeckModal.tsx";
-import {useMemo, useState} from "react";
+import { useState } from "react";
+import {DeckWithAggregatedDataResponse} from "@/api/decks/decks.ts";
+import useQuicksearch from "@/hooks/useQuicksearch.ts";
 
-
-// TODO: Avoid duplications by making some useQuicksearch hook or e.t.c
 export default function SelectedGroupPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
     const { groupId } = useParams();
     const { aggregatedDecks, refetch } = useAggregatedDecks(groupId!);
     const [searchInput, setSearchInput] = useState('');
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const filteredDecks = useMemo(() => {
-        if (searchInput && aggregatedDecks) {
-            return aggregatedDecks.filter((deck) =>
-                deck.deckName.toLowerCase().includes(searchInput.toLowerCase()));
-        }
-
-        return aggregatedDecks;
-    }, [aggregatedDecks, searchInput]);
+    const filteredDecks = useQuicksearch<DeckWithAggregatedDataResponse>(aggregatedDecks!, ['deckName'], searchInput);
 
     return (
         <div className="layout-wrapper">

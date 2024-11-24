@@ -8,6 +8,7 @@ import {Card} from "@/api/cards/cards.ts";
 import CardListTableContent from "@/components/CardListTableContent/CardListTableContent.tsx";
 import {useMemo, useState} from "react";
 import {resolveStrengthLevel} from "@/generals.service.ts";
+import useQuicksearch from "@/hooks/useQuicksearch.ts";
 
 export type CardTableEntity = Omit<Card,
     'createdAt' | 'nextRepetitionTime'
@@ -17,16 +18,7 @@ export default function CardListPage() {
     const { deckId } = useParams();
     const { deckCards, refetch } = useCards(deckId!);
     const [searchInput, setSearchInput] = useState('');
-
-    const filteredCardsList = useMemo(() => {
-        if (searchInput && deckCards) {
-            return deckCards.filter((deck) =>
-                deck.primaryWord.toLowerCase().includes(searchInput.toLowerCase()) ||
-                deck.definition.toLowerCase().includes(searchInput.toLowerCase()));
-        }
-
-        return deckCards;
-    }, [deckCards, searchInput]);
+    const filteredCardsList = useQuicksearch<Card>(deckCards!, ['primaryWord', 'definition'], searchInput);
 
     const cardEntitiesForTable = useMemo(() => {
         return filteredCardsList?.map(({ cardId, intervalStrength, primaryWord, definition, explanation}): CardTableEntity => {

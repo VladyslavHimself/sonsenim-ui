@@ -11,22 +11,15 @@ import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import CreateNewGroupModal from "@/components/Modals/GroupModals/CreateNewGroupModal.tsx";
 import { EditGroupModal } from '@/components/Modals/GroupModals/EditGroupModal.tsx';
 import {UserGroupsInfoResponse} from "@/api/groups/groups.ts";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, { useState } from "react";
+import useQuicksearch from "@/hooks/useQuicksearch.ts";
 
 
 export default function GroupsList() {
     const navigate = useNavigate();
-    const { groupsInfo, refetch } = useUserGroupsInfo();
     const [searchInput, setSearchInput] = useState('');
-
-    const filteredGroups = useMemo(() => {
-        if (searchInput && groupsInfo) {
-            return groupsInfo.filter((group) =>
-                group.groupName.toLowerCase().includes(searchInput.toLowerCase()));
-        }
-
-        return groupsInfo;
-    }, [groupsInfo, searchInput]);
+    const { groupsInfo, refetch } = useUserGroupsInfo();
+    const filteredGroups = useQuicksearch<UserGroupsInfoResponse>(groupsInfo!, ['groupName'], searchInput);
 
     return (
             <div className="layout-wrapper">
@@ -93,15 +86,4 @@ export default function GroupsList() {
             state: { groupName }
         });
     }
-}
-
-function SearchBar(value, setValue) {
-    return (
-        <div className="groups-header-section">
-            <Input value={searchInput} onChange={(e) => {
-                e.preventDefault();
-                setSearchInput(e.target?.value);
-            }} placeholder="Search" className="groups-header-input"/>
-        </div>
-    )
 }
