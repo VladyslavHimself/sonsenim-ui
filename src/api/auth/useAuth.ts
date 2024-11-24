@@ -17,6 +17,7 @@ export default function useSignIn(callback: Function) {
             callback(data, variables, context);
     },
     onError: (error) => {
+        // @ts-expect-error response provided
         const UNAUTHORIZED_STATUS = error.response.status === 401
 
         if (UNAUTHORIZED_STATUS) {

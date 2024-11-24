@@ -9,7 +9,7 @@ import {NavigateFunction} from "react-router-dom";
 type Props = {
     modalBox?: any,
     groupId: string,
-    groupName: string,
+    groupName?: string,
     deckProperties: any,
     refetchDecks: () => void,
     navigate: NavigateFunction,

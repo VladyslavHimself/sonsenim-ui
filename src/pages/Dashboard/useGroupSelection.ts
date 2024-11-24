@@ -1,7 +1,7 @@
 import {UserGroupResponse} from "@/api/groups/groups.ts";
 import {useEffect, useMemo, useState} from "react";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
-import {isEmpty, isUndefined} from "lodash";
+import {isEmpty} from "lodash";
 
 export default function useGroupSelection(userGroups: UserGroupResponse[]) {
     const [selectedGroup, setSelectedGroup] = useState<SelectionItem>(

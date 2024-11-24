@@ -60,7 +60,7 @@ export default function SelectedGroupPage() {
                                     deckProperties={deck}
                                     groupId={groupId!}
                                     refetchDecks={refetch}
-                                />,
+                                 />,
                                 onClose: () => {}
                             })}
                         />

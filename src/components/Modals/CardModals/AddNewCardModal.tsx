@@ -7,7 +7,6 @@ import useAddNewCardMutation from "@/api/cards/useAddNewCardMutation.ts";
 import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
-import {useRef} from "react";
 
 type Props = {
     deckId: number,

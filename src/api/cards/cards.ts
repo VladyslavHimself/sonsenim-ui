@@ -18,7 +18,7 @@ export type Card = {
 }
 
 export type UpdateCardTimeCurveConfigurationBody = {
-    isAnswerRight: boolean
+    answerIsRight: boolean
 }
 
 const CardsApi = {

@@ -12,6 +12,7 @@ export default function AvatarProfile() {
     const { userData } = useUser();
     const navigate = useNavigate();
 
+
     return (
         <div className="avatar-profile">
             <Avatar>
@@ -21,6 +22,7 @@ export default function AvatarProfile() {
             <span>{userData?.username}</span>
             <Popover>
                 <PopoverTrigger><ChevronDown color="orange"/></PopoverTrigger>
+                { /* @ts-expect-error popover mismatch param */}
                 <PopoverContent sideOffset="2" align="end" className="profile-popover">
                     <Button variant="ghost" onClick={() => navigate('/profile')}><AvatarIcon style={{ width: 32, height: 32}} />Account</Button>
                     <Button variant="ghost"><MailsIcon style={{ width: 30, height: 30}} />Notifications</Button>
