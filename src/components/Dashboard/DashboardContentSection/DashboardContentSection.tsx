@@ -7,6 +7,7 @@ import {SelectionItem} from "@/components/ui/combobox.tsx";
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import ContentCard from "@/components/ContentCard/ContentCard.tsx";
 import useCardsIntervalHistory from "@/api/cards/useCardsIntervalHistory.ts";
+import {useMemo} from "react";
 
 type Props = {
     selectedGroup: SelectionItem
@@ -20,7 +21,14 @@ export default function DashboardContentSection({ selectedGroup }: Props) {
 
     const { cardsIntervalHistoryData, actualDayInfo } = useCardsIntervalHistory(selectedGroup.value);
 
-    console.log(actualDayInfo);
+    const domainGaps = useMemo(() => {
+        if (!cardsIntervalHistoryData) return [];
+        const allValues = cardsIntervalHistoryData!.flatMap(item =>
+            Object.values(item).filter(value => typeof value === "number")
+        );
+
+        return [Math.max(...allValues), Math.min(...allValues)]
+    }, [cardsIntervalHistoryData]);
 
     if (!isUserHaveAnyGroups) {
         return (
@@ -70,8 +78,7 @@ export default function DashboardContentSection({ selectedGroup }: Props) {
                         >
                             <CartesianGrid strokeDasharray="3 3"/>
                             <XAxis dataKey="date" />
-                            // TODO: Make domain max integer related to max count cards value
-                            <YAxis domain={[0, 30]} tickCount={6}  />
+                            <YAxis domain={domainGaps} tickCount={6}  />
                             <Tooltip/>
                             <Line type="monotone" name="High" dataKey="highIndicationCount" stroke="#9D00D5" strokeWidth={3}
                                   activeDot={{r: 8}}/>

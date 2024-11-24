@@ -5,10 +5,6 @@ import useUserGroups from "@/api/groups/useUserGroups.ts";
 import {Combobox} from "@/components/ui/combobox.tsx";
 import useGroupSelection from "@/pages/Dashboard/useGroupSelection.ts";
 
-
-// TODO: Reminder - Add profile section in the right top of screen (add popup when user profile design will be ready)
-//       And change mocked data in weekly report chart.
-
 export default function Dashboard() {
     const { userGroups } = useUserGroups();
     const { selectedGroup, groupsSelectionList, onSelectGroup } = useGroupSelection(userGroups!);

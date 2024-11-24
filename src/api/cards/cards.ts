@@ -21,6 +21,14 @@ export type UpdateCardTimeCurveConfigurationBody = {
     isAnswerRight: boolean
 }
 
+export type CardsIntervalHistoryResponse = {
+    date: string;
+    highIndicationCount: number;
+    lowIndicationCount: number;
+    midIndicationCount: number;
+    veryLowIndicationCount: number;
+}
+
 const CardsApi = {
     addCardToDeck(deckId: number, newCardConfiguration: NewCardConfigurationBody) {
         return axios.post(`/api/cards/${deckId}`, newCardConfiguration);
@@ -36,8 +44,8 @@ const CardsApi = {
         return axios.get<Card[]>(`/api/cards/${deckId}`);
     },
 
-    getCardsIntervalHistory(groupId: any[]) {
-        return axios.get<string>(`/api/cards/${groupId}/history`);
+    getCardsIntervalHistory(groupId: string | number) {
+        return axios.get<CardsIntervalHistoryResponse[]>(`/api/cards/${groupId}/history`);
     },
 
     updateCard(cardId: string, deckId: string, cardConfiguration: NewCardConfigurationBody) {
