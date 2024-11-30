@@ -8,6 +8,12 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .avatar-profile-username {
+      display: none;
+    }
+}
+
 .profile-popover {
   background-color: #ECECEC !important;
   border-radius: 13px !important;

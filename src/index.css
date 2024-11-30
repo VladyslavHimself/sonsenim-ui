@@ -76,3 +76,11 @@
 
   background-color: #f4f4f4;
 }
+
+@media (max-width: 600px) {
+  .app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

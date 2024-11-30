@@ -10,7 +10,6 @@ import './index.css';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {RootResolver} from "@/RootResolver.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
-import NavSidebar from "@/pages/NavSidebar/NavSidebar.tsx";
 import GroupsList from "@/pages/GroupsList.tsx";
 import ModalBoxesContainer from "@/ModalBoxes/ModalBoxesContainer.tsx";
 import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
@@ -20,10 +19,11 @@ import MemoizationPageProvider from "@/pages/Memoization/MemoizationPageProvider
 import MemoizationReview from "@/pages/MemoizationReview.tsx";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Profile from "@/pages/Profile/Profile.tsx";
+import Navbar from "@/pages/Navigation/Navbar.tsx";
 
 const router = createBrowserRouter([
     {
-        element: <NavSidebar />,
+        element: <Navbar />,
         children: [
             {
                 path: '/',

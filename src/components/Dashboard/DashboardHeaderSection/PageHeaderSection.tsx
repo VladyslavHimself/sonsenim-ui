@@ -14,7 +14,7 @@ export default function PageHeaderSection({ children }: PropsWithChildren) {
             <div className="page-header-left-corner">
                 {children}
             </div>
-            <AvatarProfile/>
+            <AvatarProfile />
         </div>
     );
 };

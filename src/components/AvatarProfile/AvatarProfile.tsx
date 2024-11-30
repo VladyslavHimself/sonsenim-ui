@@ -19,7 +19,7 @@ export default function AvatarProfile() {
                 <AvatarImage src={AvatarLogo} alt="avatar"/>
                 <AvatarFallback>:)</AvatarFallback>
             </Avatar>
-            <span>{userData?.username}</span>
+            <span className="avatar-profile-username">{userData?.username}</span>
             <Popover>
                 <PopoverTrigger><ChevronDown color="orange"/></PopoverTrigger>
                 { /* @ts-expect-error popover mismatch param */}
