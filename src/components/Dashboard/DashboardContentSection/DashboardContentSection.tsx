@@ -18,7 +18,7 @@ type Props = {
 
 
 export default function DashboardContentSection({ selectedGroup }: Props) {
-    const isMobile = useMediaQuery({query: "(max-width: 600px)"});
+    const isMobile = useMediaQuery({query: "(max-width: 700px)"});
     const query = useQueryClient();
     const { groupStats } = useUserGroupStatistics(selectedGroup.value);
     const isUserHaveAnyGroups =

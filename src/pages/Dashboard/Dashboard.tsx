@@ -9,7 +9,7 @@ import { useMediaQuery } from 'react-responsive'
 import PageHeaderSectionTitle from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSectionTitle/PageHeaderSectionTitle.tsx";
 
 export default function Dashboard() {
-    const isMobile = useMediaQuery({query: "(max-width: 600px)"});
+    const isMobile = useMediaQuery({query: "(max-width: 700px)"});
     const { userGroups } = useUserGroups();
     const { selectedGroup, groupsSelectionList, onSelectGroup } = useGroupSelection(userGroups!);
 
@@ -30,6 +30,19 @@ export default function Dashboard() {
                 }
 
             </PageHeaderSection>
+
+            {
+                isMobile && <div style={{ marginTop: "15px"}}>
+                    <Combobox
+                        selectedValue={selectedGroup}
+                        placeholder="Select group..."
+                        searchPlaceholder="Search group.."
+                        onChangeValue={onSelectGroup}
+                        selectionList={groupsSelectionList || []}
+                    />
+                </div>
+            }
+
             <DashboardContentSection selectedGroup={selectedGroup} />
         </div>
     );
