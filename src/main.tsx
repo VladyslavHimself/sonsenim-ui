@@ -10,7 +10,7 @@ import './index.css';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {RootResolver} from "@/RootResolver.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
-import GroupsList from "@/pages/GroupsList.tsx";
+import GroupsList from "@/pages/GroupsList/GroupsList.tsx";
 import ModalBoxesContainer from "@/ModalBoxes/ModalBoxesContainer.tsx";
 import SelectedGroupPage from "@/pages/SelectedGroupPage.tsx";
 import CardListPage from "@/pages/CardListPage.tsx";

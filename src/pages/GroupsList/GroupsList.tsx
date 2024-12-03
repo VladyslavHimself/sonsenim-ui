@@ -6,43 +6,41 @@ import CardsListContentSection from "@/components/Groups/GroupsListContentSectio
 import useUserGroupsInfo from "@/api/groups/useUserGroupsInfo.ts";
 import {useNavigate} from "react-router-dom";
 import Card from "@/components/Card/Card.tsx";
-import {Button} from "@/components/ui/button.tsx";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
-import CreateNewGroupModal from "@/components/Modals/GroupModals/CreateNewGroupModal.tsx";
 import { EditGroupModal } from '@/components/Modals/GroupModals/EditGroupModal.tsx';
 import {UserGroupsInfoResponse} from "@/api/groups/groups.ts";
 import React, { useState } from "react";
 import useQuicksearch from "@/hooks/useQuicksearch.ts";
+import {useMediaQuery} from "react-responsive";
+import PageHeaderSectionTitle
+    from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSectionTitle/PageHeaderSectionTitle.tsx";
+import {Button} from "@/components/ui/button.tsx";
+import CreateNewGroupModal from '@/components/Modals/GroupModals/CreateNewGroupModal';
+import GroupsListDesktopContentHeader from "@/pages/GroupsList/GroupsListDesktopContentHeader.tsx";
 
 
 export default function GroupsList() {
+    const isMobile = useMediaQuery({query: "(max-width: 700px)"});
     const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState('');
     const { groupsInfo, refetch } = useUserGroupsInfo();
     const filteredGroups = useQuicksearch<UserGroupsInfoResponse>(groupsInfo!, ['groupName'], searchInput);
 
+
+    // TODO: Make context for header || HARDCODED
+    const ContentSectionHeader = isMobile ? MobileSearchbar
+        : GroupsListDesktopContentHeader;
+
     return (
             <div className="layout-wrapper">
                 <PageHeaderSection>
-                    <div className="groups-header-section">
+                    {!isMobile && <div className="groups-header-section">
                         <Input value={searchInput} onChange={(e) => {
                             setSearchInput(e.target?.value);
                         }} placeholder="Search" className="groups-header-input"/>
-                    </div>
+                    </div> || <PageHeaderSectionTitle>Groups</PageHeaderSectionTitle>}
                 </PageHeaderSection>
-                    <CardsListContentSection Header={() => (
-                        <>
-                            <h1>Groups</h1>
-                            <Button style={{padding: "25px 30px"}} onClick={() => {
-                                // @ts-ignore
-                                ModalBoxes.open({
-                                className: 'admin-confirmation',
-                                title: 'Create a new group',
-                                component: <CreateNewGroupModal refetchUsersInfo={refetch} />,
-                            });
-                        }}>+ Create a new group</Button>
-                    </>
-                )}>
+                    <CardsListContentSection searchInput={searchInput} setSearchInput={setSearchInput} Header={ContentSectionHeader}>
                     {
                         // TODO: Add template (design), if user haven't any groups here
                         filteredGroups?.map((currentGroup) => {
@@ -86,4 +84,14 @@ export default function GroupsList() {
             state: { groupName }
         });
     }
+}
+
+
+function MobileSearchbar({ searchInput, setSearchInput}: any) {
+
+    return <div className="groups-header-section">
+        <Input value={searchInput} onChange={(e) => {
+            setSearchInput(e.target?.value);
+        }} placeholder="Search" className="groups-header-input"/>
+    </div>
 }

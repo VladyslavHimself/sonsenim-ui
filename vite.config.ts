@@ -14,7 +14,6 @@ export default defineConfig({
         display: 'standalone',
         orientation: 'portrait',
         short_name: 'Sonsenim',
-        theme_color: '#f4f4f4',
         icons: [
           {
             src: 'pwa-64x64.png',
