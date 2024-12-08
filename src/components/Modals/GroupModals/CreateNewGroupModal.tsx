@@ -6,19 +6,20 @@ import {useCreateUserGroupMutation} from "@/api/groups/useCreateUserGroupMutatio
 import {groupFieldsSchema} from "@/components/Modals/GroupModals/groupFields.schema.ts";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
+import useUserGroupsInfo from "@/api/groups/useUserGroupsInfo.ts";
 
 type Props = {
     modalBox?: {
         close: () => void;
         id: string,
-    },
-    refetchUsersInfo: () => void
+    }
 }
 
-export default function CreateNewGroupModal({ modalBox, refetchUsersInfo }: Props) {
+export default function CreateNewGroupModal({ modalBox }: Props) {
+    const { refetch } = useUserGroupsInfo();
     const { createUserGroup } = useCreateUserGroupMutation(() => {
         modalBox!.close()
-        refetchUsersInfo();
+        refetch();
     });
     const form = useForm<z.infer<typeof groupFieldsSchema>>({
         resolver: zodResolver(groupFieldsSchema)

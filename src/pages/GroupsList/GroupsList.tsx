@@ -14,8 +14,6 @@ import useQuicksearch from "@/hooks/useQuicksearch.ts";
 import {useMediaQuery} from "react-responsive";
 import PageHeaderSectionTitle
     from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSectionTitle/PageHeaderSectionTitle.tsx";
-import {Button} from "@/components/ui/button.tsx";
-import CreateNewGroupModal from '@/components/Modals/GroupModals/CreateNewGroupModal';
 import GroupsListDesktopContentHeader from "@/pages/GroupsList/GroupsListDesktopContentHeader.tsx";
 
 

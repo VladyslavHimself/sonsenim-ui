@@ -18,7 +18,7 @@ export default function ModalFormFieldInput({ name, form, label, style, isRequir
             <FormItem style={style && {...style}}>
                 <FormLabel className="modal-form-field-input-label">
                     {label}
-                    {isRequired && <span style={{color: '#F18C29', fontSize: 24}}>*</span>}
+                    {isRequired && <span style={{color: '#F18C29', fontSize: 20}}> *</span>}
                 </FormLabel>
                 <FormControl>
                     <Input className="modal-form-field-input" {...rest} {...field} />

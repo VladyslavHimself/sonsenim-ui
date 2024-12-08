@@ -9,16 +9,17 @@ import {DeckConfigurationBody} from "@/api/decks/decks.ts";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
 import {ModesToggleGroup} from "@/components/Modals/ui/ModesToggleGroup/ModesToggleGroup.tsx";
+import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
 
 type Props = {
     modalBox?: any
     groupId: number,
-    refetchDecks: () => void,
 }
 
-export default function CreateNewDeckModal({ groupId, refetchDecks, modalBox }: Props) {
+export default function CreateNewDeckModal({ groupId, modalBox }: Props) {
+    const { refetch } = useAggregatedDecks(groupId!.toString());
     const { addDeckToGroup } = useAddDeckToGroupMutation(() => {
-        refetchDecks();
+        refetch();
         modalBox.close();
     });
 

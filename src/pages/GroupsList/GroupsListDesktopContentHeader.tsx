@@ -2,11 +2,7 @@ import {Button} from "@/components/ui/button.tsx";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import CreateNewGroupModal from "@/components/Modals/GroupModals/CreateNewGroupModal.tsx";
 
-type Props = {
-    refetchUsersInfo: () => void;
-};
-
-export default function GroupsListDesktopContentHeader({ refetchUsersInfo }: Props) {
+export default function GroupsListDesktopContentHeader() {
     return (
         <>
             <h1>Groups</h1>
@@ -15,7 +11,7 @@ export default function GroupsListDesktopContentHeader({ refetchUsersInfo }: Pro
                 ModalBoxes.open({
                     className: 'admin-confirmation',
                     title: 'Create a new group',
-                    component: <CreateNewGroupModal refetchUsersInfo={refetchUsersInfo} />,
+                    component: <CreateNewGroupModal />,
                 });
             }}>+ Create a new group</Button>
         </>

@@ -40,7 +40,7 @@ export default function SelectedGroupPage() {
 
             <CardsListContentSection Header={() => (
                 <>
-                    <h1>{location.state.groupName}</h1>
+                    <h1>{location.state?.groupName}</h1>
                     <Button style={{padding: "25px 30px"}} onClick={() => onCreateNewDeckModal(+groupId!)}>+ Create a
                         new deck</Button>
                 </>
@@ -74,7 +74,7 @@ export default function SelectedGroupPage() {
         return ModalBoxes.open({
             className: 'create-new-deck-modal',
             title: 'Create a new deck',
-            component: <CreateNewDeckModal groupId={groupId} refetchDecks={refetch} />,
+            component: <CreateNewDeckModal groupId={groupId} />,
             onClose: () => {}
         })
     }
