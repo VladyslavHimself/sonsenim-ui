@@ -11,9 +11,11 @@ import EditExistingCardModal from "@/components/Modals/CardModals/EditExistingCa
 import RemoveCardConfirmModal from "@/components/Modals/RemoveCardConfirmModal/RemoveCardConfirmModal.tsx";
 import LevelIndicator from "@/components/LevelIndicator/LevelIndicator.tsx";
 import {resolveIntervalStrValues} from "@/generals.service.ts";
+import {useMediaQuery} from "react-responsive";
 
 
 export default function useCardListTableColumns(refetchCardsFn: () => void) {
+    const isMobile = useMediaQuery({query: "(max-width: 700px)"});
 
     return useMemo((): ColumnDef<CardTableEntity>[] => {
         return [
@@ -45,6 +47,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                 header: "Word",
                 cell: ({ row }) => {
                     return (
+                        // TODO: Make rich text truncate
                         <div className="data-table-cell">
                             <div className="data-table-cell-primary-word-cell">
                                 {row.original.primaryWord}
@@ -70,7 +73,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                 header: "Level",
                 cell: ({ row }) => <div className="data-table-cell">
                     <LevelIndicator level={row.getValue('level')} />
-                    {row.getValue('level')}
+                    {!isMobile && row.getValue('level')}
                 </div>
             },
 
@@ -109,7 +112,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                 }
             },
         ]
-    }, [refetchCardsFn])
+    }, [isMobile, refetchCardsFn])
 }
 
 function openEditCardModal(selectedCard: CardTableEntity, deckId: string, refetchCardsFn: () => void) {

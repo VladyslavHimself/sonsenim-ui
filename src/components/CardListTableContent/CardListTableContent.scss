@@ -12,6 +12,10 @@
     &::-webkit-scrollbar {
         display: none;
     }
+
+    &.is-mobile {
+        margin-top: 0;
+    }
 }
 
 
@@ -24,6 +28,10 @@
     font-size: 20px;
 
     justify-content: space-evenly;
+
+    @media screen and (max-width: 600px) {
+        font-size: 16px;
+    }
 
     .data-table-cell-primary-word-cell {
         font-family: "Gilroy Medium", sans-serif;

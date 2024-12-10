@@ -11,4 +11,12 @@
         font-size: 32px;
         font-family: "Gilroy Regular", sans-serif;
     }
+    
+    
+    @media screen and (max-width: 600px) {
+        h2 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
 }

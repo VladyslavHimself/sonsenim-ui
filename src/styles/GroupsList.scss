@@ -21,7 +21,14 @@
 
   .groups-header-button {
     width: 60px;
-    height: 100%;
+    height: 60px;
     margin-left: 15px;
+
+
+    &.is-accent-button {
+      background-color: #F18C29;
+      color: white;
+      border-radius: 12px;
+    }
   }
 }

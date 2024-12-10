@@ -3,13 +3,17 @@ import './MemoizationReviewScoreboard.scss';
 import LevelIndicator from "@/components/LevelIndicator/LevelIndicator.tsx";
 import {resolveIntervalStrValues, resolveStrengthLevel} from "@/generals.service.ts";
 import {ArrowRight} from "lucide-react";
+import {useMediaQuery} from "react-responsive";
 
 
 type Props = {
     scoreList: CardComparisonType[]
 }
 
+
+// TODO: Divide to smaller components
 export default function MemoizationReviewScoreboard({ scoreList }: Props) {
+    const isMobile = useMediaQuery({query: "(max-width: 700px)"});
     return (
         <>
             <div className="review-scoreboard">
@@ -18,7 +22,6 @@ export default function MemoizationReviewScoreboard({ scoreList }: Props) {
                         const { definition, previousIntervalStr, actualIntervalStr } = score;
                         const strengthLevelText = resolveStrengthLevel(actualIntervalStr);
                         const isProgressed = actualIntervalStr > previousIntervalStr;
-                        console.log(previousIntervalStr, actualIntervalStr);
                         return (
                             <div className="review-scoreboard-item">
                                 <div className="review-scoreboard-item-word">{definition}</div>
@@ -33,7 +36,7 @@ export default function MemoizationReviewScoreboard({ scoreList }: Props) {
                                 </div>
                                 <div className="review-scoreboard-item-interval">
                                     <LevelIndicator level={strengthLevelText}/>
-                                    <div className="review-scoreboard-item-interval-text">{strengthLevelText}</div>
+                                    {!isMobile && <div className="review-scoreboard-item-interval-text">{strengthLevelText}</div>}
                                 </div>
                             </div>
                         );
