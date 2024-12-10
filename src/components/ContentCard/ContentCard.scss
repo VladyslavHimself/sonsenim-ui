@@ -10,7 +10,21 @@
     background-color: #EDEDED;
     padding: 0 15px;
 
-    &:not(:first-child) { margin-left: 25px; }
+
+    .dashboard-content-strip > &:last-child {
+        margin-left: 10px;
+    }
+
+    .profile-page-content-strip > & {
+        margin: 10px 20px 10px 0;
+    }
+
+    @media screen and (max-width: 600px) {
+        .profile-page-content-strip > & {
+            width: 100%;
+            margin: 10px 0;
+        }
+    }
 
     .content-card-information {
         color: #F18C29;

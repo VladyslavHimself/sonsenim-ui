@@ -25,7 +25,8 @@
     }
 
     .profile-page-group-section {
-        width: 638px;
+        max-width: 638px;
+        width: 100%;
         background-color: #EDEDED;
         border-radius: 13px;
         margin-top: 20px;
@@ -46,15 +47,24 @@
             justify-content: space-between;
             align-items: center;
 
-            button {
+            .profile-page-group-premium-button {
                 padding: 25px 40px;
+
+                @media screen and (max-width: 600px) {
+                    & {
+                        padding: 25px 25px;
+                    }
+                }
             }
+            
+
 
             .profile-page-group-section-item {
                 font-family: "Gilroy Regular", sans-serif;
                 font-size: 18px;
                 padding-bottom: 5px;
             }
+
 
             span {
                 font-family: "Gilroy Medium", sans-serif;
@@ -65,10 +75,6 @@
     .profile-page-content-strip {
         display: flex;
         margin-top: 15px;
-
-        .content-card {
-            min-width: 195px;
-            width: 195px;
-        }
+        flex-wrap: wrap;
     }
 }
