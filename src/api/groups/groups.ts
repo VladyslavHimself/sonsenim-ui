@@ -34,7 +34,7 @@ const GroupsApi = {
     },
 
     addUserGroup(groupName: string) {
-        return axios.post(`/api/groups/add/${groupName}`);
+        return axios.post(`/api/groups/${groupName}`);
     },
 
     deleteUserGroup(groupId: number) {
