@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals", "@testing-library/jest-dom", "node"],
     "composite": true,
     "baseUrl": ".",
     "paths": {
