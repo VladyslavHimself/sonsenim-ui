@@ -6,21 +6,22 @@ import {Button} from "@/components/ui/button.tsx";
 import CardsListContentSection from "@/components/Groups/GroupsListContentSection/CardsListContentSection.tsx";
 import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
 import Card from "@/components/Card/Card.tsx";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import DeckCardMenubar from "@/components/DeckCardMenubar/DeckCardMenubar.tsx";
 import CreateNewDeckModal from "@/components/Modals/DeckModals/CreateNewDeckModal.tsx";
-import { useState } from "react";
+import {useState} from "react";
 import {DeckWithAggregatedDataResponse} from "@/api/decks/decks.ts";
 import useQuicksearch from "@/hooks/useQuicksearch.ts";
 import PageHeaderSectionTitle
     from "@/components/Dashboard/DashboardHeaderSection/PageHeaderSectionTitle/PageHeaderSectionTitle.tsx";
 import {useMediaQuery} from "react-responsive";
+import {Modal} from "@/ModalBox/modalBox.ts";
+
 export default function SelectedGroupPage() {
     const isMobile = useMediaQuery({query: "(max-width: 700px)"});
     const navigate = useNavigate();
     const location = useLocation();
-    const { groupId } = useParams();
-    const { aggregatedDecks, refetch } = useAggregatedDecks(groupId!);
+    const {groupId} = useParams();
+    const {aggregatedDecks, refetch} = useAggregatedDecks(groupId!);
     const [searchInput, setSearchInput] = useState('');
     const filteredDecks = useQuicksearch<DeckWithAggregatedDataResponse>(aggregatedDecks!, ['deckName'], searchInput);
 
@@ -47,7 +48,8 @@ export default function SelectedGroupPage() {
                 </div> || <PageHeaderSectionTitle>{location.state?.groupName}</PageHeaderSectionTitle>}
             </PageHeaderSection>
 
-            <CardsListContentSection searchInput={searchInput} setSearchInput={setSearchInput} Header={ContentSectionHeader}>
+            <CardsListContentSection searchInput={searchInput} setSearchInput={setSearchInput}
+                                     Header={ContentSectionHeader}>
                 {
                     // TODO: Add template (design), if user haven't any decks here
                     filteredDecks?.map((deck) => (
@@ -56,16 +58,12 @@ export default function SelectedGroupPage() {
                             cardTitle={deck.deckName}
                             notificationMessage={deck?.dueCardsInDeck}
                             secondaryTile={<div>{`${deck.cardsInDeckTotal} cards`}</div>}
-                            onClickHandler={() => ModalBoxes.open({
-                                className: 'deck-menubar',
-                                component: <DeckCardMenubar
-                                    navigate={navigate}
-                                    deckProperties={deck}
-                                    groupId={groupId!}
-                                    refetchDecks={refetch}
-                                 />,
-                                onClose: () => {}
-                            })}
+                            onClickHandler={() => {
+                                Modal.open((modal) => <DeckCardMenubar modal={modal} groupId={groupId!}
+                                                                       deckProperties={deck} refetchDecks={refetch}
+                                                                       navigate={navigate}/>, '', 'deck-menubar'
+                                )
+                            }}
                         />
                     ))
                 }
@@ -78,7 +76,7 @@ export default function SelectedGroupPage() {
 
 
 // TODO: DUPLICATED IN `GroupsList.tsx`. Move in separate component
-function MobileSearchbar({ searchInput, setSearchInput}: any) {
+function MobileSearchbar({searchInput, setSearchInput}: any) {
     return <Input
         placeholder="Search"
         className="groups-header-input"
@@ -92,7 +90,7 @@ function MobileSearchbar({ searchInput, setSearchInput}: any) {
 // TODO: ALSO MOVE TO SEPARATE COMPONENT
 function SelectedGroupDesktopContentHeader() {
     const location = useLocation();
-    const { groupId } = useParams();
+    const {groupId} = useParams();
 
     return <>
         <h1>{location.state?.groupName}</h1>
@@ -102,11 +100,7 @@ function SelectedGroupDesktopContentHeader() {
 
     // TODO: TO AVOID REDUNDANT REFETECH - MOVE THEM TO `onClose` CALLBACK
     function onCreateNewDeckModal(groupId: number) {
-        return ModalBoxes.open({
-            className: 'create-new-deck-modal',
-            title: 'Create a new deck',
-            component: <CreateNewDeckModal groupId={groupId} />,
-            onClose: () => {}
-        })
+        return Modal.open((modal) =>
+            <CreateNewDeckModal modal={modal} groupId={groupId}/>, 'Create a new deck')
     }
 }

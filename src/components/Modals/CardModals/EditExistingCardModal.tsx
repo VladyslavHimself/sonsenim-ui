@@ -4,23 +4,24 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {newCardConfigurationSchema} from "@/components/Modals/CardModals/newCardConfiguration.schema.ts";
 import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
 import {CardTableEntity} from "@/pages/CardListPage.tsx";
 import useEditCardMutation from "@/api/cards/useEditCardMutation.ts";
+import {ModalInstance} from "@/ModalBox/modalBox.ts";
+import {ModalBoxBody, ModalBoxConfirmationFooter} from "@/ModalBox/ModalBoxTemplates.tsx";
 
 type Props = {
     card: CardTableEntity,
     deckId: string,
-    modalBox?: any,
+    modal: ModalInstance,
     refetchCardsFn: () => void
 }
 
-export default function EditExistingCardModal({ card, deckId, refetchCardsFn, modalBox }: Props) {
+export default function EditExistingCardModal({ card, deckId, refetchCardsFn, modal }: Props) {
     const { primaryWord, explanation, definition, cardId } = card;
     const { updateCardMutation } = useEditCardMutation(() => {
         refetchCardsFn();
-        modalBox.close();
+        modal.close(modal.id);
     });
     const form = useForm<z.infer<typeof newCardConfigurationSchema>>({
         resolver: zodResolver(newCardConfigurationSchema),
@@ -28,7 +29,7 @@ export default function EditExistingCardModal({ card, deckId, refetchCardsFn, mo
     });
 
     return <>
-        <ModalBoxes.Body>
+        <ModalBoxBody>
             <Form {...form}>
                 <form
                     id="edit-card-form"
@@ -40,8 +41,8 @@ export default function EditExistingCardModal({ card, deckId, refetchCardsFn, mo
                     <ModalFormFieldInput style={{marginTop: 25}} name="explanation" form={form.control} label="Description" />
                 </form>
             </Form>
-        </ModalBoxes.Body>
-        <ModalBoxes.ModalFooter
+        </ModalBoxBody>
+        <ModalBoxConfirmationFooter
             submitButtonProperties={{
                 label: "Edit",
                 formId: "edit-card-form",

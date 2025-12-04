@@ -2,9 +2,9 @@ import './MobileNavbar.scss';
 import {Category, Home, Notification} from "react-iconly";
 import {PlusIcon, UserRound} from "lucide-react";
 import MobileNavbarTab from "@/pages/Navigation/MobileNavbar/MobileNavbarTab/MobileNavbarTab.tsx";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import CreateNewGroupModal from "@/components/Modals/GroupModals/CreateNewGroupModal.tsx";
 import CreateNewDeckModal from "@/components/Modals/DeckModals/CreateNewDeckModal.tsx";
+import {Modal} from "@/ModalBox/modalBox.ts";
 
 const mobileNavbarTabs = [
     {
@@ -29,12 +29,7 @@ const mobileNavbarTabs = [
         href: "#",
         isShown: (currentPath: string) => /^\/groups\/?$/.test(currentPath),
         action: () => {
-            //@ts-ignore
-            ModalBoxes.open({
-                className: 'admin-confirmation',
-                title: 'Create a new group',
-                component: <CreateNewGroupModal />,
-            });
+            Modal.open(() => <CreateNewGroupModal/>, 'Create a new group')
         }
     },
 
@@ -45,12 +40,8 @@ const mobileNavbarTabs = [
         href: "#",
         isShown: (currentPath: string) => /^\/groups\/\d+/.test(currentPath),
         action: (pathname: string) => {
-            ModalBoxes.open({
-                className: 'create-new-deck-modal',
-                title: 'Create a new deck',
-                component: <CreateNewDeckModal groupId={+extractIdFromGroupsPath(pathname)!} />,
-                onClose: () => {}
-            })
+            Modal.open((modal) => <CreateNewDeckModal modal={modal}
+                                                      groupId={+extractIdFromGroupsPath(pathname)!}/>, 'Create a new deck', 'create-new-deck-modal')
         }
     },
 
@@ -74,7 +65,7 @@ export default function MobileNavbar() {
 
         <div className="mobile-navbar">
             {
-                mobileNavbarTabs.map((tab) => <MobileNavbarTab key={tab.title} tabInfo={tab} />)
+                mobileNavbarTabs.map((tab) => <MobileNavbarTab key={tab.title} tabInfo={tab}/>)
             }
         </div>
     );

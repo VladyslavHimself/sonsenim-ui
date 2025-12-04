@@ -2,13 +2,15 @@
 
 import React, {useEffect, useState} from "react";
 import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
-import {Button} from "@/components/ui/button.js";
 import {isEmpty, isFunction} from "lodash";
 
 import './ModalBoxes.scss';
 import {CircleX} from "lucide-react";
 
 
+/**
+ * @deprecated Use `ModalBoxProvider` instead.
+ */
 export default function ModalBoxesContainer() {
     const [modalBoxes, setModalBoxes] = useState([]);
 

@@ -6,21 +6,22 @@ import {deckConfigurationFieldsSchema} from "@/components/Modals/DeckModals/deck
 import {Separator} from "@radix-ui/react-separator";
 import useAddDeckToGroupMutation from "@/api/decks/useAddDeckToGroupMutation.ts";
 import {DeckConfigurationBody} from "@/api/decks/decks.ts";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
 import {ModesToggleGroup} from "@/components/Modals/ui/ModesToggleGroup/ModesToggleGroup.tsx";
 import useAggregatedDecks from "@/api/decks/useAggregatedDecks.ts";
+import {ModalInstance} from "@/ModalBox/modalBox.ts";
+import {ModalBoxBody, ModalBoxConfirmationFooter} from "@/ModalBox/ModalBoxTemplates.tsx";
 
 type Props = {
-    modalBox?: any
+    modal: ModalInstance
     groupId: number,
 }
 
-export default function CreateNewDeckModal({ groupId, modalBox }: Props) {
+export default function CreateNewDeckModal({ groupId, modal }: Props) {
     const { refetch } = useAggregatedDecks(groupId!.toString());
     const { addDeckToGroup } = useAddDeckToGroupMutation(() => {
         refetch();
-        modalBox.close();
+        modal.close(modal.id);
     });
 
     const form = useForm<z.infer<typeof deckConfigurationFieldsSchema>>({
@@ -29,7 +30,7 @@ export default function CreateNewDeckModal({ groupId, modalBox }: Props) {
 
     return (
         <>
-            <ModalBoxes.Body>
+            <ModalBoxBody>
                 <Form {...form}>
                     <form id="create-deck-form"
                           onSubmit={form.handleSubmit((values: z.infer<typeof deckConfigurationFieldsSchema>) => addDeckToGroup({
@@ -47,8 +48,8 @@ export default function CreateNewDeckModal({ groupId, modalBox }: Props) {
                         <ModesToggleGroup defaultValues={['flashcardNormal']} form={form} />
                     </form>
                 </Form>
-            </ModalBoxes.Body>
-            <ModalBoxes.ModalFooter
+            </ModalBoxBody>
+            <ModalBoxConfirmationFooter
                 submitButtonProperties={{
                     label: 'Create',
                     formId: 'create-deck-form',

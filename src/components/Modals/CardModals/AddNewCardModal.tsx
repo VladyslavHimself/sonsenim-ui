@@ -5,17 +5,18 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {newCardConfigurationSchema} from "@/components/Modals/CardModals/newCardConfiguration.schema.ts";
 import useAddNewCardMutation from "@/api/cards/useAddNewCardMutation.ts";
 import {NewCardConfigurationBody} from "@/api/cards/cards.ts";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
+import {ModalInstance} from "@/ModalBox/modalBox.ts";
+import {ModalBoxBody, ModalBoxConfirmationFooter} from "@/ModalBox/ModalBoxTemplates.tsx";
 
 type Props = {
     deckId: number,
-    modalBox?: any,
+    modal: ModalInstance,
     refetchDecks: () => void
 }
 
-export default function AddNewCardModal({ deckId, refetchDecks }: Props) {
-    const { addNewCard } = useAddNewCardMutation(() => {
+export default function AddNewCardModal({deckId, refetchDecks}: Props) {
+    const {addNewCard} = useAddNewCardMutation(() => {
         refetchDecks();
         form.setValue('primaryWord', '')
         form.setValue('definition', '')
@@ -26,7 +27,7 @@ export default function AddNewCardModal({ deckId, refetchDecks }: Props) {
     });
 
     return <>
-        <ModalBoxes.Body>
+        <ModalBoxBody>
             <Form {...form}>
                 <form
                     id="add-new-card-form"
@@ -35,13 +36,15 @@ export default function AddNewCardModal({ deckId, refetchDecks }: Props) {
                         form.setFocus("primaryWord")
                     })}
                 >
-                    <ModalFormFieldInput name="primaryWord" form={form.control} label="Word *" />
-                    <ModalFormFieldInput style={{marginTop: 25}} name="definition" form={form.control} label="Definition *" />
-                    <ModalFormFieldInput style={{marginTop: 25}} name="explanation" form={form.control} label="Description *" />
+                    <ModalFormFieldInput name="primaryWord" form={form.control} label="Word *"/>
+                    <ModalFormFieldInput style={{marginTop: 25}} name="definition" form={form.control}
+                                         label="Definition *"/>
+                    <ModalFormFieldInput style={{marginTop: 25}} name="explanation" form={form.control}
+                                         label="Description *"/>
                 </form>
             </Form>
-        </ModalBoxes.Body>
-        <ModalBoxes.ModalFooter
+        </ModalBoxBody>
+        <ModalBoxConfirmationFooter
             submitButtonProperties={{
                 label: "Add new card",
                 formId: "add-new-card-form",

@@ -1,30 +1,31 @@
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import './RemoveCardConfirmModal.scss';
 import useRemoveCardMutation from "@/api/cards/useRemoveCardMutation.ts";
+import {ModalBoxBody, ModalBoxConfirmFooter} from "@/ModalBox/ModalBoxTemplates.tsx";
+import {ModalInstance} from "@/ModalBox/modalBox.ts";
 
 type Props = {
     deckId: string;
     cardId: string;
-    modalBox?: any;
+    modal: ModalInstance;
 }
 
-export default function RemoveCardConfirmModal({ deckId, cardId, modalBox }: Props) {
+export default function RemoveCardConfirmModal({ deckId, cardId, modal }: Props) {
     const { removeCard } = useRemoveCardMutation(() => {
-        modalBox.close();
+        modal.close(modal.id);
     })
 
     return (
-        <ModalBoxes.Body>
+        <ModalBoxBody>
             <p>
                 Are you sure, that you want to delete this card?<br />
                 All your progress will be lose
             </p>
-            <ModalBoxes.ConfirmFooter
+            <ModalBoxConfirmFooter
                 confirmButtonProperties={{
                     label: "Delete",
                     action: () => removeCard({ deckId, cardId }),
                     className: 'remove-card-confirm-modal-button',
             }}/>
-        </ModalBoxes.Body>
+        </ModalBoxBody>
     );
 };

@@ -4,21 +4,19 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useCreateUserGroupMutation} from "@/api/groups/useCreateUserGroupMutation.ts";
 import {groupFieldsSchema} from "@/components/Modals/GroupModals/groupFields.schema.ts";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
 import useUserGroupsInfo from "@/api/groups/useUserGroupsInfo.ts";
+import {ModalBoxBody, ModalBoxConfirmationFooter} from "@/ModalBox/ModalBoxTemplates.tsx";
+import {ModalInstance} from "@/ModalBox/modalBox.ts";
 
 type Props = {
-    modalBox?: {
-        close: () => void;
-        id: string,
-    }
+    modal: ModalInstance
 }
 
-export default function CreateNewGroupModal({ modalBox }: Props) {
+export default function CreateNewGroupModal({ modal }: Props) {
     const { refetch } = useUserGroupsInfo();
     const { createUserGroup } = useCreateUserGroupMutation(() => {
-        modalBox!.close()
+        modal.close(modal.id)
         refetch();
     });
     const form = useForm<z.infer<typeof groupFieldsSchema>>({
@@ -27,7 +25,7 @@ export default function CreateNewGroupModal({ modalBox }: Props) {
 
     return (
         <>
-            <ModalBoxes.Body>
+            <ModalBoxBody>
                 <Form {...form}>
                     <form id="create-group-form" onSubmit={
                         form.handleSubmit((values: z.infer<typeof groupFieldsSchema>) =>
@@ -40,9 +38,9 @@ export default function CreateNewGroupModal({ modalBox }: Props) {
                         />
                     </form>
                 </Form>
-            </ModalBoxes.Body>
+            </ModalBoxBody>
 
-            <ModalBoxes.ModalFooter
+            <ModalBoxConfirmationFooter
                 submitButtonProperties={{
                     label: 'Create',
                     formId: 'create-group-form'

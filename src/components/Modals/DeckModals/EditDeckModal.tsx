@@ -8,16 +8,17 @@ import {DeckModes, DeckWithAggregatedDataResponse} from "@/api/decks/decks.ts";
 import {useMemo} from "react";
 import useUpdateDeckMutation, {EditDeckMutationVariables} from "@/api/decks/useUpdateDeckMutation.ts";
 import useDeleteDeckMutation from "@/api/decks/useDeleteDeckMutation.ts";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import {Trash2Icon} from "lucide-react";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
 import {ModesToggleGroup} from "@/components/Modals/ui/ModesToggleGroup/ModesToggleGroup.tsx";
+import {ModalInstance} from "@/ModalBox/modalBox.ts";
+import {ModalBoxBody, ModalBoxConfirmationFooter} from "@/ModalBox/ModalBoxTemplates.tsx";
 type Props = {
     deckProperties: DeckWithAggregatedDataResponse,
     refetchDecks: () => void,
-    modalBox?: any
+    modal: ModalInstance
 }
-export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }: Props) {
+export default function EditDeckModal({ deckProperties, refetchDecks, modal }: Props) {
     const { deleteDeck } = useDeleteDeckMutation(onMakeModalAction);
     const { updateDeck } = useUpdateDeckMutation(onMakeModalAction);
 
@@ -45,7 +46,7 @@ export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }
 
     return (
         <>
-            <ModalBoxes.Body>
+            <ModalBoxBody>
                 <Form {...form}>
                     <form id="edit-deck-form"
                           onSubmit={form.handleSubmit((values: z.infer<typeof deckConfigurationFieldsSchema>) => updateDeck({
@@ -62,9 +63,9 @@ export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }
                         <ModesToggleGroup defaultValues={defaultToggleValues} form={form} />
                     </form>
                 </Form>
-            </ModalBoxes.Body>
+            </ModalBoxBody>
 
-            <ModalBoxes.ModalFooter
+            <ModalBoxConfirmationFooter
                 closeButtonProperties={{
                     label: <Trash2Icon />,
                     action: () => deleteDeck(deckProperties.id)
@@ -79,6 +80,6 @@ export default function EditDeckModal({ deckProperties, refetchDecks, modalBox }
 
     function onMakeModalAction() {
         refetchDecks();
-        modalBox.close();
+        modal.close(modal.id);
     }
 };

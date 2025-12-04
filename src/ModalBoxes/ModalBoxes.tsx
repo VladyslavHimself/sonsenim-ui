@@ -27,6 +27,10 @@ type FooterConfirmProps = {
     }
 }
 
+
+/**
+ * @deprecated Use `ModalBox` instead.
+ */
 class ModalBoxes extends EventEmitter {
     ModalFooter: any;
     ConfirmFooter: any;

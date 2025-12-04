@@ -6,12 +6,13 @@ import {Button} from "@/components/ui/button.tsx";
 import {useParams} from "react-router-dom";
 import {ColumnDef} from "@tanstack/react-table";
 import {CardTableEntity} from "@/pages/CardListPage.tsx";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import EditExistingCardModal from "@/components/Modals/CardModals/EditExistingCardModal.tsx";
 import RemoveCardConfirmModal from "@/components/Modals/RemoveCardConfirmModal/RemoveCardConfirmModal.tsx";
 import LevelIndicator from "@/components/LevelIndicator/LevelIndicator.tsx";
 import {resolveIntervalStrValues} from "@/generals.service.ts";
 import {useMediaQuery} from "react-responsive";
+import {Modal} from "@/ModalBox/modalBox.ts";
+import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 
 
 export default function useCardListTableColumns(refetchCardsFn: () => void) {
@@ -21,7 +22,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
         return [
             {
                 id: "select",
-                header: ({ table }) => (
+                header: ({table}) => (
                     <Checkbox
                         checked={
                             table.getIsAllPageRowsSelected() ||
@@ -31,7 +32,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                         aria-label="Select all"
                     />
                 ),
-                cell: ({ row }) => (
+                cell: ({row}) => (
                     <Checkbox
                         checked={row.getIsSelected()}
                         onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -45,7 +46,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
             {
                 accessorKey: 'primaryWord',
                 header: "Word",
-                cell: ({ row }) => {
+                cell: ({row}) => {
                     return (
                         // TODO: Make rich text truncate
                         <div className="data-table-cell">
@@ -63,16 +64,17 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
             {
                 accessorKey: 'intervalStrength',
                 header: "Interval",
-                cell: ({ row }) => {
-                    return <div className="data-table-cell">{resolveIntervalStrValues(row.getValue('intervalStrength'))}</div>;
+                cell: ({row}) => {
+                    return <div
+                        className="data-table-cell">{resolveIntervalStrValues(row.getValue('intervalStrength'))}</div>;
                 }
             },
 
             {
                 accessorKey: 'level',
                 header: "Level",
-                cell: ({ row }) => <div className="data-table-cell">
-                    <LevelIndicator level={row.getValue('level')} />
+                cell: ({row}) => <div className="data-table-cell">
+                    <LevelIndicator level={row.getValue('level')}/>
                     {!isMobile && row.getValue('level')}
                 </div>
             },
@@ -81,18 +83,18 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                 // TODO: Rewrite sizing for table after main tasks
                 accessorKey: 'select',
                 header: "",
-                cell: ({ row }) => {
-                    const { deckId } = useParams();
+                cell: ({row}) => {
+                    const {deckId} = useParams();
                     return <div className="data-table-cell">
                         <Popover>
-                            <PopoverTrigger><MoreVerticalIcon /></PopoverTrigger>
+                            <PopoverTrigger><MoreVerticalIcon/></PopoverTrigger>
                             <PopoverContent side="left">
                                 <Button variant="ghost" className="popup-menu-card-button"
                                         onClick={() => openEditCardModal(
                                             row.original,
                                             deckId!,
                                             refetchCardsFn)
-                                }>
+                                        }>
                                     <PencilIcon style={{marginRight: '15px'}}/>
                                     Edit
                                 </Button>
@@ -102,7 +104,7 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
                                         deckId!,
                                         row.original.cardId as unknown as string,
                                         refetchCardsFn)
-                                }>
+                                    }>
                                     <Trash2Icon style={{marginRight: '15px'}}/>
                                     Remove
                                 </Button>
@@ -116,20 +118,13 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
 }
 
 function openEditCardModal(selectedCard: CardTableEntity, deckId: string, refetchCardsFn: () => void) {
-    ModalBoxes.open({
-        className: 'edit-card-modal',
-        title: 'Edit card',
-        component: <EditExistingCardModal card={selectedCard} deckId={deckId} refetchCardsFn={refetchCardsFn} />,
-        onClose: () => {}
-    })
+    Modal.open((modal) => <EditExistingCardModal modal={modal} card={selectedCard} deckId={deckId}
+                                                 refetchCardsFn={refetchCardsFn}/>, 'Edit card', 'edit-card-modal')
+    ModalBoxes.close();
 }
 
 function openDeleteCardConfirm(deckId: string, cardId: string, refetchCardsFn: () => void) {
-    ModalBoxes.open({
-        className: 'remove-card-confirm-modal',
-        title: 'Delete card',
-        component: <RemoveCardConfirmModal deckId={deckId} cardId={cardId!} />,
-        onClose: () => refetchCardsFn()
-    })
+    Modal.open((modal) => <RemoveCardConfirmModal modal={modal} deckId={deckId} cardId={cardId!}/>,
+        'Delete card', 'remove-card-confirm-modal', () => refetchCardsFn())
 }
 

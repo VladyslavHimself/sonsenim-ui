@@ -12,6 +12,13 @@ export default defineConfig({
         globals: true,
         setupTests: './src/setupTests.ts',
         css: false,
+        coverage: {
+            provider: 'istanbul',
+            reporter: ['text', 'lcov'],
+            all: true,
+            include: ['src/**/*.{ts,tsx}'],
+            exclude: ['node_modules', 'tests']
+        }
     },
     plugins: [react(), nodePolyfills(),
         VitePWA({

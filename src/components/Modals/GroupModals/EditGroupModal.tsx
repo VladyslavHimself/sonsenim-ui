@@ -7,22 +7,22 @@ import {UserGroupsInfoResponse} from "@/api/groups/groups.ts";
 import {Trash2Icon} from "lucide-react";
 import {useDeleteUserGroupMutation} from "@/api/groups/useDeleteUserGroupMutation.ts";
 import {useUpdateUserGroupMutation} from "@/api/groups/useUpdateUserGroupMutation.ts";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import ModalFormFieldInput from "@/components/Modals/ui/ModalFormFieldInput/ModalFormFieldInput.tsx";
+import {ModalBoxBody, ModalBoxConfirmationFooter} from "@/ModalBox/ModalBoxTemplates.tsx";
+import {Modal} from "@/ModalBox/modalBox.ts";
 
 type Props = {
     currentGroup: UserGroupsInfoResponse,
-    modalBox?: {
+    modal?: {
         id: string,
         close: () => void,
     },
     refetchGroups: () => void,
 }
 
-export function EditGroupModal({ modalBox, refetchGroups, currentGroup }: Props) {
-    const { deleteUserGroup } = useDeleteUserGroupMutation(onMakeModalAction);
-    const { updateUserGroup } = useUpdateUserGroupMutation(onMakeModalAction);
-
+export function EditGroupModal({modal, refetchGroups, currentGroup}: Props) {
+    const {deleteUserGroup} = useDeleteUserGroupMutation(onMakeModalAction);
+    const {updateUserGroup} = useUpdateUserGroupMutation(onMakeModalAction);
 
     const form = useForm<z.infer<typeof groupFieldsSchema>>({
         resolver: zodResolver(groupFieldsSchema),
@@ -31,43 +31,46 @@ export function EditGroupModal({ modalBox, refetchGroups, currentGroup }: Props)
         }
     });
 
-
     return (
         <>
-            <ModalBoxes.Body>
-                <Form {...form}>
-                    <form id="edit-group-form" onSubmit={
-                        form.handleSubmit((values: z.infer<typeof groupFieldsSchema>) => {
-                        updateUserGroup({
-                            groupId: currentGroup.groupId,
-                            groupBody: values
-                        });})
-                    }>
-                        <ModalFormFieldInput
-                            name="groupName" form={form}
-                            label="Group" isRequired
-                            placeholder="Spanish"
-                        />
-                    </form>
-                </Form>
-            </ModalBoxes.Body>
-
-            <ModalBoxes.ModalFooter
+            <ModalBoxBody>
+                <div>
+                    <Form {...form}>
+                        <form id="edit-group-form" onSubmit={
+                            form.handleSubmit((values: z.infer<typeof groupFieldsSchema>) => {
+                                updateUserGroup({
+                                    groupId: currentGroup.groupId,
+                                    groupBody: values
+                                });
+                            })
+                        }>
+                            <ModalFormFieldInput
+                                name="groupName" form={form}
+                                label="Group" isRequired
+                                placeholder="Spanish"
+                            />
+                        </form>
+                    </Form>
+                </div>
+            </ModalBoxBody>
+            <ModalBoxConfirmationFooter
                 closeButtonProperties={{
-                    label: <Trash2Icon />,
+                    label: <Trash2Icon/>,
                     action: () => deleteUserGroup(currentGroup.groupId)
                 }}
+
                 submitButtonProperties={{
                     label: 'Edit',
                     formId: 'edit-group-form',
-                    restProps: { disabled: form.getValues().groupName === currentGroup.groupName }
+                    restProps: {disabled: form.getValues().groupName === currentGroup.groupName}
                 }}
+
             />
         </>
     );
 
     function onMakeModalAction() {
         refetchGroups();
-        modalBox?.close();
+        Modal.close(modal!.id);
     }
 }
