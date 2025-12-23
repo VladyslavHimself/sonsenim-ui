@@ -1,7 +1,6 @@
 import './DeckMenubar.scss';
 import {Button} from "@/components/ui/button.tsx";
 import {Brain, Download, Edit, List, PlusIcon, Upload} from "lucide-react";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 import EditDeckModal from "@/components/Modals/DeckModals/EditDeckModal.tsx";
 import AddNewCardModal from "@/components/Modals/CardModals/AddNewCardModal.tsx";
 import {NavigateFunction} from "react-router-dom";
@@ -18,9 +17,10 @@ type Props = {
 
 
 export default function DeckCardMenubar({modal, deckProperties, refetchDecks, groupId, navigate}: Props) {
+    const { dueCardsInDeck } = deckProperties;
     return (
         <div className="deck-menubar-container">
-            <Button variant="outline" className="menubar-list-item" onClick={openMemoizationPage}><Brain/> Start
+            <Button disabled={!dueCardsInDeck} variant="outline" className="menubar-list-item" onClick={openMemoizationPage}><Brain/> Start
                 Learning</Button>
             <Button variant="outline" className="menubar-list-item" onClick={onAddNewCardHandle}><PlusIcon/> Add new
                 card</Button>
