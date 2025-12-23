@@ -13,8 +13,6 @@ export default function useGroupSelection(userGroups: UserGroupResponse[] = []) 
         label: item.groupName
     })), [userGroups]);
 
-    console.log(groupsSelectionList);
-
     useEffect(() => {
         if (isEmpty(groupsSelectionList)) {
             localStorage.removeItem('selectedGroup');
