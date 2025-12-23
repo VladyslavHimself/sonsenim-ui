@@ -14,16 +14,15 @@ type Props = {
 }
 
 
-
 // TODO: Move refetch
 export default function Card({
-     cardTitle,
-     notificationMessage,
-     secondaryTile,
-     onClickHandler,
-     onEditHandler,
-     imageSrc
-}: Props) {
+                                 cardTitle,
+                                 notificationMessage,
+                                 secondaryTile,
+                                 onClickHandler,
+                                 onEditHandler,
+                                 imageSrc
+                             }: Props) {
     // TODO: Make it with ref
     const [isEditVisible, setIsEditVisible] = useState<boolean>(false);
     return (
@@ -31,7 +30,9 @@ export default function Card({
         // TODO: Rename classes
         <div className="group-card"
              onMouseEnter={() => setIsEditVisible(true)}
-             onMouseLeave={() => {setIsEditVisible(false)}}
+             onMouseLeave={() => {
+                 setIsEditVisible(false)
+             }}
              onClick={onClickHandler}
              {...(notificationMessage !== undefined && {
                  'data-notification-message': notificationMessage
@@ -40,13 +41,14 @@ export default function Card({
             <div className="group-card-info">
                 <div className="group-card-info-title">
                     <div>{cardTitle}</div>
-                    { onEditHandler && isEditVisible && <Pencil
+                    {onEditHandler && isEditVisible && <Pencil
+                        data-testid="card-edit-pencil-icon"
                         width={20}
                         height={20}
-                        onClick={(e) => onEditHandler(e)} />
+                        onClick={(e) => onEditHandler(e)}/>
                     }
                 </div>
-                { secondaryTile }
+                {secondaryTile}
             </div>
             {imageSrc && (
                 <div className="group-card-image">

@@ -21,7 +21,7 @@ export default function AvatarProfile() {
             </Avatar>
             <span className="avatar-profile-username">{userData?.username}</span>
             <Popover>
-                <PopoverTrigger><ChevronDown color="orange"/></PopoverTrigger>
+                <PopoverTrigger data-testid="avatar-profile-popover-trigger"><ChevronDown color="orange"/></PopoverTrigger>
                 { /* @ts-expect-error popover mismatch param */}
                 <PopoverContent sideOffset="2" align="end" className="profile-popover">
                     <Button variant="ghost" onClick={() => navigate('/profile')}><AvatarIcon style={{ width: 32, height: 32}} />Account</Button>

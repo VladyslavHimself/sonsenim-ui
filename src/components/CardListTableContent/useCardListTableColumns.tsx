@@ -12,7 +12,6 @@ import LevelIndicator from "@/components/LevelIndicator/LevelIndicator.tsx";
 import {resolveIntervalStrValues} from "@/generals.service.ts";
 import {useMediaQuery} from "react-responsive";
 import {Modal} from "@/ModalBox/modalBox.ts";
-import ModalBoxes from "@/ModalBoxes/ModalBoxes.tsx";
 
 
 export default function useCardListTableColumns(refetchCardsFn: () => void) {
@@ -120,7 +119,6 @@ export default function useCardListTableColumns(refetchCardsFn: () => void) {
 function openEditCardModal(selectedCard: CardTableEntity, deckId: string, refetchCardsFn: () => void) {
     Modal.open((modal) => <EditExistingCardModal modal={modal} card={selectedCard} deckId={deckId}
                                                  refetchCardsFn={refetchCardsFn}/>, 'Edit card', 'edit-card-modal')
-    ModalBoxes.close();
 }
 
 function openDeleteCardConfirm(deckId: string, cardId: string, refetchCardsFn: () => void) {
