@@ -3,7 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import {SelectionItem} from "@/components/ui/combobox.tsx";
 import {isEmpty} from "lodash";
 
-export default function useGroupSelection(userGroups: UserGroupResponse[]) {
+export default function useGroupSelection(userGroups: UserGroupResponse[] = []) {
     const [selectedGroup, setSelectedGroup] = useState<SelectionItem>(
        JSON.parse(localStorage.getItem("selectedGroup")!) || []
     );
@@ -13,8 +13,9 @@ export default function useGroupSelection(userGroups: UserGroupResponse[]) {
         label: item.groupName
     })), [userGroups]);
 
+    console.log(groupsSelectionList);
+
     useEffect(() => {
-        if (!groupsSelectionList) return;
         if (isEmpty(groupsSelectionList)) {
             localStorage.removeItem('selectedGroup');
         }
