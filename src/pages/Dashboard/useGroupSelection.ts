@@ -13,11 +13,9 @@ export default function useGroupSelection(userGroups: UserGroupResponse[]) {
         label: item.groupName
     })), [userGroups]);
 
-
-
-
     useEffect(() => {
-        if (!groupsSelectionList?.length) {
+        if (!groupsSelectionList) return;
+        if (isEmpty(groupsSelectionList)) {
             localStorage.removeItem('selectedGroup');
         }
 
@@ -25,7 +23,8 @@ export default function useGroupSelection(userGroups: UserGroupResponse[]) {
             onSelectGroup(groupsSelectionList[0])
         }
 
-        if (selectedGroup && isSelectedGroupExists(groupsSelectionList, selectedGroup)) {
+
+        if (!isEmpty(groupsSelectionList) && isSelectedGroupExists(groupsSelectionList, selectedGroup)) {
             onSelectGroup(groupsSelectionList[0])
         }
 
@@ -43,6 +42,6 @@ export default function useGroupSelection(userGroups: UserGroupResponse[]) {
     }
 
     function isSelectedGroupExists(list: SelectionItem[], selectedGroup: SelectionItem) {
-        return !list.find(item => item.value === selectedGroup.value);
+        return !list?.find(item => item.value === selectedGroup.value);
     }
 }
